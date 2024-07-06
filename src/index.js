@@ -4,10 +4,15 @@ import './index.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import Login from './page/Login';
-import Home from './page/Home';
+import Home from './page/user/Home';
 import ProtectedRouteNoLogin from './routing/ProtectedRouteNoLogin';
 import ProtectedRoute from './routing/ProtectedRoute';
 import AuthContextProvider from './contexts/AuthContextProvider';
+import HomeAd from './page/admin/HomeAd';
+import ProductMannager from './page/admin/ProductMannager';
+import UserManager from './page/admin/UserMannager';
+import OrderManager from './page/admin/OrderManager';
+import Report from './page/admin/Report';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -26,6 +31,34 @@ root.render(
               <Home/>
             </ProtectedRoute>
           }/>
+          
+
+
+
+
+          <Route path='/productmanager' element={
+            <ProtectedRoute>
+              <ProductMannager/>
+            </ProtectedRoute>
+          }/>
+          <Route path='/accountmanager' element={
+            <ProtectedRoute>
+              <UserManager />
+            </ProtectedRoute>
+          }/>
+          <Route path='/ordedmanager' element={
+            <ProtectedRoute>
+              <OrderManager />
+            </ProtectedRoute>
+          }/>
+          <Route path='/report' element={
+            <ProtectedRoute>
+              <Report />
+            </ProtectedRoute>
+          }/>
+
+
+
       </Routes>
   </BrowserRouter>
   </AuthContextProvider>
