@@ -77,7 +77,7 @@ function ListUser({ user, getAllUser,getAllRole, role }) {
           </Select>
         
         </div>
-        <div className='flex md:w-1/3 w-full'>
+        <div className='flex md:w-1/3 w-full justify-end items-end'>
                     <Search
                         placeholder="Tìm theo số điện thoại"
                         className="w-full"

@@ -74,7 +74,7 @@ function ProductMannager() {
   const renderContent = () => {
     switch (activeMenuItem) {
       case 'Danh sách':
-        return (<div className='text-center text-4xl w-full font-black'>
+        return (<div className='text-center text-3xl md:text-4xl w-full font-black'>
           <h1 className='my-4'>Danh sách Sản Phẩm</h1>
           <div className='w-full'>
 
@@ -103,7 +103,7 @@ function ProductMannager() {
     <LayoutAdmin>
       <div className='flex flex-row mt-[65px] w-full md:mt-0'>
 
-        <div className={`min-h-screen flex-col flex ${menuVisible ? 'md:w-1/5 w-2/3' : 'w-[60px]'} transition-all duration-500`}>
+        <div className={`min-h-screen flex-col flex ${menuVisible ? 'md:w-1/5 w-full' : 'w-[60px]'} transition-all duration-500`}>
           <NavabarPoduct
             menuVisible={menuVisible}
             setActiveMenuItem={setActiveMenuItem}

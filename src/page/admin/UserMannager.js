@@ -70,7 +70,7 @@ function UserManager() {
     const renderContent = () => {
       switch (activeMenuItem) {
         case 'Danh sách':
-          return (<div className='text-center text-4xl font-black'>
+          return (<div className='text-center text-3xl md:text-4xl font-black'>
             <h1>Danh sách Tài Khoản</h1>
               <ListUser getAllUser={getAllUser} user={user} getAllRole={getAllRole} role={role}/>
           </div>);
