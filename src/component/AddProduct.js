@@ -15,23 +15,7 @@ function AddProduct({ navigateToList, handleModalClose, getAllProducts,getCatego
 
  
 
-    // const getCategories = async () => {
-    //     try {
-    //         const response = await axios.get(`${URL}api/v1/category/getall`);
-    //         setCategories(response.data);
-    //     } catch (error) {
-    //         console.error('Error fetching categories:', error);
-    //     }
-    // };
-
-    // const getBrands = async () => {
-    //     try {
-    //         const response = await axios.get(`${URL}api/v1/brand/getall`);
-    //         setBrands(response.data);
-    //     } catch (error) {
-    //         console.error('Error fetching brands:', error);
-    //     }
-    // };
+    
 
     useEffect(() => {
         getCategories();
@@ -104,10 +88,16 @@ function AddProduct({ navigateToList, handleModalClose, getAllProducts,getCatego
                 onFinish={addProduct}
             >
                 <Form.Item name="name" label="Tên Sách" rules={[{ required: true, message: 'Vui lòng nhập tên sách!' }]}>
-                    <Input />
+                    <TextArea autoSize={{
+                            minRows: 2,
+                            maxRows: 4,
+                          }} />
                 </Form.Item>
                 <Form.Item name="description" label="Mô tả" rules={[{ required: true, message: 'Vui lòng nhập tên sách!' }]}>
-                    <TextArea />
+                    <TextArea autoSize={{
+                            minRows: 5,
+                            maxRows: 8,
+                          }} />
                 </Form.Item>
                 <Form.Item name="id_category" label="Thể loại" rules={[{ required: true, message: 'Vui lòng chọn thể loại!' }]}>
                     <Select placeholder="Chọn thể loại">

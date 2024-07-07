@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import Login from './page/Login';
 import Home from './page/user/Home';
@@ -20,46 +20,39 @@ root.render(
     <AuthContextProvider>
     
   <BrowserRouter>
-      <Routes>
-      <Route path='/'element={
+  <Routes>
+          <Route path='/' element={<Navigate to="/login" />} />
+          <Route path='/login' element={
             <ProtectedRouteNoLogin>
-              <Login/>
+              <Login />
             </ProtectedRouteNoLogin>
-          }  />
-        <Route path='/home' element={
+          } />
+          <Route path='/home' element={
             <ProtectedRoute>
-              <Home/>
+              <Home />
             </ProtectedRoute>
-          }/>
-          
-
-
-
-
+          } />
           <Route path='/productmanager' element={
             <ProtectedRoute>
-              <ProductMannager/>
+              <ProductMannager />
             </ProtectedRoute>
-          }/>
+          } />
           <Route path='/accountmanager' element={
             <ProtectedRoute>
               <UserManager />
             </ProtectedRoute>
-          }/>
-          <Route path='/ordedmanager' element={
+          } />
+          <Route path='/ordermanager' element={
             <ProtectedRoute>
               <OrderManager />
             </ProtectedRoute>
-          }/>
+          } />
           <Route path='/report' element={
             <ProtectedRoute>
               <Report />
             </ProtectedRoute>
-          }/>
-
-
-
-      </Routes>
+          } />
+        </Routes>
   </BrowserRouter>
   </AuthContextProvider>
   </React.StrictMode>

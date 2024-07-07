@@ -1,13 +1,13 @@
-import { Navigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom';
 
-const ProtectedRouteNoLogin = ({ children}) => {
-	return (
-				!localStorage.getItem('userToken') ? (
-					children
-				) : (
-					<Navigate replace to='/home' />
-				)
-	)
-}
+const ProtectedRouteNoLogin = ({ children }) => {
+    return (
+        !localStorage.getItem('userToken') ? (
+            children
+        ) : (
+            <Navigate replace to='/productmanager' />
+        )
+    );
+};
 
-export default ProtectedRouteNoLogin
+export default ProtectedRouteNoLogin;

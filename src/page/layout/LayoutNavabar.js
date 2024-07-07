@@ -37,10 +37,10 @@ function LayoutNavabar({ menuItems, userName, menuVisible, toggleMenu, subMenuVi
         }
       />
     
-      <nav className={`overflow-hidden justify-center items-center font-mono text-3xl mt-5  flex h-screen w-full transition-all duration-500 ease-in-out ${menuVisible ? 'block' : 'hidden'}`}>
-        <ul id='menu' className='space-y-12 mt-5'>
+      <nav className={`overflow-hidden justify-center    items-center  font-mono text-3xl mt-5  flex h-screen w-full transition-all duration-500 ease-in-out ${menuVisible ? 'block' : 'hidden'}`}>
+        <ul id='menu' className='space-y-20 mt-5 '>
           {menuItems.map((menuItem, index) => (
-            <li key={index} className='my-5 md:m-0'>
+            <li key={index} className='my-5  md:m-0'>
               <a
                 onClick={() => {
                   toggleSubMenu(index);
@@ -49,11 +49,11 @@ function LayoutNavabar({ menuItems, userName, menuVisible, toggleMenu, subMenuVi
                 }}
                 className={`text-black hover:border-b-2
                   
-                 hover:border-red-500 hover:text-red-500 font-bold transition duration-500 ease-in $`
+                 hover:border-red-500  hover:text-red-500 font-bold transition duration-500 ease-in $`
                  }>
                 {menuItem.title}
               </a>
-              {menuItem.subItems && (
+              {/* {menuItem.subItems && (
                 <ul className={`ml-5 mt-2 space-y-3 ${subMenuVisible[index] ? 'block' : 'hidden'}`}>
                   {menuItem.subItems.map((subItem, subIndex) => (
                     <li key={subIndex}>
@@ -64,7 +64,7 @@ function LayoutNavabar({ menuItems, userName, menuVisible, toggleMenu, subMenuVi
                     </li>
                   ))}
                 </ul>
-              )}
+              )} */}
             </li>
           ))}
           <li className='my-5 md:m-0 flex-col flex'>

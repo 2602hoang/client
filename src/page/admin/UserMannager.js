@@ -1,14 +1,57 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import LayoutAdmin from '../layout/LayoutAdmin'
 
 
 import NavabarUser from '../../component/NavabarUser';
 import ListUser from '../../component/ListUser';
+import axios from 'axios';
+import { AuthContext } from '../../contexts/AuthContextProvider';
+import { URL } from '../../url';
 
 function UserManager() {
     const [menuVisible, setMenuVisible] = useState(false);
     const [subMenuVisible, setSubMenuVisible] = useState({});
     const [activeMenuItem, setActiveMenuItem] = useState('Danh sách');
+
+    const {userToken} = useContext(AuthContext);
+    // console.log(userToken); 
+    const [user, setUser] = useState([]);
+    const [role, setRole] = useState([]);
+
+    const getAllUser = async () => {
+      try {
+        const token = userToken;
+        const response = await axios.get(`${URL}api/v1/user/getall`,{
+          headers: {
+             Authorization: `Bearer ${token}`
+          },
+        });
+        setUser(response.data);
+      } catch (error) {
+        console.error('Error fetching product data:', error);
+        setUser([]);
+      }
+    }
+    const getAllRole = async () => {
+      try {
+        const token = userToken;
+        const response = await axios.get(`${URL}api/v1/user/getall/role`,{
+          headers: {
+             Authorization: `Bearer ${token}`
+          },
+        });
+        setRole(response.data);
+      } catch (error) {
+        console.error('Error fetching product data:', error);
+        setRole([]);
+      }
+    }
+    useEffect(() => {
+      getAllUser();
+      getAllRole();
+    }, []);
+
+    // console.log(user);
     const toggleMenu = () => {
       setMenuVisible(!menuVisible);
     };
@@ -24,7 +67,7 @@ function UserManager() {
         case 'Danh sách':
           return (<div className='text-center text-5xl font-black'>
             <h1>Danh sách Tài Khoản</h1>
-              <ListUser/>
+              <ListUser getAllUser={getAllUser} user={user} getAllRole={getAllRole} role={role}/>
           </div>);
         // case 'Sửa':
         //   return <h1 className='text-center text-5xl font-black'>Chỉnh sửa</h1>;

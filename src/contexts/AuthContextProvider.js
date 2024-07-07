@@ -8,6 +8,7 @@ export const AuthContext = createContext();
 function AuthContextProvider({ children }) {
     const [userToken, setUserToken] = useState(null);
     const [error, setError] = useState(null);
+    const [errorRegister, setErrorRegister] = useState(null);
 
     useEffect(() => {
 		LoadUserVerified();
@@ -25,28 +26,27 @@ function AuthContextProvider({ children }) {
     const Register = async ({ username, phone, password }) => {
         try{
             const response = await axios.post(`${URL}api/v1/auth/register`, {
-                username: username,
-                phone: phone,
-                password: password
+                username,
+                phone,
+                password
             });
-            if (response.data.mes === "Đăng ký thanh cách") {
-                setError('Đăng ký thanh cách');
-                alert('Chào mừng này, đăng ký thanh cách 🤗🤗🤗');
-                // setTimeout(() => {
-                //     setError('');
-                // }, 10000);
+            if (response.data.error === 0) {
                 const token = response.data.token;
                 localStorage.setItem('userToken', token);
                 setUserToken(token);
                 addToken(token);
-                window.location.reload(false);
-            } 
+                return { success: true , message: 'Đăng Ký Thành công'};
+            } else if (response.data.error === 2) {
+                
+              
+                return { success: false, message: 'Số điện thoại đã được đăng ký' };
+            } else {
+                return { success: false, message: 'Đăng ký thất bại' };
+            }
         } catch (error) {
             console.log('Register error: ',error);
-            // toast.error("Email hoặc mật không đúng, vui flý thử lại!");
-            // setTimeout(() => {
-            //     setError('');
-            // }, 10000);
+            return { success: false, message: 'Đăng ký thất bại, vui lòng thử lại' };
+
         }
     };
 
@@ -63,8 +63,9 @@ function AuthContextProvider({ children }) {
                 // setTimeout(() => {
                 //     setError('');
                 // }, 10000);
-                const token = response.data.token;
-                console.log("2121",token);
+                const token = response.data.access_token;
+                
+                // console.log("2121",token);
                 localStorage.setItem('userToken', token);
                 setUserToken(token);
                 addToken(token);
@@ -98,7 +99,7 @@ function AuthContextProvider({ children }) {
     };
 
     return (
-        <AuthContext.Provider value={{ userToken, setUserToken, Login,Register,Logout, error, setError }}>
+        <AuthContext.Provider value={{ errorRegister,setErrorRegister,userToken, setUserToken, Login,Register,Logout, error, setError }}>
             {children}
         </AuthContext.Provider>
     );

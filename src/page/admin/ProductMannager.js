@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import LayoutAdmin from '../layout/LayoutAdmin'
 
-import { Button, Menu } from 'antd';
+import { Button, Input, Menu, Select, Space } from 'antd';
 import { AppstoreOutlined, ContainerOutlined, DesktopOutlined, MailOutlined, MenuFoldOutlined, MenuUnfoldOutlined, PieChartOutlined } from '@ant-design/icons';
 
 import NavabarPoduct from '../../component/NavabarPoduct';
@@ -9,6 +9,7 @@ import ListProduct from '../../component/ListProduct';
 import AddProduct from '../../component/AddProduct';
 import axios from 'axios';
 import { URL } from '../../url';
+import Search from 'antd/es/transfer/search';
 
 function ProductMannager() {
   const [menuVisible, setMenuVisible] = useState(false);
@@ -33,38 +34,44 @@ function ProductMannager() {
   const [brands, setBrands] = useState([]);
   const getCategories = async () => {
     try {
-        const response = await axios.get(`${URL}api/v1/category/getall`);
-        setCategories(response.data);
+      const response = await axios.get(`${URL}api/v1/category/getall`);
+      setCategories(response.data);
     } catch (error) {
-        console.error('Error fetching categories:', error);
+      console.error('Error fetching categories:', error);
     }
-};
+  };
 
-const getBrands = async () => {
+  const getBrands = async () => {
     try {
-        const response = await axios.get(`${URL}api/v1/brand/getall`);
-        setBrands(response.data);
+      const response = await axios.get(`${URL}api/v1/brand/getall`);
+      setBrands(response.data);
     } catch (error) {
-        console.error('Error fetching brands:', error);
+      console.error('Error fetching brands:', error);
     }
-};
+  };
+  
 
-
+  useEffect(() => {
+    getCategories();
+    getBrands();
+  }, []);
   const renderContent = () => {
     switch (activeMenuItem) {
       case 'Danh sách':
-        return (<div className='text-center text-5xl w-full font-black'>
-          <h1>Danh sách Sản Phẩm</h1>
-          <h1>adasdsa</h1>
-            <ListProduct categories={categories} brands={brands} getCategories={getCategories} getBrands={getBrands} />
+        return (<div className='text-center text-4xl w-full font-black'>
+          <h1 className='my-4'>Danh sách Sản Phẩm</h1>
+          <div className='w-full'>
 
+
+            <ListProduct categories={categories} brands={brands} getCategories={getCategories} getBrands={getBrands} />
+          </div>
         </div>);
       case 'Chỉnh sửa':
         return <h1 className='text-center text-5xl font-black'>Chỉnh sửa</h1>;
       case 'Thêm':
         return (<div className='text-center  flex-col flex text-5xl font-black w-full space-y-8'>
           <h1 className=''>Thêm  Sản Phẩm</h1>
-            <AddProduct categories={categories} brands={brands} getCategories={getCategories} getBrands={getBrands} navigateToList={navigateToList}/>
+          <AddProduct categories={categories} brands={brands} getCategories={getCategories} getBrands={getBrands} navigateToList={navigateToList} />
 
         </div>);
       case 'Xóa':
