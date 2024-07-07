@@ -22,7 +22,7 @@ function LayoutNavabar({ menuItems, userName, menuVisible, toggleMenu, subMenuVi
      
       <Button
         type='link'
-        className='flex my-2 md:mt-[10px] ml-3 fixed  '
+        className='flex my-2 md:mt-[10px] ml-3 md:fixed  '
         onClick={toggleMenu}
         icon={
           !menuVisible ? (

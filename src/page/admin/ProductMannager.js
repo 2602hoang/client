@@ -36,7 +36,14 @@ function ProductMannager() {
   const [brands, setBrands] = useState([]);
   const getCategories = async () => {
     try {
-      const response = await axios.get(`${URL}api/v1/category/getall`);
+      const token = userToken;
+      const response = await axios.get(`${URL}api/v1/category/getall`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+        }
+      );
       setCategories(response.data);
     } catch (error) {
       console.error('Error fetching categories:', error);
