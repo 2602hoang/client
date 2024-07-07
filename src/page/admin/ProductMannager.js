@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import LayoutAdmin from '../layout/LayoutAdmin'
 
 import { Button, Input, Menu, Select, Space } from 'antd';
-import { AppstoreOutlined, ContainerOutlined, DesktopOutlined, MailOutlined, MenuFoldOutlined, MenuUnfoldOutlined, PieChartOutlined } from '@ant-design/icons';
+import { AppstoreOutlined, ContainerOutlined, DesktopOutlined, ExportOutlined, MailOutlined, MenuFoldOutlined, MenuUnfoldOutlined, PieChartOutlined } from '@ant-design/icons';
 
 import NavabarPoduct from '../../component/NavabarPoduct';
 import ListProduct from '../../component/ListProduct';
@@ -10,11 +10,13 @@ import AddProduct from '../../component/AddProduct';
 import axios from 'axios';
 import { URL } from '../../url';
 import Search from 'antd/es/transfer/search';
+import { AuthContext } from '../../contexts/AuthContextProvider';
 
 function ProductMannager() {
   const [menuVisible, setMenuVisible] = useState(false);
   const [subMenuVisible, setSubMenuVisible] = useState({});
   const [activeMenuItem, setActiveMenuItem] = useState('Danh sách');
+  const {userToken} = useContext(AuthContext);
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
@@ -43,7 +45,14 @@ function ProductMannager() {
 
   const getBrands = async () => {
     try {
-      const response = await axios.get(`${URL}api/v1/brand/getall`);
+      const token = userToken;
+      const response = await axios.get(`${URL}api/v1/brand/getall`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+        },
+        }
+      );
       setBrands(response.data);
     } catch (error) {
       console.error('Error fetching brands:', error);
@@ -54,7 +63,7 @@ function ProductMannager() {
   useEffect(() => {
     getCategories();
     getBrands();
-  }, []);
+  }, [userToken]);
   const renderContent = () => {
     switch (activeMenuItem) {
       case 'Danh sách':
@@ -69,10 +78,10 @@ function ProductMannager() {
       case 'Chỉnh sửa':
         return <h1 className='text-center text-5xl font-black'>Chỉnh sửa</h1>;
       case 'Thêm':
-        return (<div className='text-center  flex-col flex text-5xl font-black w-full space-y-8'>
-          <h1 className=''>Thêm  Sản Phẩm</h1>
+        return (<div className='text-center justify-center items-center  flex-col flex text-5xl font-black w-full space-y-4 mb-4'>
+          <h1 className='mb-8'>Thêm  Sản Phẩm</h1>
           <AddProduct categories={categories} brands={brands} getCategories={getCategories} getBrands={getBrands} navigateToList={navigateToList} />
-
+          <Button type="link" icon={<ExportOutlined style={{ fontSize: '24px' }} />} className='h-12 bg-orange-300 w-1/12  justify-center items-center text-center' onClick={navigateToList}>Xem danh sách </Button>
         </div>);
       case 'Xóa':
         return <h1 className='text-center text-5xl font-black'>Xóa</h1>;

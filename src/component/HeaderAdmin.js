@@ -48,7 +48,7 @@ function HeaderAdmin() {
                          hover:border-red-500 hover:text-red-500
                           transition duration-500 ease-in'>Quản Lý Tài Khoản</a></li>
                     <li className='my-5 md:m-0'>
-                        <a href='/ordedmanager' className=' text-white hover:border-b-2 hover:animate-ping
+                        <a href='/ordermanager' className=' text-white hover:border-b-2 hover:animate-ping
                          hover:border-red-500 hover:text-red-500
                           transition duration-500 ease-in'>Quản Lý đơn Hàng</a></li>
                     <li className='my-5 md:m-0'>
@@ -69,7 +69,7 @@ function HeaderAdmin() {
                 <div id='menu-button' className='absolute  top-5 right-5  md:hidden cursor-pointer z-50 flexd' onClick={toggleMenu}>
 
 
-                    <MenuOutlined style={{ color: 'black', fontSize: "20px" }} />
+                    <MenuOutlined style={{ color: 'white', fontSize: "20px" }} />
 
                 </div>
 

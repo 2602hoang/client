@@ -13,9 +13,17 @@ function UpdateUser({ id_user, getAllUser, handleModalClose ,role ,getAllRole })
             const response = await axios.get(`${URL}api/v1/user/getone/${id_user}`);
             if(response.data.success === true) {
             setUser(response.data.user);
-            }
-            else {
-                setUser({}); 
+
+            if (response.data.avatar) {
+                    setImageList([
+                        {
+                            uid: '-1',
+                            name: 'image.png',
+                            status: 'done',
+                            url: response.data.avatar,
+                        }
+                    ]);
+                }
             }
         } catch (error) {
             console.error('Error fetching user data:', error);
@@ -53,6 +61,17 @@ function UpdateUser({ id_user, getAllUser, handleModalClose ,role ,getAllRole })
             });
         }
     };
+    const handleSubmit = (values) => {
+        const formData = new FormData();
+        formData.append('username', values.username || user.username);
+        formData.append('password', values.password || user.password);
+        formData.append('phone', values.phone || user.phone);
+        formData.append('id_role', parseInt(values.id_role) || user.id_role);
+        if (imageList.length > 0 && imageList[0].originFileObj) {
+            formData.append('avatar', imageList[0].originFileObj);
+        }
+        handleUpdate(formData);
+    };
 
     useEffect(() => {
         getOneUser();
@@ -65,7 +84,7 @@ function UpdateUser({ id_user, getAllUser, handleModalClose ,role ,getAllRole })
                 <Form
                 labelCol={{ span: 4 }}
                 wrapperCol={{ span: 14 }}
-                onFinish={handleUpdate}
+                onFinish={handleSubmit}
                 layout='horizontal'
                 size='large'
                 initialValues={user} // Set initial values directly from user object
@@ -75,11 +94,23 @@ function UpdateUser({ id_user, getAllUser, handleModalClose ,role ,getAllRole })
                     <Input placeholder={`${user.username}`} />
                 </Form.Item>
     
-                <Form.Item label="Đổi Mật khẩu" name="password">
+                <Form.Item
+                rules={[{
+                     message: 'Vui lòng nhập mật khẩu!',
+                    min: 6, message: 'Mật khẩu phải có ít nhất 6 ký tự!' 
+                   }]}
+                label="Đổi Mật khẩu" name="password">
                     <Input.Password placeholder="Password" />
                 </Form.Item>
     
-                <Form.Item label="SĐT" name="phone">
+                <Form.Item label="SĐT" name="phone"
+                 rules={[
+                    {  message: 'Vui lòng nhập số điện thoại!' },
+                    { len: 10, message: 'Số điện thoại phải là 10 ký tự!' },
+                    { pattern: /^[0-9]{10}$/, message: 'Số điện thoại phải là số và có 10 chữ số!' }
+                ]}
+                
+                >
                     <Input placeholder={`${user.phone}`} />
                 </Form.Item>
     

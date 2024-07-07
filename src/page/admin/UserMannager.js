@@ -7,6 +7,7 @@ import ListUser from '../../component/ListUser';
 import axios from 'axios';
 import { AuthContext } from '../../contexts/AuthContextProvider';
 import { URL } from '../../url';
+import AddUser from '../../component/AddUser';
 
 function UserManager() {
     const [menuVisible, setMenuVisible] = useState(false);
@@ -18,6 +19,7 @@ function UserManager() {
     const [user, setUser] = useState([]);
     const [role, setRole] = useState([]);
 
+    console.log(userToken);
     const getAllUser = async () => {
       try {
         const token = userToken;
@@ -46,10 +48,13 @@ function UserManager() {
         setRole([]);
       }
     }
+    const navigateToList = () => {
+      setActiveMenuItem('Danh sách');
+    };
     useEffect(() => {
       getAllUser();
       getAllRole();
-    }, []);
+    }, [userToken]);
 
     // console.log(user);
     const toggleMenu = () => {
@@ -65,14 +70,20 @@ function UserManager() {
     const renderContent = () => {
       switch (activeMenuItem) {
         case 'Danh sách':
-          return (<div className='text-center text-5xl font-black'>
+          return (<div className='text-center text-4xl font-black'>
             <h1>Danh sách Tài Khoản</h1>
               <ListUser getAllUser={getAllUser} user={user} getAllRole={getAllRole} role={role}/>
           </div>);
         // case 'Sửa':
         //   return <h1 className='text-center text-5xl font-black'>Chỉnh sửa</h1>;
         case 'Thêm':
-          return <h1 className='text-center text-5xl font-black'>Thêm</h1>;
+          return (<div className='text-center text-5xl font-black'>
+          <h1>Danh sách Tài Khoản</h1>
+            <AddUser getAllUser={getAllUser} 
+            navigateToList={navigateToList}
+             getAllRole={getAllRole} 
+             role={role} />
+        </div>);
         // case 'Xóa':
         //   return <h1 className='text-center text-5xl font-black'>Xóa</h1>;
         case 'Thống kê':

@@ -8,7 +8,7 @@ import TextArea from 'antd/es/input/TextArea';
 function AddProduct({ navigateToList, handleModalClose, getAllProducts,getCategories ,getBrands, brands ,categories}) {
    
     const [imageList, setImageList] = useState([]);
-    const [messageApi, contextHolder] = message.useMessage();
+    // const [messageApi, contextHolder] = message.useMessage();
     const [form] = Form.useForm();
 
 
@@ -49,7 +49,7 @@ function AddProduct({ navigateToList, handleModalClose, getAllProducts,getCatego
             form.resetFields();
             setImageList([]);
             getAllProducts();
-            handleModalClose();
+            // handleModalClose();
         } catch (error) {
             console.error('Error adding product:', error);
             notification.error({
@@ -70,7 +70,7 @@ function AddProduct({ navigateToList, handleModalClose, getAllProducts,getCatego
 
     return (
         <div className='flex font-mono justify-center items-center md:w-full w-full'>
-            {contextHolder}
+            {/* {contextHolder} */}
             <Form
                 form={form}
                 labelCol={{
@@ -140,9 +140,10 @@ function AddProduct({ navigateToList, handleModalClose, getAllProducts,getCatego
                             </div>
                         )}
                     </Upload>
+                    <Button type="primary" htmlType="submit">Thêm Sản Phẩm</Button>
                 </Form.Item>
                 <Form.Item wrapperCol={{ offset: 4, span: 18 }}>
-                    <Popconfirm
+                    {/* <Popconfirm
                         title={`Bạn Muốn xem lại danh sách Sản Phẩm ?`}
                         onConfirm={() => 
                         {
@@ -153,10 +154,12 @@ function AddProduct({ navigateToList, handleModalClose, getAllProducts,getCatego
                             
                         }
                         icon={<QuestionCircleOutlined style={{ color: 'green' }} />}
-                    >
-                        <Button type="primary" htmlType="submit">Thêm Sản Phẩm</Button>
-                    </Popconfirm>
+                    > */}
+                        
+                      
+                    {/* </Popconfirm> */}
                 </Form.Item>
+               
             </Form>
         </div>
     );

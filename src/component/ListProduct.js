@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { URL } from '../url';
 import axios from 'axios';
 import { PlusOutlined, QuestionCircleOutlined } from '@ant-design/icons';
-import { Button, Modal, notification, Popconfirm, Select, Tooltip } from 'antd';
+import { Button, Modal,Input, notification, Popconfirm, Select, Tooltip } from 'antd';
 import { formatCurrency, formattedTimestamp } from '../untils/index.js';
 import UpdateProduct from './UpdateProduct.js';
-import Search from 'antd/es/transfer/search.js';
+
+import { AuthContext } from '../contexts/AuthContextProvider.js';
 
 const { Option } = Select;
-
+const { Search } = Input;
 function ListProduct({ getBrands, getCategories, brands, categories }) {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -17,10 +18,15 @@ function ListProduct({ getBrands, getCategories, brands, categories }) {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedBrand, setSelectedBrand] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-
+  const {userToken} = useContext(AuthContext);
   const getAllProducts = async () => {
     try {
-      const response = await axios.get(`${URL}api/v1/product/getall`);
+      const token = userToken;
+      const response = await axios.get(`${URL}api/v1/product/getall`,{
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+      });
       setProducts(response.data);
     } catch (error) {
       console.error('Error fetching product data:', error);
@@ -32,7 +38,7 @@ function ListProduct({ getBrands, getCategories, brands, categories }) {
 
   useEffect(() => {
     getAllProducts();
-  }, []);
+  }, [userToken]);
 
   useEffect(() => {
     let filtered = products;
@@ -50,11 +56,14 @@ function ListProduct({ getBrands, getCategories, brands, categories }) {
     }
 
     setFilteredProducts(filtered);
-  }, [selectedCategory, selectedBrand, searchTerm, products]);
+  }, [selectedCategory, selectedBrand, searchTerm, products,userToken]);
 
   const handleEdit = (product) => {
     setSelectedProduct(product);
     setOpenModal(true);
+  };
+  const handleSearch = (value) => {
+    setSearchTerm(value.trim()); 
   };
 
   const handleDelete = async (id_product) => {
@@ -112,14 +121,20 @@ function ListProduct({ getBrands, getCategories, brands, categories }) {
             ))}
           </Select>
         </div>
-        {/* <div className='flex md:w-1/3 w-full'>
-          <Search
-            placeholder="Tìm theo tên sách"
-            className="w-32"
-            onSearch={handleSearch}
-            enterButton
-          />
-        </div> */}
+        <div className='flex md:w-1/3 w-full'>
+          {/* <Input
+            placeholder="Tìm theo tên sản phẩm"
+            className="w-full"
+           
+            allowClear
+          /> */}
+           <Search
+                        placeholder="Tìm theo số điện thoại"
+                        className="w-full"
+                        onChange={e => handleSearch(e.target.value)}
+                        enterButton
+                    />
+        </div>
       </div>
 
       <div id="#list" className="grid md:grid-cols-4 grid-cols-1 gap-4 w-full mx-2 my-3 font-mono">
