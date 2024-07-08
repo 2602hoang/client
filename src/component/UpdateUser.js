@@ -1,16 +1,20 @@
 import { Button, Form, Input, notification, Select, Upload } from 'antd';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { URL } from '../url';
 import { PlusOutlined } from '@ant-design/icons';
+import { AuthContext } from '../contexts/AuthContextProvider';
 
 function UpdateUser({ id_user, getAllUser, handleModalClose ,role ,getAllRole }) {
 
     const [user, setUser] = useState({});
-
+    const {userToken} = useContext(AuthContext);
     const getOneUser = async () => {
         try {
-            const response = await axios.get(`${URL}api/v1/user/getone/${id_user}`);
+            const token = userToken;
+            const response = await axios.get(`${URL}api/v1/user/getone/${id_user}`,
+            {headers: {"Authorization": `Bearer ${token}`}}
+            );
             if(response.data.success === true) {
             setUser(response.data.user);
 
@@ -44,8 +48,11 @@ function UpdateUser({ id_user, getAllUser, handleModalClose ,role ,getAllRole })
 
     const handleUpdate = async (formData) => {
         try {
+            const token = userToken;
             const response = await axios.put(`${URL}api/v1/user/update/${id_user}`, formData, {
-                headers: { 'Content-Type': 'multipart/form-data' }
+                headers: { 
+                    'Authorization': `Bearer ${token}`, 
+                    'Content-Type': 'multipart/form-data' }
             });
             handleModalClose();
             getAllUser();

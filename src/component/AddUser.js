@@ -1,14 +1,15 @@
 import { PlusOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { Button, Form, Input, notification, Popconfirm, Select, Upload } from 'antd'
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { URL } from '../url';
+import { AuthContext } from '../contexts/AuthContextProvider';
 
 function AddUser({navigateToList, getAllRole, role,getAllUser}) {
     const [imageList, setImageList] = useState([]);
     // const [messageApi, contextHolder] = message.useMessage();
     const [form] = Form.useForm();
-
+    const {userToken} = useContext(AuthContext);
     const addUser = async (values) => {
         const formData = new FormData();
         formData.append('username', values.username);
@@ -20,8 +21,10 @@ function AddUser({navigateToList, getAllRole, role,getAllUser}) {
         }
 
         try {
+            const token = userToken;
             await axios.post(`${URL}api/v1/user/add`, formData, {
                 headers: {
+                    'Authorization': `Bearer ${token}`,
                     'Content-Type': 'multipart/form-data',
                 },
             });
