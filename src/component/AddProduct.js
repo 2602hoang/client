@@ -30,7 +30,7 @@ function AddProduct({ navigateToList, handleModalClose, getAllProducts,getCatego
         formData.append('id_brand', parseInt(values.id_brand));
         formData.append('price', values.price);
         formData.append('qty', values.qty);
-        formData.append('discount', values.discount);
+        formData.append('discoust', values.discoust);
         
         if (imageList.length > 0) {
             formData.append('images', imageList[0].originFileObj);
@@ -49,13 +49,13 @@ function AddProduct({ navigateToList, handleModalClose, getAllProducts,getCatego
             form.resetFields();
             setImageList([]);
             getAllProducts();
-            // handleModalClose();
+            
         } catch (error) {
             console.error('Error adding product:', error);
-            notification.error({
-                message: 'Lỗi',
-                description: 'Có lỗi xảy ra khi thêm sản phẩm.',
-            });
+            // notification.error({
+            //     message: 'Lỗi',
+            //     description: 'Có lỗi xảy ra khi thêm sản phẩm.',
+            // });
         }
     };
 
@@ -123,7 +123,7 @@ function AddProduct({ navigateToList, handleModalClose, getAllProducts,getCatego
                 <Form.Item name="qty" label="Số lượng nhập" rules={[{ required: true, message: 'Vui lòng nhập số lượng!' }]}>
                     <Input type="number" />
                 </Form.Item>
-                <Form.Item name="discount" label="Giảm giá">
+                <Form.Item name="discoust" label="Giảm giá">
                     <Input type="number" />
                 </Form.Item>
                 <Form.Item label="Hình ảnh" name="images" valuePropName="fileList" getValueFromEvent={normFile}>

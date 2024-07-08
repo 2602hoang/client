@@ -19,7 +19,7 @@ function UserManager() {
     const [user, setUser] = useState([]);
     const [role, setRole] = useState([]);
 
-    console.log(userToken);
+    // console.log(userToken);
     const getAllUser = async () => {
       try {
         const token = userToken;
@@ -101,6 +101,7 @@ function UserManager() {
             <div className={`min-h-screen flex-col flex ${menuVisible ? 'md:w-1/5 w-full' : 'w-[60px]'} transition-all duration-500`}>
             <NavabarUser menuVisible={menuVisible} 
             toggleMenu={toggleMenu}
+            
             subMenuVisible={subMenuVisible} 
             setActiveMenuItem={setActiveMenuItem}
             toggleSubMenu={toggleSubMenu}/>

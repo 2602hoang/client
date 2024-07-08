@@ -8,17 +8,21 @@ export const AuthContext = createContext();
 function AuthContextProvider({ children }) {
     const [userToken, setUserToken] = useState(null);
     const [error, setError] = useState(null);
+    const [userRole, setUserRole] = useState(null);
     const [errorRegister, setErrorRegister] = useState(null);
-
+    const [userId, setUserId] = useState(null);
     useEffect(() => {
 		LoadUserVerified();
 		addToken(localStorage.getItem('userToken'));
+
+        
 	}, []);
 	
 	const LoadUserVerified = async () => {
 		if ( localStorage.getItem('userToken')) {
 			setUserToken( localStorage.getItem('userToken'));
 			addToken( localStorage.getItem('userToken'));
+            setUserId( localStorage.getItem('userId'));
 		}
 		else setUserToken(null);
 		
@@ -59,18 +63,28 @@ function AuthContextProvider({ children }) {
             });
             if (response.data.mes === "Đăng nhập thành công") {
                 setError('Đăng nhập thành công');
-                alert('Chào mừng bạn đến với bếp, đăng nhập thành công 🤗🤗🤗');
+                // console.log(response.data.id_role);
+                
+                alert(`Chào mừng bạn đến với bếp, đăng nhập thành công 🤗🤗🤗 ${response.data.id_role===123?"Quản trị" :response.data.id_role ===124? "Nhân viên":"Khách Hàng"}`);
                 // setTimeout(() => {
                 //     setError('');
                 // }, 10000);
                 const token = response.data.access_token;
-                
+                const userId = response.data.id_user;
                 // console.log("2121",token);
                 localStorage.setItem('userToken', token);
                 setUserToken(token);
                 addToken(token);
+                localStorage.setItem('userId', response.data.id_user);
+                setUserRole(response.data.id_role);
+                setUserId(userId);
+                // setUserId(response.data.id_user);
                 window.location.reload(false);
+                
             } 
+            if (response.data.error===1 || response.data.error===2){
+                return { success: false, message: 'thông tin không hợp lệ' };
+            }
         } catch (error) {
             console.log('Loging error: ',error);
 			//  toast.error("Email hoặc mật khẩu khồng đúng, vui lòng thử lại!");
@@ -86,7 +100,10 @@ function AuthContextProvider({ children }) {
 
     const Logout = () => {
         localStorage.removeItem('userToken');
+        localStorage.removeItem('userId');
         setUserToken(null);
+        setUserRole(null);
+        setUserId(null);
         addToken(null);
     };
 
@@ -99,10 +116,11 @@ function AuthContextProvider({ children }) {
     };
 
     return (
-        <AuthContext.Provider value={{ errorRegister,setErrorRegister,userToken, setUserToken, Login,Register,Logout, error, setError }}>
+        <AuthContext.Provider value={{ errorRegister,setErrorRegister,userToken, setUserToken, Login,Register,Logout, error, setError,userRole ,userId ,setUserId }}>
             {children}
         </AuthContext.Provider>
     );
+  
 }
 
 export default AuthContextProvider;

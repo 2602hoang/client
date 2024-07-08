@@ -37,8 +37,8 @@
 
 .card-side::before {
   position: absolute;
-  content: 'Log in';
-  left: -70px;
+  content: 'Đăng Nhập';
+  left: -90px;
   color:"#ffffff";
   top: 0;
   width: 100px;
@@ -49,7 +49,7 @@
 
 .card-side::after {
   position: absolute;
-  content: 'Sign up';
+  content: 'Đăng Ký';
   left: 70px;
   color:"#ffffff";
   top: 0;

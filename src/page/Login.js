@@ -9,28 +9,55 @@ function Login() {
     const toggleRef = useRef(null);
     const [err, setErr] = useState("");
     const { Login, Register, setError ,setErrorRegister} = useContext(AuthContext);
+    const validatePhone = (phone) => {
+        const phoneRegex = /^0\d{9}$/;
+        return phoneRegex.test(phone);
+    };
+
+    const validatePassword = (password) => {
+        return password.length >= 6;
+    };
     const HandleLogin = async (e) => {
         e.preventDefault();
         const form = e.target;
         const phone = form.phone.value;
         const password = form.password.value;
+        if (!validatePhone(phone)) {
+            notification.warning({
+                message: 'Lỗi SDT',
+                description: `SĐT phải là 10 ký tự định dạng 0XXX-XXXXXXX`,
+            });
+            return;
+        }
+
+        if (!validatePassword(password)) {
+            notification.warning({
+                message: 'Lỗi mật khẩu',
+                description: `Mật khẩu phải từ 6 ký tự`,
+            });
+            return;
+        }
 
         try {
             const LoginData = await Login({ phone, password });
             if (LoginData && LoginData.success) {
-               
-                
                 setError('Thành Công');
                 setTimeout(() => setErr(''), 500);
                 notification.success({
                     message: 'Thành công',
                     description: `Đăng nhập thành công! phone ${phone}`,
                 });
-                
-            } 
+            } else {
+                setErr(LoginData.success === false || LoginData.message === "thông tin không hợp lệ");
+                setTimeout(() => setErr(''), 3000);
+                notification.error({
+                    message: 'Thất Bại',
+                    description: 'Số ĐT hoặc mật khẩu không đúng, vui lòng thử lại!',
+                });
+            }
         } catch (error) {
             console.log(error);
-            setErr("số ĐT hoặc mật khẩu không đúng, vui lòng thử lại!");
+            // setErr("số ĐT hoặc mật khẩu không đúng, vui lòng thử lại!");
             
             setTimeout(() => setErr(''), 3000);
             notification.error({
@@ -45,6 +72,21 @@ function Login() {
         const username = form.username.value;
         const phone = form.phone.value;
         const password = form.password.value;
+        if (!validatePhone(phone)) {
+            notification.warning({
+                message: 'Lỗi SDT',
+                description: `SĐT phải là 10 ký tự định dạng 0XXX-XXXXXXX`,
+            });
+            return;
+        }
+
+        if (!validatePassword(password)) {
+            notification.warning({
+                message: 'Lỗi mật khẩu',
+                description: `Mật khẩu phải từ 6 ký tự`,
+            });
+            return;
+        }
     
         try {
             const RegisterData = await Register({ username, phone, password });
@@ -53,7 +95,7 @@ function Login() {
                 setTimeout(() => setErr(''), 3000);
                 notification.success({
                     message: 'Thành công',
-                    description: `Cập nhật sản phẩm thành công! phone ${phone}`,
+                    description: `Đăng ký thành công! phone ${phone}`,
                 });
                 form.reset();
                 if (toggleRef.current) {
@@ -64,6 +106,10 @@ function Login() {
             } else {
                 setErr(RegisterData.message);
                 setTimeout(() => setErr(''), 3000);
+                notification.error({
+                    message: 'Thất bại',
+                    description: `Số điện thoại ${phone} đã được đăng ký `,
+                });
             }
         } catch (error) {
             console.log(error);
@@ -89,22 +135,22 @@ function Login() {
                                 <span class="card-side"></span>
                                 <div class="flip-card__inner">
                                     <div class="flip-card__front">
-                                        <div class="title">Log in</div>
+                                        <div class="title">Đăng Nhập</div>
                                         <form  class="flip-card__form" onSubmit={HandleLogin}>
-                                            <input class="flip-card__input" name="phone" placeholder="phone" type="Phone"/>
-                                            <input class="flip-card__input" name="password" placeholder="Password" type="password"/>
+                                            <input class="flip-card__input" name="phone" placeholder="SĐT" type="Phone"/>
+                                            <input class="flip-card__input" name="password" placeholder="Mật khẩu" type="password"/>
                                             <span>{err}</span>
-                                            <button class="flip-card__btn" >Let`s go!</button>
+                                            <button class="flip-card__btn" >Đăng Nhập!</button>
                                         </form>
                                     </div>
                                     <div class="flip-card__back">
-                                        <div class="title">Sign up</div>
+                                        <div class="title">Đăng Ký</div>
                                         <form class="flip-card__form" action="" onSubmit={HandleRegister}>
-                                            <input class="flip-card__input" name="username" placeholder="username" type="username"/>
-                                            <input class="flip-card__input" name="phone" placeholder="phone" type="phone"/>
-                                            <input class="flip-card__input" name="password" placeholder="Password" type="password"/>
+                                            <input class="flip-card__input" name="username" placeholder="Tên người dùng" type="username"/>
+                                            <input class="flip-card__input" name="phone" placeholder="SĐT" type="phone"/>
+                                            <input class="flip-card__input" name="password" placeholder="Mật khẩu" type="password"/>
                                             <span>{err}</span>
-                                            <button class="flip-card__btn">Confirm!</button>
+                                            <button class="flip-card__btn">Tiếp Tục!</button>
                                         </form>
                                     </div>
                                 </div>

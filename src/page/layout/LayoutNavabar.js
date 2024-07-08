@@ -1,21 +1,33 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, Avatar, FloatButton } from 'antd';
+import { AuthContext } from '../../contexts/AuthContextProvider';
+import { URL } from '../../url';
+import axios from 'axios';
+import { Effect } from '@cloudinary/url-gen/actions';
 
 function LayoutNavabar({ menuItems, userName, menuVisible, toggleMenu, subMenuVisible,
   toggleSubMenu, onMenuClick }) {
-  // const [menuVisible, setMenuVisible] = useState(false);
-  // const [subMenuVisible, setSubMenuVisible] = useState({});
+    const { userId } = useContext(AuthContext);
+    const [user, setUser] = useState({});
+    
+    useEffect(() => {
+        if (userId) {
+            getoneUser();
+        }
+    }, [userId]);
+    console.log(userId);
+    const getoneUser = async () => {
+        try {
+          const id_user = userId;
+            const response = await axios.get(`${URL}api/v1/user/getone/${id_user}`);
+            setUser(response.data.user);
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+            setUser({});
+        }
+    };
+    console.log(user);
 
-  // const toggleMenu = () => {
-  //   setMenuVisible(!menuVisible);
-  // };
-
-  // const toggleSubMenu = (index) => {
-  //   setSubMenuVisible((prevState) => ({
-  //     ...prevState,
-  //     [index]: !prevState[index],
-  //   }));
-  // };
   return (
     <div className={`overflow-hidden ${menuVisible ? 'border-r-2' : 'border-r-0'} w-full 
     justify-start items-start flex flex-col`}>
@@ -67,10 +79,11 @@ function LayoutNavabar({ menuItems, userName, menuVisible, toggleMenu, subMenuVi
               )} */}
             </li>
           ))}
+          {user && (
           <li className='my-5 md:m-0 flex-col flex'>
-            <Avatar className='h-20 w-20'/>
-            {userName}
-          </li>
+            <Avatar src={user.avatar} className='h-20 w-20'/>
+            {user.username}
+          </li>)}
         </ul>
       </nav>
     </div>

@@ -12,11 +12,13 @@ import { URL } from '../../url';
 import Search from 'antd/es/transfer/search';
 import { AuthContext } from '../../contexts/AuthContextProvider';
 
-function ProductMannager() {
+function ProductMannager({id_role}) {
   const [menuVisible, setMenuVisible] = useState(false);
   const [subMenuVisible, setSubMenuVisible] = useState({});
   const [activeMenuItem, setActiveMenuItem] = useState('Danh sách');
   const {userToken} = useContext(AuthContext);
+
+  // console.log(id_role);
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
@@ -88,7 +90,7 @@ function ProductMannager() {
         return (<div className='text-center justify-center items-center  flex-col flex text-5xl font-black w-full space-y-4 mb-4'>
           <h1 className='mb-8'>Thêm  Sản Phẩm</h1>
           <AddProduct categories={categories} brands={brands} getCategories={getCategories} getBrands={getBrands} navigateToList={navigateToList} />
-          <Button type="link" icon={<ExportOutlined style={{ fontSize: '24px' }} />} className='h-12 bg-orange-300 w-1/12  justify-center items-center text-center' onClick={navigateToList}>Xem danh sách </Button>
+          <Button type="link" icon={<ExportOutlined style={{ fontSize: '24px' }} />} className='h-12 bg-orange-300 md:w-1/12  justify-center items-center text-center' onClick={navigateToList}>Xem danh sách </Button>
         </div>);
       case 'Xóa':
         return <h1 className='text-center text-5xl font-black'>Xóa</h1>;
