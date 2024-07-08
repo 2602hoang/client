@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { formattedTimestamp } from '../untils/index.js';
-import { Button, Image, notification, Popconfirm, Modal, Select, Input } from 'antd';
+import {  Image, notification, Popconfirm, Modal, Select, Input } from 'antd';
 import { URL } from '../url/index.js';
 import axios from 'axios';
 import { QuestionCircleOutlined } from '@ant-design/icons';
@@ -8,17 +8,32 @@ import UpdateUser from './UpdateUser.js';
 import { AuthContext } from '../contexts/AuthContextProvider.js';
 const { Option } = Select;
 const { Search } = Input;
-function ListUser({ user, getAllUser,getAllRole, role }) {
+function ListUser({ getAllRole, role }) {
     const [openModal, setOpenModal] = useState(false);
     const [selectedUserId, setSelectedUserId] = useState(null);
     const [selectedRole, setSelectedRole] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
-    const { userToken, userRole } = useContext(AuthContext);
+    const { userToken } = useContext(AuthContext);
     const handleModalClose = () => {
         setOpenModal(false);
         setSelectedUserId(null);
         getAllUser();
     };
+    const [user, setUser] = useState([]);
+    const getAllUser = async () => {
+      try {
+        const token = userToken;
+        const response = await axios.get(`${URL}api/v1/user/getall`,{
+          headers: {
+             Authorization: `Bearer ${token}`
+          },
+        });
+        setUser(response.data);
+      } catch (error) {
+        console.error('Error fetching product data:', error);
+        setUser([]);
+      }
+    }
 
     const handleEdit = (id_user) => {
         setSelectedUserId(id_user);
@@ -54,6 +69,7 @@ function ListUser({ user, getAllUser,getAllRole, role }) {
     
     useEffect(() => {
         getAllUser();
+        getAllRole();
     }, [userToken]);
 
     return (

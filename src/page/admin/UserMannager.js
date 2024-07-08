@@ -18,24 +18,11 @@ function UserManager() {
 
     const {userToken} = useContext(AuthContext);
     // console.log(userToken); 
-    const [user, setUser] = useState([]);
+    
     const [role, setRole] = useState([]);
 
     // console.log(userToken);
-    const getAllUser = async () => {
-      try {
-        const token = userToken;
-        const response = await axios.get(`${URL}api/v1/user/getall`,{
-          headers: {
-             Authorization: `Bearer ${token}`
-          },
-        });
-        setUser(response.data);
-      } catch (error) {
-        console.error('Error fetching product data:', error);
-        setUser([]);
-      }
-    }
+  
     const getAllRole = async () => {
       try {
         const token = userToken;
@@ -54,7 +41,7 @@ function UserManager() {
       setActiveMenuItem('Danh sách');
     };
     useEffect(() => {
-      getAllUser();
+     
       getAllRole();
     }, [userToken]);
 
@@ -74,14 +61,17 @@ function UserManager() {
         case 'Danh sách':
           return (<div className='text-center text-3xl md:text-4xl w-full font-black overflow-hidden'>
             <h1>Danh sách Tài Khoản</h1>
-              <ListUser getAllUser={getAllUser} user={user} getAllRole={getAllRole} role={role}/>
+              <ListUser
+              //  user={user} 
+               getAllRole={getAllRole} role={role}/>
           </div>);
         // case 'Sửa':
         //   return <h1 className='text-center text-5xl font-black'>Chỉnh sửa</h1>;
         case 'Thêm':
           return (<div className='text-center justify-center items-center overflow-hidden  flex-col flex text-5xl font-black w-full space-y-4 mb-4'>
           <h1>Danh sách Tài Khoản</h1>
-            <AddUser getAllUser={getAllUser} 
+            <AddUser
+            
             navigateToList={navigateToList}
              getAllRole={getAllRole} 
              role={role} />
