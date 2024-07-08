@@ -97,7 +97,7 @@ function ListProduct({ getBrands, getCategories, brands, categories }) {
   return (
     <div>
     {products.length > 0 ? (
-        <div className='flex gap-6 flex-col px-6 w-full justify-end items-end'>
+        <div className='flex gap-6 flex-col px-6 w-full justify-end items-end mb-2'>
             <p className='text-xl font-medium'>Tìm theo thể loại hoặc quốc gia</p>
             <div className='flex w-full gap-6 justify-end items-end'>
                 <Select
@@ -137,9 +137,11 @@ function ListProduct({ getBrands, getCategories, brands, categories }) {
             </div>
         </div>
     ) : (
-      <h1 className='text-center md:text-5xl text-3xl justify-center items-center mt-24 font-black'>(Quản lý mới xem được)</h1>
+      <h1 className='text-center md:text-5xl text-3xl justify-center 
+      items-center mt-24 font-black'>(Quản lý mới xem được)</h1>
     )}
-    <div id="#list" className="grid md:grid-cols-4 grid-cols-1 gap-4 w-full mx-2 my-3 font-mono">
+    <div id="#list" className="grid md:grid-cols-4 grid-cols-1 gap-4 w-full
+     mx-2 my-3 font-mono">
         {filteredProducts.map((product) => (
             <div
                 key={product.id_product}

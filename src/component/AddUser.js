@@ -57,7 +57,7 @@ function AddUser({navigateToList, getAllRole, role,getAllUser}) {
 
     const handleImageChange = ({ fileList }) => setImageList(fileList);
   return (
-    <div className='w-full mt-14 justify-center items-center flex'>
+    <div className='flex font-mono justify-center items-center md:w-full w-full'>
             <Form
                 form={form}
                 labelCol={{ span: 4 }}

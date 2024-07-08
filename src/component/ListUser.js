@@ -87,7 +87,7 @@ function ListUser({ user, getAllUser,getAllRole, role }) {
                         />
                     </div>
                 </div>
-                <div className="grid md:grid-cols-4 grid-cols-1 md:gap-4 gap-2 w-full mx-2">
+                <div className="grid my-3 md:grid-cols-4 grid-cols-1 md:gap-4 gap-2 w-full mx-2">
                     {user.map((user) => {
                         if ((selectedRole && user.id_role !== selectedRole) ||
                             (searchQuery && !user.phone.includes(searchQuery))) {

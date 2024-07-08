@@ -76,7 +76,7 @@ function ProductMannager({id_role}) {
   const renderContent = () => {
     switch (activeMenuItem) {
       case 'Danh sách':
-        return (<div className='text-center text-3xl md:text-4xl w-full font-black'>
+        return (<div className='text-center text-3xl md:text-4xl w-full font-black overflow-hidden'>
           <h1 className='my-4'>Danh sách Sản Phẩm</h1>
           <div className='w-full'>
 
@@ -87,7 +87,7 @@ function ProductMannager({id_role}) {
       case 'Chỉnh sửa':
         return <h1 className='text-center text-5xl font-black'>Chỉnh sửa</h1>;
       case 'Thêm':
-        return (<div className='text-center justify-center items-center  flex-col flex text-5xl font-black w-full space-y-4 mb-4'>
+        return (<div className='text-center justify-center items-center overflow-hidden  flex-col flex text-5xl font-black w-full space-y-4 mb-4'>
           <h1 className='mb-8'>Thêm  Sản Phẩm</h1>
           <AddProduct categories={categories} brands={brands} getCategories={getCategories} getBrands={getBrands} navigateToList={navigateToList} />
           <Button type="link" icon={<ExportOutlined style={{ fontSize: '24px' }} />} className='h-12 bg-orange-300 md:w-1/12  justify-center items-center text-center' onClick={navigateToList}>Xem danh sách </Button>

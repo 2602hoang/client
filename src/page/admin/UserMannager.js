@@ -8,6 +8,8 @@ import axios from 'axios';
 import { AuthContext } from '../../contexts/AuthContextProvider';
 import { URL } from '../../url';
 import AddUser from '../../component/AddUser';
+import { Button } from 'antd';
+import { ExportOutlined } from '@ant-design/icons';
 
 function UserManager() {
     const [menuVisible, setMenuVisible] = useState(false);
@@ -70,19 +72,21 @@ function UserManager() {
     const renderContent = () => {
       switch (activeMenuItem) {
         case 'Danh sách':
-          return (<div className='text-center text-3xl md:text-4xl font-black'>
+          return (<div className='text-center text-3xl md:text-4xl w-full font-black overflow-hidden'>
             <h1>Danh sách Tài Khoản</h1>
               <ListUser getAllUser={getAllUser} user={user} getAllRole={getAllRole} role={role}/>
           </div>);
         // case 'Sửa':
         //   return <h1 className='text-center text-5xl font-black'>Chỉnh sửa</h1>;
         case 'Thêm':
-          return (<div className='text-center text-5xl font-black'>
+          return (<div className='text-center justify-center items-center overflow-hidden  flex-col flex text-5xl font-black w-full space-y-4 mb-4'>
           <h1>Danh sách Tài Khoản</h1>
             <AddUser getAllUser={getAllUser} 
             navigateToList={navigateToList}
              getAllRole={getAllRole} 
              role={role} />
+            <Button type="link" icon={<ExportOutlined style={{ fontSize: '24px' }} />} className='h-12 bg-orange-300 md:w-1/12  justify-center items-center text-center' onClick={navigateToList}>Xem danh sách </Button>
+
         </div>);
         // case 'Xóa':
         //   return <h1 className='text-center text-5xl font-black'>Xóa</h1>;
