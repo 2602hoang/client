@@ -53,7 +53,7 @@ function AddUser({navigateToList, getAllRole, role,getAllUser}) {
     useEffect(() => {
         getAllRole();
         getAllUser();
-    }, []);
+    }, [userToken]);
 
     const handleImageChange = ({ fileList }) => setImageList(fileList);
   return (

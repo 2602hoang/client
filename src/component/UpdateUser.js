@@ -83,7 +83,7 @@ function UpdateUser({ id_user, getAllUser, handleModalClose ,role ,getAllRole })
     useEffect(() => {
         getOneUser();
         getAllRole();
-    }, [id_user]);
+    }, [id_user, userToken]);
     console.log(role);
     return (
         <div>

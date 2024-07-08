@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, Form, Input, Popconfirm, Select, Spin, Upload, message, notification } from 'antd';
 import { PlusOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import { URL } from '../url';
 import TextArea from 'antd/es/input/TextArea';
+import { AuthContext } from '../contexts/AuthContextProvider';
 
 function AddProduct({ navigateToList, handleModalClose, getAllProducts,getCategories ,getBrands, brands ,categories}) {
    
     const [imageList, setImageList] = useState([]);
     // const [messageApi, contextHolder] = message.useMessage();
     const [form] = Form.useForm();
-
+    const {userToken} = useContext(AuthContext);
 
 
  
@@ -37,8 +38,10 @@ function AddProduct({ navigateToList, handleModalClose, getAllProducts,getCatego
         }
 
         try {
+            const token = userToken;
             await axios.post(`${URL}api/v1/product/add`, formData, {
                 headers: {
+                    'Authorization': `Bearer ${token}`,
                     'Content-Type': 'multipart/form-data',
                 },
             });

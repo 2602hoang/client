@@ -1,18 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { URL } from '../url';
 import axios from 'axios';
 import { Alert, Button, Form, Input, Select, Upload, message, notification } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { formatCurrency } from '../untils/index.js';
+import { AuthContext } from '../contexts/AuthContextProvider.js';
 
 function UpdateProduct({ id_product, handleModalClose, getAllProducts, getCategories, getBrands, brands, categories }) {
     const [product, setProduct] = useState({});
     const [imageList, setImageList] = useState([]);
-
+    const {userToken} = useContext(AuthContext);
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${URL}api/v1/product/getone/${id_product}`);
+                const token = userToken;
+                const response = await axios.get(`${URL}api/v1/product/getone/${id_product}`,
+                    {headers: {"Authorization": `Bearer ${token}`}}
+                );
                 setProduct(response.data);
                 // Format the initial image list
                 if (response.data.images) {
@@ -32,12 +36,14 @@ function UpdateProduct({ id_product, handleModalClose, getAllProducts, getCatego
         };
 
         fetchData();
-    }, [id_product]);
+    }, [id_product, userToken]);
 
     const handleUpdate = async (formData) => {
         try {
+            const token = userToken;
             const response = await axios.put(`${URL}api/v1/product/update/${id_product}`, formData, {
-                headers: { 'Content-Type': 'multipart/form-data' }
+                headers: { 
+                    'Authorization': `Bearer ${token}`,'Content-Type': 'multipart/form-data' }
             });
             handleModalClose();
             getAllProducts();
