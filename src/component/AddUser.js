@@ -5,7 +5,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { URL } from '../url';
 import { AuthContext } from '../contexts/AuthContextProvider';
 
-function AddUser({navigateToList, getAllRole, role,getAllUser}) {
+function AddUser({navigateToList, getAllRole, role}) {
     const [imageList, setImageList] = useState([]);
     // const [messageApi, contextHolder] = message.useMessage();
     const [form] = Form.useForm();
@@ -34,7 +34,7 @@ function AddUser({navigateToList, getAllRole, role,getAllUser}) {
             });
             form.resetFields();
             setImageList([]);
-            getAllUser();
+            // getAllUser();
             // navigateToList();
         } catch (error) {
             console.error('Error adding user:', error);
@@ -52,7 +52,7 @@ function AddUser({navigateToList, getAllRole, role,getAllUser}) {
     };
     useEffect(() => {
         getAllRole();
-        getAllUser();
+        // getAllUser();
     }, [userToken]);
 
     const handleImageChange = ({ fileList }) => setImageList(fileList);
