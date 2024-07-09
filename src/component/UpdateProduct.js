@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { URL } from '../url';
 import axios from 'axios';
-import { Alert, Button, Form, Input, Select, Upload, message, notification } from 'antd';
+import {  Button, Form, Input, Select, Upload, notification } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { formatCurrency } from '../untils/index.js';
 import { AuthContext } from '../contexts/AuthContextProvider.js';
@@ -36,12 +36,14 @@ function UpdateProduct({ id_product, handleModalClose, getAllProducts, getCatego
         };
 
         fetchData();
+        getBrands();
+        getCategories();
     }, [id_product, userToken]);
 
     const handleUpdate = async (formData) => {
         try {
             const token = userToken;
-            const response = await axios.put(`${URL}api/v1/product/update/${id_product}`, formData, {
+             await axios.put(`${URL}api/v1/product/update/${id_product}`, formData, {
                 headers: { 
                     'Authorization': `Bearer ${token}`,'Content-Type': 'multipart/form-data' }
             });

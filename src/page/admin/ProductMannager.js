@@ -1,15 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import LayoutAdmin from '../layout/LayoutAdmin'
 
-import { Button, Input, Menu, Select, Space } from 'antd';
-import { AppstoreOutlined, ContainerOutlined, DesktopOutlined, ExportOutlined, MailOutlined, MenuFoldOutlined, MenuUnfoldOutlined, PieChartOutlined } from '@ant-design/icons';
+import { Button, } from 'antd';
+import {  ExportOutlined,  } from '@ant-design/icons';
 
 import NavabarPoduct from '../../component/NavabarPoduct';
 import ListProduct from '../../component/ListProduct';
 import AddProduct from '../../component/AddProduct';
 import axios from 'axios';
 import { URL } from '../../url';
-import Search from 'antd/es/transfer/search';
+// import Search from 'antd/es/transfer/search';
 import { AuthContext } from '../../contexts/AuthContextProvider';
 
 function ProductMannager({id_role}) {
@@ -69,10 +69,10 @@ function ProductMannager({id_role}) {
   };
   
 
-  useEffect(() => {
-    getCategories();
-    getBrands();
-  }, [userToken]);
+  // useEffect(() => {
+  //   getCategories();
+  //   getBrands();
+  // }, [userToken]);
   const renderContent = () => {
     switch (activeMenuItem) {
       case 'Danh sách':

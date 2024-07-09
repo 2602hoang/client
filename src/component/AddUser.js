@@ -1,11 +1,11 @@
-import { PlusOutlined, QuestionCircleOutlined } from '@ant-design/icons';
-import { Button, Form, Input, notification, Popconfirm, Select, Upload } from 'antd'
+import { PlusOutlined,  } from '@ant-design/icons';
+import { Button, Form, Input, notification, Select, Upload } from 'antd'
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import { URL } from '../url';
 import { AuthContext } from '../contexts/AuthContextProvider';
 
-function AddUser({navigateToList, getAllRole, role}) {
+function AddUser({ getAllRole, role}) {
     const [imageList, setImageList] = useState([]);
     // const [messageApi, contextHolder] = message.useMessage();
     const [form] = Form.useForm();

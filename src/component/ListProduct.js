@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { URL } from '../url';
 import axios from 'axios';
-import { PlusOutlined, QuestionCircleOutlined } from '@ant-design/icons';
-import { Button, Modal,Input, notification, Popconfirm, Select, Tooltip } from 'antd';
+import {  QuestionCircleOutlined } from '@ant-design/icons';
+import {  Modal,Input, notification, Popconfirm, Select, Tooltip } from 'antd';
 import { formatCurrency, formattedTimestamp } from '../untils/index.js';
 import UpdateProduct from './UpdateProduct.js';
 
@@ -38,6 +38,8 @@ function ListProduct({ getBrands, getCategories, brands, categories }) {
 
   useEffect(() => {
     getAllProducts();
+    getBrands();
+    getCategories();
   }, [userToken]);
 
   useEffect(() => {

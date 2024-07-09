@@ -175,7 +175,7 @@ function ListUser({ getAllRole, role }) {
                 </div>
             </div>
         ) : (
-            <h1 className='text-center md:text-5xl text-3xl justify-center items-center mt-24 font-black'>(Quản lý mới xem được)</h1>
+            <h1 className='text-center md:text-5xl text-3xl justify-center items-center mt-24 mb-5 font-black'>(Quản lý mới xem được)</h1>
         )}
     </div>
     )

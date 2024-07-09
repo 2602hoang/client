@@ -144,7 +144,7 @@ function Login() {
                                         </form>
                                     </div>
                                     <div class="flip-card__back">
-                                        <div class="title">Đăng Ký</div>
+                                        <div class="title">Đăng ký nhanh<br/>Tài Khoản khách hàng</div>
                                         <form class="flip-card__form" action="" onSubmit={HandleRegister}>
                                             <input class="flip-card__input" name="username" placeholder="Tên người dùng" type="username"/>
                                             <input class="flip-card__input" name="phone" placeholder="SĐT" type="phone"/>

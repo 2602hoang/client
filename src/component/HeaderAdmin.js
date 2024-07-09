@@ -19,11 +19,11 @@ function HeaderAdmin() {
     <div className='overflow-hidden justify-center flex fixed md:relative  items-center
     flex-row bg-[#241f32]  h-[60px] md:w-full z-50 w-full top-0 '>
 
-             <nav className='overflow-hidden justify-between items-center py-2 flex  md:w-4/5 w-full mx-2'>
-                <div className='md:flex top-0 left-0 right-0  z-50  md:z-50   md:w-72 flex flex-row md:mr-auto  '>
+             <nav className='overflow-hidden justify-start items-center py-2 flex md:ml-6 md:w-full w-full mx-2'>
+                <div className='md:flex top-0 left-0 right-0  z-50  md:z-50   md:w-1/5 flex flex-row md:mr-auto  '>
                     <a href='/productmanager' className='font-black flex  items-center gap-x-2 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>
                         <img src={background} className=' space-x-1 h-12 w-16 rounded-full' />
-                        H3
+                        Trang quản trị
                     </a>
                 </div>
 

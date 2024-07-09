@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import LayoutAdmin from '../layout/LayoutAdmin'
 
 
@@ -40,10 +40,10 @@ function UserManager() {
     const navigateToList = () => {
       setActiveMenuItem('Danh sách');
     };
-    useEffect(() => {
+    // useEffect(() => {
      
-      getAllRole();
-    }, [userToken]);
+    //   getAllRole();
+    // }, [userToken]);
 
     // console.log(user);
     const toggleMenu = () => {
