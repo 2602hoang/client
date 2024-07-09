@@ -18,7 +18,7 @@ function ListProduct({ getBrands, getCategories, brands, categories }) {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedBrand, setSelectedBrand] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-  const {userToken,} = useContext(AuthContext);
+  const {userToken,userId} = useContext(AuthContext);
   const getAllProducts = async () => {
     try {
       const token = userToken;
@@ -40,7 +40,7 @@ function ListProduct({ getBrands, getCategories, brands, categories }) {
     getAllProducts();
     getBrands();
     getCategories();
-  }, [userToken]);
+  }, [userToken,userId]);
 
   useEffect(() => {
     let filtered = products;
@@ -169,7 +169,7 @@ function ListProduct({ getBrands, getCategories, brands, categories }) {
                         <img src={product.images} alt={product.name} className="w-40 h-40" />
                     </div>
                 </div>
-                {/* {userRole === 123 && ( */}
+                {parseInt(userId) === 84 ? (
                     <div className="flex justify-around py-3  pt-8 items-end  ">
                         <div className="flex gap-2 text-gray-600 hover:scale-110 pt-8 duration-200  hover:cursor-pointer">
                             <Popconfirm
@@ -200,7 +200,9 @@ function ListProduct({ getBrands, getCategories, brands, categories }) {
                             </Popconfirm>
                         </div>
                     </div>
-                {/* )} */}
+                 )
+                :<></>
+                } 
                 <Modal
                     title={<h1 className='text-center text-4xl font-bold border-b-2 pb-4'>Chỉnh Sửa Sản Phẩm</h1>}
                     className='overflow-hidden text-center w-1/2 h-min-screen'

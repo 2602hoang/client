@@ -1,14 +1,14 @@
 import React, { useContext, useRef, useState } from 'react'
 import bg from '../assets/hinh.png'
 import bg1 from '../assets/hinh1.png'
-import { Form, useNavigate } from 'react-router-dom';
+
 import { AuthContext } from '../contexts/AuthContextProvider';
 import { notification } from 'antd';
-function Login() {
+function LoginAdmin() {
     // const nav = useNavigate();
     const toggleRef = useRef(null);
     const [err, setErr] = useState("");
-    const { Login, Register, setError ,setErrorRegister} = useContext(AuthContext);
+    const { Login, Register, setError } = useContext(AuthContext);
     const validatePhone = (phone) => {
         const phoneRegex = /^0\d{9}$/;
         return phoneRegex.test(phone);
@@ -163,4 +163,4 @@ function Login() {
     )
 }
 
-export default Login
+export default LoginAdmin

@@ -5,7 +5,7 @@ import { URL } from '../../url';
 import axios from 'axios';
 import { Effect } from '@cloudinary/url-gen/actions';
 
-function LayoutNavabar({ menuItems, userName, menuVisible, toggleMenu, subMenuVisible,
+function LayoutNavabar({ menuItems, menuVisible, toggleMenu, subMenuVisible,
   toggleSubMenu, onMenuClick }) {
     const { userId } = useContext(AuthContext);
     const [user, setUser] = useState({});

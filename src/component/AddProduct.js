@@ -11,17 +11,17 @@ function AddProduct({ navigateToList, handleModalClose, getAllProducts,getCatego
     const [imageList, setImageList] = useState([]);
     // const [messageApi, contextHolder] = message.useMessage();
     const [form] = Form.useForm();
-    const {userToken} = useContext(AuthContext);
+    const {userToken,userId} = useContext(AuthContext);
 
 
- 
+    console.log(userId);
 
     
 
     useEffect(() => {
         getCategories();
         getBrands();
-    }, []);
+    }, [userToken,userId]);
 
     const addProduct = async (values) => {
         const formData = new FormData();
@@ -72,8 +72,9 @@ function AddProduct({ navigateToList, handleModalClose, getAllProducts,getCatego
     const handleImageChange = ({ fileList }) => setImageList(fileList);
 
     return (
-        <div className='flex font-mono justify-center items-center md:w-full w-full'>
-            {/* {contextHolder} */}
+        
+            <div className='flex font-mono justify-center items-center md:w-full w-full'>
+           { parseInt(userId) === 84 ?(
             <Form
                 form={form}
                 labelCol={{
@@ -91,19 +92,19 @@ function AddProduct({ navigateToList, handleModalClose, getAllProducts,getCatego
                 onFinish={addProduct}
             >
                 <Form.Item name="name" label="Tên Sách" rules={[{ required: true, message: 'Vui lòng nhập tên sách!' }]}>
-                    <TextArea autoSize={{
+                    <TextArea allowClear autoSize={{
                             minRows: 2,
                             maxRows: 4,
                           }} />
                 </Form.Item>
                 <Form.Item name="description" label="Mô tả" rules={[{ required: true, message: 'Vui lòng nhập tên sách!' }]}>
-                    <TextArea autoSize={{
+                    <TextArea allowClear autoSize={{
                             minRows: 5,
                             maxRows: 8,
                           }} />
                 </Form.Item>
                 <Form.Item name="id_category" label="Thể loại" rules={[{ required: true, message: 'Vui lòng chọn thể loại!' }]}>
-                    <Select placeholder="Chọn thể loại">
+                    <Select allowClear placeholder="Chọn thể loại">
                         {categories.map((category) => (
                             <Select.Option key={category.id_category} value={category.id_category}>
                                 {category.name}
@@ -112,7 +113,7 @@ function AddProduct({ navigateToList, handleModalClose, getAllProducts,getCatego
                     </Select>
                 </Form.Item>
                 <Form.Item name="id_brand" label="Quốc gia" rules={[{ required: true, message: 'Vui lòng chọn quốc gia!' }]}>
-                    <Select placeholder="Chọn quốc gia">
+                    <Select allowClear placeholder="Chọn quốc gia">
                         {brands.map((brand) => (
                             <Select.Option key={brand.id_brand} value={brand.id_brand}>
                                 {brand.name}
@@ -121,13 +122,13 @@ function AddProduct({ navigateToList, handleModalClose, getAllProducts,getCatego
                     </Select>
                 </Form.Item>
                 <Form.Item name="price" label="Giá" rules={[{ required: true, message: 'Vui lòng nhập giá!' }]}>
-                    <Input type="number" />
+                    <Input allowClear type="number" />
                 </Form.Item>
                 <Form.Item name="qty" label="Số lượng nhập" rules={[{ required: true, message: 'Vui lòng nhập số lượng!' }]}>
-                    <Input type="number" />
+                    <Input allowClear type="number" />
                 </Form.Item>
                 <Form.Item name="discoust" label="Giảm giá">
-                    <Input type="number" />
+                    <Input allowClear type="number" />
                 </Form.Item>
                 <Form.Item label="Hình ảnh" name="images" valuePropName="fileList" getValueFromEvent={normFile}>
                     <Upload
@@ -146,24 +147,16 @@ function AddProduct({ navigateToList, handleModalClose, getAllProducts,getCatego
                     <Button type="primary" htmlType="submit">Thêm Sản Phẩm</Button>
                 </Form.Item>
                 <Form.Item wrapperCol={{ offset: 4, span: 18 }}>
-                    {/* <Popconfirm
-                        title={`Bạn Muốn xem lại danh sách Sản Phẩm ?`}
-                        onConfirm={() => 
-                        {
-                           
-                            navigateToList()
-                           
-                        }
-                            
-                        }
-                        icon={<QuestionCircleOutlined style={{ color: 'green' }} />}
-                    > */}
-                        
-                      
-                    {/* </Popconfirm> */}
+                   
                 </Form.Item>
                
             </Form>
+        )
+        :
+        (
+            <div>(Quản Lý mới thêm được)</div>
+        )
+        }
         </div>
     );
 }
