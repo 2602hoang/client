@@ -5,7 +5,7 @@ const ProtectedRoute = ({ children }) => {
         localStorage.getItem('userToken') ? (
             children
         ) : (
-            <Navigate replace to='/loginAdmin' />
+            <Navigate replace to='/login/admin' />
         )
     );
 };

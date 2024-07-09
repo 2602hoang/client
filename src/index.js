@@ -25,7 +25,8 @@ root.render(
       <BrowserRouter>
         <Routes>
           {/* Default route to redirect to login */}
-          <Route path='/' element={<Navigate to="/loginAdmin" />} />
+          <Route path='/' element={<Navigate to="/login" />} />
+          <Route path='/admin' element={<Navigate to="/login/admin" />} />
 
           {/* Public routes */}
           <Route path='/login' element={
@@ -42,7 +43,7 @@ root.render(
           } />
 
           {/* Admin login route */}
-          <Route path='/loginAdmin' element={
+          <Route path='/login/admin' element={
             <ProtectedRouteNoLogin>
               <LoginAdmin />
             </ProtectedRouteNoLogin>

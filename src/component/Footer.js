@@ -1,4 +1,4 @@
-import { GithubOutlined } from '@ant-design/icons'
+
 import React, { useRef } from 'react'
 import emailjs from '@emailjs/browser';
 import { FloatButton } from 'antd';
@@ -36,7 +36,7 @@ function Footer() {
 
 
   return (
-    <div className='flex h-auto flex-col w-full bg-[#241f32]  justify-center items-center'>
+    <div className='flex h-auto flex-col w-full bg-[#539ba9]  justify-center items-center'>
      
     <div className='flex font-mono w-full h-auto text-white md:px-20  flex-col md:flex-row justify-start items-start space-y-3'>
           {/* phần 1 */}

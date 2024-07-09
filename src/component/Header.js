@@ -37,7 +37,7 @@ function Header() {
                     } md:visible md:bg-transparent md:h-auto md:flex-row md:justify-between md:static
                     }`}>
                     <li className='my-5 md:m-0'>
-                        <a href='/' className=' text-white hover:border-b-2 hover:animate-ping
+                        <a href='/home' className=' text-white hover:border-b-2 hover:animate-ping
                          hover:border-red-500 hover:text-red-500
                           transition duration-500 ease-in'>Trang Chủ</a></li>
                     <li className='my-5 md:m-0'>

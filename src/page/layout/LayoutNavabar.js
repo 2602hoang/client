@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Avatar, FloatButton } from 'antd';
+import { Button, Avatar, } from 'antd';
 import { AuthContext } from '../../contexts/AuthContextProvider';
 import { URL } from '../../url';
 import axios from 'axios';
-import { Effect } from '@cloudinary/url-gen/actions';
 
-function LayoutNavabar({ menuItems, menuVisible, toggleMenu, subMenuVisible,
+
+function LayoutNavabar({ menuItems, menuVisible, toggleMenu,
   toggleSubMenu, onMenuClick }) {
     const { userId } = useContext(AuthContext);
     const [user, setUser] = useState({});

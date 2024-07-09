@@ -60,10 +60,10 @@ function LoginAdmin() {
             // setErr("số ĐT hoặc mật khẩu không đúng, vui lòng thử lại!");
             
             setTimeout(() => setErr(''), 3000);
-            notification.error({
-                message: 'Thất Bại',
-                description: `số ĐT hoặc mật khẩu không đúng, vui lòng thử lại!`,
-            });
+            // notification.error({
+            //     message: 'Thất Bại',
+            //     description: `số ĐT hoặc mật khẩu không đúng, vui lòng thử lại!`,
+            // });
         }
     };
     const HandleRegister = async (e) => {
