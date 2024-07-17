@@ -209,7 +209,7 @@ function ListOrder() {
 
     {/* Order Details Modal */}
     <Modal
-      title={<div className='flex row justify-start items-start space-x-4'>
+      title={<div className='flex row justify-start items-start space-x-4 '>
 
         <h1 calssName='text-start justify-start items-start'>Chi tiết đơn hàng {selectedOrderId}</h1>
 
@@ -223,7 +223,8 @@ function ListOrder() {
       width={1200}
     >
       {selectedOrderDetails?.map(orderDetail => (
-        <div id="pdf-content" key={orderDetail.id_order} className={`p-4 mb-4 border-2 ${orderDetail.id_pay === 1 ? 'border-yellow-500' : orderDetail.id_pay === 2 ? "border-green-500" : "border-red-500"}`}>
+        <div id="pdf-content" key={orderDetail.id_order}
+         className={`overflow-x-scroll p-4 mb-4 border-2 ${orderDetail.id_pay === 1 ? 'border-yellow-500' : orderDetail.id_pay === 2 ? "border-green-500" : "border-red-500"}`}>
           <p className={`${orderDetail.id_pay === 1 ? 'text-yellow-500' : orderDetail.id_pay === 2 ? "text-green-500" : "text-red-500"}`}><strong>Trạng thái đơn:</strong> {orderDetail.id_pay ===1 ? 'chờ xác nhận': orderDetail.id_pay === 2 ? "Đơn đã xác nhận" : "Đơn Hủy"}</p>
           <p><strong>ID đơn</strong> {orderDetail.id_order}</p>
           <p><strong>Ngày đặt:</strong> {formattedTimestamp(orderDetail.date_order)}</p>

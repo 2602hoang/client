@@ -221,7 +221,7 @@ function RejectOrder() {
       width={1200}
     >
       {selectedOrderDetails?.map(orderDetail => (
-        <div id="pdf-content" key={orderDetail.id_order} className={`p-4 mb-4 border-2 ${orderDetail.id_pay === 3 ? 'border-red-500' : orderDetail.id_pay === 2 ? "border-green-500" : "border-red-500"}`}>
+        <div id="pdf-content" key={orderDetail.id_order} className={`overflow-x-scroll p-4 mb-4 border-2 ${orderDetail.id_pay === 3 ? 'border-red-500' : orderDetail.id_pay === 2 ? "border-green-500" : "border-red-500"}`}>
           <p className={`${orderDetail.id_pay === 3 ? 'text-red-500' : orderDetail.id_pay === 2 ? "text-green-500" : "text-red-500"}`}>
             <strong>Trạng thái đơn:</strong> {orderDetail.id_pay ===3 ? 'Thất Bại': orderDetail.id_pay === 2 ? "Thành Công" : "Đơn Hủy"}</p>
           <p><strong>ID đơn</strong> {orderDetail.id_order}</p>

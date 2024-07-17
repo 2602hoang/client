@@ -310,7 +310,7 @@ function ThongkeOrderThanhCong() {
       <div className='w-full flex flex-col container'>
 
     
-              <div className="flex h-screen w-full md:flex-row flex-col md:w-11/12 md:space-x-2 space-y-3 md:space-y-0 justify-center items-center md:mx-5">
+              <div className="flex h-auto md:h-screen w-11/12 md:flex-row flex-col md:w-11/12 md:space-x-2 space-y-3 md:space-y-0 justify-center items-center md:mx-5">
                   <div className='flex w-full flex-col justify-center items-center '>
                   <Card
                   type="inner"
@@ -370,14 +370,14 @@ function ThongkeOrderThanhCong() {
                   />
                 </Card>
                 </div>
-                    <div className='w-11/12  md:w-full flex-col flex overflow-x-scroll md:overflow-x-hidden '>
+                    <div className='w-11/12 h-auto  md:w-full flex-col flex overflow-x-scroll md:overflow-x-hidden '>
                     {/* <h1 className='text-3xl font-bold  text-center text-red-500 uppercase my-4'>tất cả dòng tiền</h1> */}
                     <Column {...config} />
                     </div>
                 </div>
 
-      <div className='flex w-full h-screen justify-center items-center md:mx-5'>
-      <div className=' justify-center items-center  h-[70vh] w-11/12 flex flex-col'>
+      <div className='flex w-full md:h-screen h-auto justify-center items-center md:mx-5'>
+      <div className=' justify-center items-center  h-[70vh] w-11/12 md:w-full  md:overflow-x-hidden overflow-x-scroll flex flex-col'>
           <h1 className='text-3xl font-bold  text-center text-red-500 uppercase my-4'>Tỉ lệ từng giao dịch %</h1>
             <Pie {...donutConfig1} />
          
@@ -389,9 +389,11 @@ function ThongkeOrderThanhCong() {
      
       
       <Modal
+      width={window.innerWidth >= 768 ? "50%" : "80%"}
       title="Chi tiết giao dịch"
+      className='justify-center items-center flex '
       open={open} onOk={handleOk} onCancel={handleCancel} footer={null}>
-        <div className='flex flex-col w-full md:w-full'>
+        <div className='flex flex-col w-full md:w-full justify-center items-center h-auto'>
         <div className="flex md:flex-row flex-col space-x-4 mt-6">
           <Card title="Đơn hàng thành công" bordered={false} className="bg-white rounded-lg shadow-md">
             <Statistic
@@ -461,11 +463,11 @@ function ThongkeOrderThanhCong() {
             />
           </Card>
         </div>
-        <div className='container mt-2 '>
+        <div className='container flex mt-2 flex-col justify-center items-center '>
         <h1 className='text-3xl font-bold text-center text-red-500 uppercase my-4'>Tổng số tiền tương ứng</h1>
           <Column {...detailedConfig} />
           </div>
-          <div className='container mt-4'>
+          <div className='container flex flex-col mt-4 justify-center items-center'>
           <h1 className='text-3xl font-bold text-center text-red-500 uppercase my-4'>Tổng số đơn tương ứng</h1>
             <Pie {...donutConfig} />
          

@@ -263,6 +263,7 @@ function OrderManagerList({navigateToList}) {
                     <Tooltip title="Thêm ghi chú cho đơn hàng">
                       <Button className='w-full bg-slate-400 text-black hover:text-white uppercase' onClick={() => showModal1(order.id_order)}>Ghi chú</Button>
                     </Tooltip>
+                    <div className={`${order.id_pay === 5 || order.id_pay === 2 ? 'hidden' : 'block'}`}>
                     <Popconfirm
                       title="Xác nhận đơn hàng"
                       description="Bạn muốn xác nhận đơn này?"
@@ -283,6 +284,7 @@ function OrderManagerList({navigateToList}) {
                     >
                       <Button className='w-full bg-red-400 text-black hover:text-white uppercase'>Hủy Đơn</Button>
                     </Popconfirm>
+                    </div>
                   </Space>
                 </td>
               </tr>
@@ -308,7 +310,8 @@ function OrderManagerList({navigateToList}) {
       width={1200}
     >
       {selectedOrderDetails?.map(orderDetail => (
-        <div id="pdf-content" key={orderDetail.id_order} className={`p-4 mb-4 border-2 ${orderDetail.id_pay === 1 ? 'border-yellow-500' : orderDetail.id_pay === 2 ? "border-green-500" : "border-red-500"}`}>
+        <div id="pdf-content" key={orderDetail.id_order}
+         className={`overflow-x-scroll p-4 mb-4 border-2 ${orderDetail.id_pay === 1 ? 'border-yellow-500' : orderDetail.id_pay === 2 ? "border-green-500" : "border-red-500"}`}>
           <p className={`${orderDetail.id_pay === 1 ? 'text-yellow-500' : orderDetail.id_pay === 2 ? "text-green-500" : "text-red-500"}`}><strong>Trạng thái đơn:</strong> {orderDetail.id_pay ===1 ? 'chờ xác nhận': orderDetail.id_pay === 2 ? "Đơn đã xác nhận" : "Đơn Hủy"}</p>
           <p><strong>ID đơn</strong> {orderDetail.id_order}</p>
           <p><strong>Ngày đặt:</strong> {formattedTimestamp(orderDetail.date_order)}</p>

@@ -241,14 +241,14 @@ function OrderfinishedManager() {
         <div className='flex flex-col w-full h-auto min-h-screen my-9'>
             <div data-aos="fade-down" className='flex flex-col md:w-full justify-center items-center'>
 
-                <ul className=' [&:hover>li]:opacity-10 w-full md:flex flex-col md:flex-row md:space-x-7 my-2  justify-center items-center  gap-3   '>
+                <ul className=' [&:hover>li]:opacity-10 md:w-full w-11/12 md:flex flex-col md:flex-row md:space-x-7 my-2  justify-center items-center  gap-3   '>
                     <div className='flex flex-row justify-center items-center space-x-3'>
                         <li className=' hover:!opacity-100 flex '>
                             <a
                                 className="
                          
                           focus:bg-yellow-300
-                           rounded border border-current px-5 py-3 text-sm font-medium h-12
+                           rounded border border-current px-3 md:py-3 text-sm font-medium h-12
                           text-black transition hover:scale-110 hover:shadow-xl focus:outline-none 
                           focus:ring
                             active:text-indigo-500"
@@ -271,7 +271,7 @@ function OrderfinishedManager() {
                                 className="
                       
                           focus:bg-yellow-300
-                          rounded border border-current px-3 py-3 text-sm font-medium h-12
+                          rounded border border-current px-3 md:py-3 text-sm font-medium h-12
                           text-black transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring
                             active:text-indigo-500"
                                 onClick={() => {
@@ -297,7 +297,7 @@ function OrderfinishedManager() {
                                 className="
                        
                           focus:bg-yellow-300
-                           rounded border border-current px-5 py-3 text-sm font-medium h-12
+                           rounded border border-current px-5 md:py-3 text-sm font-medium h-12
                           text-black transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring
                             active:text-indigo-500"
                                 onClick={() => {
