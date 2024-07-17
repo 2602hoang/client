@@ -20,31 +20,56 @@ function Product() {
   const [selectedBrand, setSelectedBrand] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const {useToken}=useContext(AuthContext);
+  const {useToken,addToCart}=useContext(AuthContext);
   useEffect(() => {
-    const getData = async () => {
+    const getProducts = async () => {
       try {
-        const [productResponse, brandResponse, categoryResponse] = await Promise.all([
-          axios.get(`${URL}api/v1/product/getall`),
-          axios.get(`${URL}api/v1/brand/getall`),
-          axios.get(`${URL}api/v1/category/getall`)
-        ],
+        const response = await axios.get(`${URL}api/v1/product/getall`,
         {
           headers: {
             Authorization: `Bearer ${useToken}`
           },
         }
-      );
-        setProducts(productResponse.data);
-        setBrands(brandResponse.data);
-        setCategories(categoryResponse.data);
+        );
+        setProducts(response.data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching products:', error);
       }
-    };
-
-    getData();
-  }, [useToken]);
+    }
+      const getBrands = async () => {
+        try {
+          const response = await axios.get(`${URL}api/v1/brand/getall`,
+          {
+            headers: {
+              Authorization: `Bearer ${useToken}`
+            },
+          }
+          );
+          setBrands(response.data);
+        } catch (error) {
+          console.error('Error fetching brands:', error);
+        }
+      }
+        const getCategories = async () => {
+          try {
+            const response = await axios.get(`${URL}api/v1/category/getall`,
+            {
+              headers: {
+                Authorization: `Bearer ${useToken}`
+              },
+            }
+            );
+            setCategories(response.data);
+          } catch (error) {
+            console.error('Error fetching categories:', error);
+          }
+        }
+   
+    
+      getProducts();
+      getBrands();
+      getCategories();
+    }, [useToken]);
  
   useEffect(() => {
     let filtered = products;
@@ -62,7 +87,7 @@ function Product() {
     }
 
     setFilteredProducts(filtered);
-  }, [useToken,selectedCategory, selectedBrand, searchTerm, products]);
+  }, [selectedCategory, selectedBrand, searchTerm, products]);
 
   const handleSearch = useCallback((value) => {
     setSearchTerm(value.trim());
@@ -84,7 +109,7 @@ function Product() {
   // console.log(selectedProduct);
 
 
-  const { addToCart } = useContext(AuthContext);
+  
   const handleAddToCart = (product) => {
     // if(product.stock <)
     addToCart(product);
