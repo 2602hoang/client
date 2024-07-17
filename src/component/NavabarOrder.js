@@ -4,10 +4,14 @@ import LayoutNavabar from '../page/layout/LayoutNavabar';
 function NavabarOrder({menuVisible, toggleMenu, subMenuVisible, toggleSubMenu,setActiveMenuItem}) {
     const orderMenuItems = [
         {
-          title: 'Danh sách',
-          subItems: ['Đơn đang giao', 'Đơn đã giao', 'Đơn hủy']
+          title: 'Danh sách cần xử lý',
+          
         },
-        { title: 'Ghi chú', subItems: ['Đơn đang giao', 'Đơn hủy']},
+        {
+          title: 'Hoàn thành trạng thái đơn',
+          
+        },
+        // { title: 'Ghi chú', subItems: ['Đơn đang giao', 'Đơn hủy']},
         // { title: 'Thêm' },
         // { title: 'Xóa' },
         { title: 'Thống kê',

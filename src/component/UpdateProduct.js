@@ -81,7 +81,7 @@ function UpdateProduct({ id_product, handleModalClose, getAllProducts, getCatego
         formData.append('id_brand', parseInt(values.id_brand) || product.id_brand);
         formData.append('id_category', parseInt(values.id_category) || product.id_category);
         formData.append('price', values.price || product.price);
-        formData.append('qty', values.qty || product.qty);
+        formData.append('stock', values.stock || product.stock);
         formData.append('discoust', values.discoust || product.discoust);
         
         if (imageList.length > 0 && imageList[0].originFileObj) {
@@ -132,8 +132,8 @@ function UpdateProduct({ id_product, handleModalClose, getAllProducts, getCatego
                             ))}
                         </Select>
                     </Form.Item>
-                    <Form.Item name="qty" label="Số Lượng">
-                        <Input type='number' placeholder={product.qty} />
+                    <Form.Item name="stock" label="Số Lượng">
+                        <Input type='number' placeholder={product.stock} />
                     </Form.Item>
                     <Form.Item name="discoust" label="Giảm Giá %">
                         <Input type='number' placeholder={parseFloat(product.discoust)} />

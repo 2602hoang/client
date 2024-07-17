@@ -1,11 +1,26 @@
 import React, { useContext, useEffect, useState } from 'react';
-import bg from '../assets/hinh.png';
-import bg1 from '../assets/hinh1.png';
+import bg from '../assets/background.png';
+import bg1 from '../assets/background.png';
 import { notification } from 'antd';
 import { AuthContext } from '../contexts/AuthContextProvider';
 
 function LoginUser() {
     const [check, setCheck] = useState(false);
+    const [checked, setChecked] = useState(false);
+
+    useEffect(() => {
+        // Load remember state from localStorage on component mount
+        const rememberMe = localStorage.getItem('rememberMe') === 'true';
+        setChecked(rememberMe);
+    }, []);
+
+    const handleCheckboxChange = (event) => {
+        const { checked } = event.target;
+        setChecked(checked);
+
+        // Save remember state to localStorage
+        localStorage.setItem('rememberMe', checked.toString());
+    };
 
     useEffect(() => {
         // Ensure useEffect runs only once by providing an empty dependency array
@@ -27,6 +42,13 @@ function LoginUser() {
         const form = e.target;
         const phone = form.phone.value;
         const password = form.password.value;
+        if (phone.length ===0 ||password.length ===0 ) {
+            notification.warning({
+                message: 'Lỗi rỗng',
+                description: `Vui lòng nhập thông tin`,
+            })   
+            return;
+        }
         if (!validatePhone(phone)) {
             notification.warning({
                 message: 'Lỗi SDT',
@@ -52,9 +74,17 @@ function LoginUser() {
                     message: 'Thành công',
                     description: `Đăng nhập thành công! phone ${phone}`,
                 });
-            } else {
+            } 
+            else if(LoginData.success === false && LoginData.message ==='Tài khoản đã bị khóa'){
+                notification.error({
+                    message: 'Thất Bại',
+                    description: 'Tài khoản của bạn đã bị khóa',
+                });
+
+            }
+            else {
                 setErr(LoginData.success === false || LoginData.message === "thông tin không hợp lệ");
-                setTimeout(() => setErr(''), 3000);
+                
                 notification.error({
                     message: 'Thất Bại',
                     description: 'Số ĐT hoặc mật khẩu không đúng, vui lòng thử lại!',
@@ -65,10 +95,10 @@ function LoginUser() {
             // setErr("số ĐT hoặc mật khẩu không đúng, vui lòng thử lại!");
             
             setTimeout(() => setErr(''), 3000);
-            notification.error({
-                message: 'Thất Bại',
-                description: `số ĐT hoặc mật khẩu không đúng, vui lòng thử lại!`,
-            });
+            // notification.error({
+            //     message: 'Thất Bại',
+            //     description: `số ĐT hoặc mật khẩu không đúng, vui lòng thử lại!`,
+            // });
         }
     };
     const HandleRegister = async (e) => {
@@ -77,6 +107,7 @@ function LoginUser() {
         const username = form.username.value;
         const phone = form.phone.value;
         const password = form.password.value;
+        
         if (!validatePhone(phone)) {
             notification.warning({
                 message: 'Lỗi SDT',
@@ -96,7 +127,9 @@ function LoginUser() {
         try {
             const RegisterData = await Register({ username, phone, password });
             if (RegisterData.success) {
+                
                 setErr(RegisterData.message);
+                setCheck(true);
                 setTimeout(() => setErr(''), 3000);
                 notification.success({
                     message: 'Thành công',
@@ -132,20 +165,20 @@ function LoginUser() {
             className="w-full justify-center items-center overflow-hidden h-screen flex"
         >
             {check ? (
-                <div className="max-w-md md:w-full w-3/5 bg-gradient-to-r from-blue-800 to-purple-600 rounded-xl shadow-2xl overflow-hidden p-8 space-y-8">
+                <div className=" w-[350px] bg-gradient-to-r from-blue-800 to-purple-600 rounded-xl shadow-2xl overflow-hidden p-8 space-y-8">
                     <h2 className="text-center text-4xl font-extrabold text-white">Chào Mừng</h2>
                     <p className="text-center text-gray-200">Đăng nhập bằng tài khoản của bạn</p>
                     <form onSubmit={HandleLogin} className="space-y-6">
-                        <div className="relative">
+                        <div className="relative bg-gradient-to-r from-blue-800 to-purple-600">
                             <input
                                 placeholder="0XXX-XXXXXXX"
-                                className="peer h-10 w-full border-b-2 border-gray-300 text-white bg-transparent placeholder-transparent focus:outline-none focus:border-purple-500"
+                                className="peer h-10 w-full bg-gradient-to-r from-blue-800 to-purple-600 border-b-2 border-gray-300 text-white bg-transparent placeholder-transparent focus:outline-none focus:border-purple-500"
                                 required=""
                                 id="phone"
                                 name="phone"
                             />
                             <label
-                                className="absolute left-0 -top-3.5 text-gray-500 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-purple-500 peer-focus:text-sm"
+                                className="absolute left-0 -top-3.5 text-gray-500  text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-purple-500 peer-focus:text-sm"
                                 htmlFor="phone"
                             >
                                 Số điện thoại
@@ -172,6 +205,8 @@ function LoginUser() {
                                 <input
                                     className="form-checkbox h-4 w-4 text-purple-600 bg-gray-800 border-gray-300 rounded"
                                     type="checkbox"
+                                    checked={checked}
+                                 onChange={handleCheckboxChange}
                                 />
                                 <span className="ml-2">Remember me</span>
                             </label>
@@ -183,6 +218,9 @@ function LoginUser() {
                             Đăng Nhập
                         </button>
                     </form>
+                   
+                   
+                   
                     <div className="text-center text-gray-300">
                         Bạn chưa có tài khoản?
                         <a onClick={() => setCheck(false)} className="text-purple-300 hover:underline" href="#">

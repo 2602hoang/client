@@ -30,7 +30,7 @@ function AddProduct({ navigateToList, handleModalClose, getAllProducts,getCatego
         formData.append('id_category', parseInt(values.id_category));
         formData.append('id_brand', parseInt(values.id_brand));
         formData.append('price', values.price);
-        formData.append('qty', values.qty);
+        formData.append('stock', values.stock);
         formData.append('discoust', values.discoust);
         
         if (imageList.length > 0) {
@@ -73,9 +73,10 @@ function AddProduct({ navigateToList, handleModalClose, getAllProducts,getCatego
 
     return (
         
-            <div className='flex font-mono justify-center items-center md:w-full w-full'>
+            <div   className='flex font-mono justify-center items-center md:w-full w-full'>
            { parseInt(userId) === 84 ?(
             <Form
+            data-aos="fade-down"
                 form={form}
                 labelCol={{
                     span: 4,
@@ -124,7 +125,7 @@ function AddProduct({ navigateToList, handleModalClose, getAllProducts,getCatego
                 <Form.Item name="price" label="Giá" rules={[{ required: true, message: 'Vui lòng nhập giá!' }]}>
                     <Input allowClear type="number" />
                 </Form.Item>
-                <Form.Item name="qty" label="Số lượng nhập" rules={[{ required: true, message: 'Vui lòng nhập số lượng!' }]}>
+                <Form.Item name="stock" label="Số lượng nhập" rules={[{ required: true, message: 'Vui lòng nhập số lượng!' }]}>
                     <Input allowClear type="number" />
                 </Form.Item>
                 <Form.Item name="discoust" label="Giảm giá">
@@ -154,7 +155,7 @@ function AddProduct({ navigateToList, handleModalClose, getAllProducts,getCatego
         )
         :
         (
-            <div>(Quản Lý mới thêm được)</div>
+            <div data-aos="fade-down" >(Quản Lý mới thêm được)</div>
         )
         }
         </div>

@@ -7,7 +7,7 @@ import ProgressBar from '../../component/ProgressBar.js'
 function LayoutAdmin({children}) {
   
   return (
-    <div className='overflow-hidden h-auto w-full flex flex-col '>
+    <div className='overflow-hidden w-full flex flex-col  justify-center items-center'>
       <ProgressBar/>
         <HeaderAdmin/>
         

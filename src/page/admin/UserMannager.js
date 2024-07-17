@@ -75,7 +75,7 @@ function UserManager() {
             navigateToList={navigateToList}
              getAllRole={getAllRole} 
              role={role} />
-            <Button type="link" icon={<ExportOutlined style={{ fontSize: '24px' }} />} className='h-12 bg-orange-300 md:w-1/12  justify-center items-center text-center' onClick={navigateToList}>Xem danh sách </Button>
+            <Button data-aos="fade-down" type="link" icon={<ExportOutlined style={{ fontSize: '24px' }} />} className='h-12 bg-orange-300 md:w-2/12  justify-center items-center text-center' onClick={navigateToList}>Xem danh sách </Button>
 
         </div>);
         // case 'Xóa':
@@ -92,7 +92,7 @@ function UserManager() {
     <LayoutAdmin>
         <div className='flex flex-row mt-[65px] w-full md:mt-0'>
             {/* menu */}
-            <div className={`min-h-screen flex-col flex ${menuVisible ? 'md:w-1/5 w-full' : 'w-[60px]'} transition-all duration-500`}>
+            <div className={`min-h-screen flex-col flex ${menuVisible ? 'md:w-2/5 w-full' : 'w-[60px]'} transition-all duration-500`}>
             <NavabarUser menuVisible={menuVisible} 
             toggleMenu={toggleMenu}
             

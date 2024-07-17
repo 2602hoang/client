@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import LayoutAdmin from '../layout/LayoutAdmin'
 import NavabarOrder from '../../component/NavabarOrder'
+import OrderManagerList from '../../component/OrderManagerList';
+import OrderfinishedManager from '../../component/OrderfinishedManager';
+import ThongkeOrderThanhCong from '../../component/thongke/ThongkeOrderThanhCong';
 
 function OrderManager() {
     const [menuVisible, setMenuVisible] = useState(false);
@@ -16,31 +19,38 @@ function OrderManager() {
             [index]: !prevState[index],
         }));
     };
+    const navigateToList = () => {
+      setActiveMenuItem('Danh sách cần xử lý');
+    };
     const renderContent = () => {
         switch (activeMenuItem) {
-          case 'Danh sách':
-            return (<div className='text-center text-5xl font-black'>
-              <h1>Danh sách Đơn Hàng</h1>
-                {/* <ListProduct/> */}
-    
+          case 'Danh sách cần xử lý':
+            return (<div className='text-center text-3xl md:text-4xl w-full font-black '>
+              <h1>Danh sách Đơn Hàng Chờ Xác Nhận</h1>
+              <OrderManagerList navigateToList={navigateToList}/>
             </div>);
-          case 'Chỉnh sửa':
-            return <h1 className='text-center text-5xl font-black'>Chỉnh sửa</h1>;
-          case 'Ghi chú':
-        //     return <h1 className='text-center text-5xl font-black'>Thêm</h1>;
-        //   case 'Xóa':
-            return <h1 className='text-center text-5xl font-black'>Ghi chú</h1>;
+            case 'Hoàn thành trạng thái đơn':
+              return (<div className='text-center text-3xl md:text-4xl w-full font-black '>
+                 <h1>Hoàn thành trạng thái đơn</h1>
+                <OrderfinishedManager/>
+              </div>);
           case 'Thống kê':
-            return <h1 className='text-center text-5xl font-black'>Thống kê</h1>;
+            return (<div className='text-center text-3xl md:text-4xl w-full font-black '>
+            <h1 className='text-3xl font-bold text-center text-red-500 uppercase my-4'>Thông Kê Doanh Số</h1>
+            <ThongkeOrderThanhCong/>
+            </div>);
           default:
-            return <h1 className='text-center text-5xl font-black'>Danh sách Đơn Hàng</h1>;
+            return (<div className='text-center text-3xl md:text-4xl w-full font-black '>
+              <h1>Danh sách Đơn Hàng Chờ Xác Nhận</h1>
+              <OrderManagerList/>
+            </div>);
         }
       };
     return (
         <LayoutAdmin>
             <div className='flex flex-row mt-[65px] w-full md:mt-0'>
 
-                <div className={`min-h-screen flex-col flex ${menuVisible ? 'md:w-1/5 w-2/3' : 'w-[60px]'} transition-all duration-500`}>
+                <div className={`min-h-screen flex-col flex ${menuVisible ? 'md:w-2/5 w-full' : 'w-[60px]'} transition-all duration-500`}>
 
                     <NavabarOrder 
                     setActiveMenuItem={setActiveMenuItem}
@@ -48,7 +58,7 @@ function OrderManager() {
                         toggleMenu={toggleMenu} subMenuVisible={subMenuVisible}
                         toggleSubMenu={toggleSubMenu} />
                 </div>
-                <div className={`min-h-screen  flex-col flex ${menuVisible ? 'w-0 md:w-4/5' : 'w-full'} transition-all duration-500`}>
+                <div className={`min-h-screen  flex-col flex ${menuVisible ? 'w-0 md:w-4/5 hidden md:block' : 'w-full'} transition-all duration-500`}>
                {renderContent()}
                 </div>
 

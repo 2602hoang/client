@@ -11,6 +11,10 @@ import axios from 'axios';
 import { URL } from '../../url';
 // import Search from 'antd/es/transfer/search';
 import { AuthContext } from '../../contexts/AuthContextProvider';
+import SaleProduct from './SaleProduct';
+import Thongkeluotbanproduct from '../../component/thongke/Thongkeluotbanproduct';
+import ThongkehoanProduct from '../../component/thongke/ThongkehoanProduct';
+import Thongkestockproduct from '../../component/thongke/Thongkestockproduct';
 
 function ProductMannager({id_role}) {
   const [menuVisible, setMenuVisible] = useState(false);
@@ -82,6 +86,7 @@ function ProductMannager({id_role}) {
 
 
             <ListProduct categories={categories} brands={brands} getCategories={getCategories} getBrands={getBrands} />
+            {/* <SaleProduct/> */}
           </div>
         </div>);
       case 'Chỉnh sửa':
@@ -90,12 +95,48 @@ function ProductMannager({id_role}) {
         return (<div className='text-center justify-center items-center overflow-hidden  flex-col flex text-5xl font-black w-full space-y-4 mb-4'>
           <h1 className='mb-8'>Thêm  Sản Phẩm</h1>
           <AddProduct categories={categories} brands={brands} getCategories={getCategories} getBrands={getBrands} navigateToList={navigateToList} />
-          <Button type="link" icon={<ExportOutlined style={{ fontSize: '24px' }} />} className='h-12 bg-orange-300 md:w-1/12  justify-center items-center text-center' onClick={navigateToList}>Xem danh sách </Button>
+          <Button  data-aos="fade-down" type="link" icon={<ExportOutlined style={{ fontSize: '24px' }} />} className='h-12 bg-orange-300 md:w-2/12  justify-center items-center text-center' onClick={navigateToList}>Xem danh sách </Button>
         </div>);
       case 'Xóa':
         return <h1 className='text-center text-5xl font-black'>Xóa</h1>;
       case 'Thống kê':
-        return <h1 className='text-center text-5xl font-black'>Thống kê</h1>;
+        return  <div className='flex-col  flex  md:w-full md:mt-5 mt-[70px] md:overflow-x-hidden overflow-x-scroll  items-center mb-5 snap-y snap-mandatory h-screen overflow-scroll  '>
+        <h1 className='text-3xl font-bold text-center text-red-500 uppercase my-4'>Báo Cáo Thông Kê Sản Phẩm Shop</h1>
+        {/* <div className='flex justify-center items-center flex- row mt-6 space-x-5 min-h-screen'>
+        <div>
+          Sản Phẩm
+        </div>
+        <div>
+         Tài Khoản
+        </div>
+        <div>
+          Đơn Hàng
+        </div>
+        </div> */}
+       
+
+        <section >
+          <div className='snap-center flex justify-center container  items-center px-10 flex-col w-full  h-screen'>
+        <h1  className='text-3xl font-bold text-center '>Sơ đồ tổng số lượng bán theo từng sản phẩm</h1>
+        <Thongkeluotbanproduct/>
+        </div>
+        </section>
+
+        <section >
+          <div className='snap-center container  flex justify-center mt-[20px]  items-center px-10 flex-col w-full  h-screen'>
+        <h1 className='text-3xl font-bold text-center '>Sơ đồ tổng số lượng sản phẩm đang treo</h1>
+        <ThongkehoanProduct/>
+        </div>
+        </section>
+
+
+        <section >
+          <div className='snap-center container  flex justify-center mt-[60px] items-center px-10 flex-col w-full  h-[100vh]'>
+        <h1 className='text-3xl font-bold text-center '>Sơ đồ Sản phẩm có lượt tồn kho dưới 123 sản phẩm</h1>
+        <Thongkestockproduct/>
+        </div>
+        </section>
+      </div>;
       default:
         return <h1 className='text-center text-5xl font-black'>Danh sách</h1>;
     }
@@ -105,7 +146,7 @@ function ProductMannager({id_role}) {
     <LayoutAdmin>
       <div className='flex flex-row mt-[65px] w-full md:mt-0'>
 
-        <div className={`min-h-screen flex-col flex ${menuVisible ? 'md:w-1/5 w-full' : 'w-[60px]'} transition-all duration-500`}>
+        <div className={`min-h-screen flex-col flex ${menuVisible ? 'md:w-2/5 w-full' : 'w-[60px]'} transition-all duration-500`}>
           <NavabarPoduct
             menuVisible={menuVisible}
             setActiveMenuItem={setActiveMenuItem}

@@ -57,9 +57,10 @@ function AddUser({ getAllRole, role}) {
 
     const handleImageChange = ({ fileList }) => setImageList(fileList);
   return (
-    <div className='flex font-mono justify-center items-center md:w-full w-full'>
+    <div   className='flex font-mono justify-center items-center md:w-full w-full'>
         {parseInt(userId) === 84 ?(
              <Form
+             data-aos="fade-down"
              form={form}
              labelCol={{ span: 4 }}
              wrapperCol={{ span: 14 }}
