@@ -55,6 +55,7 @@ function Cart({cart}) {
       try {
         const respone = await axios.post(`${URL}api/v1/order/add`, orderData, {
           headers: {
+            Authorization: `Bearer ${userToken}`,
             'Content-Type': 'application/json'
           }
   

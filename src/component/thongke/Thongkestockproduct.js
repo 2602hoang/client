@@ -1,16 +1,24 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { URL } from '../../url';
 import axios from 'axios';
 import { Pie } from '@ant-design/charts';
 import CountUp from 'react-countup';
+import { AuthContext } from '../../contexts/AuthContextProvider';
 
 function Thongkestockproduct() {
     const [productstock, setProductstock] = useState([]);
 
     const [dem,setDem] = useState(0)
+    const {userToken} = useContext(AuthContext);
     const getProductStock = async () => {
       try {
-        const response = await axios.get(`${URL}api/v1/thongke/product/stock`);
+        const response = await axios.get(`${URL}api/v1/thongke/product/stock`,
+          {
+            headers: {
+              Authorization: `Bearer ${userToken}`
+            },
+          }
+        );
         setProductstock(response.data.rows);
         setDem(response.data.count)
       } catch (error) {
@@ -20,7 +28,7 @@ function Thongkestockproduct() {
   
     useEffect(() => {
       getProductStock();
-    }, []);
+    }, [userToken]);
   
     
   

@@ -1,5 +1,5 @@
 import { Button, Form, Input, message, Modal, notification, Popconfirm, Space, Table, Tag, Tooltip } from 'antd'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { URL } from '../url';
 import axios from 'axios';
 import { formatCurrency, formattedTimestamp } from '../untils';
@@ -7,6 +7,7 @@ import TextArea from 'antd/es/input/TextArea';
 import { InfoCircleFilled } from '@ant-design/icons';
 import ParentComponent from './ParentComponent';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../contexts/AuthContextProvider';
 // import Search from 'antd/es/transfer/search';
 const { Search } = Input;
 
@@ -30,11 +31,18 @@ function OrderfinishedManager() {
     const [open1, setOpen1] = useState(false);
     const [open2, setOpen2] = useState(false);
     const [notePays, setNotePays] = useState('');
+    const {userToken}=useContext(AuthContext);
     const showModal = async (id_order) => {
         setSelectedOrderId(id_order);
         setOpen(true);
         try {
-            const response = await axios.get(`${URL}api/v1/order/getonebyOrderId/${id_order}`);
+            const response = await axios.get(`${URL}api/v1/order/getonebyOrderId/${id_order}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${userToken}`
+                    },
+                }
+            );
             setSelectedOrderDetails(response.data.order);
         } catch (error) {
             console.error(error);
@@ -92,7 +100,13 @@ function OrderfinishedManager() {
 
     const getOrders = async () => {
         try {
-            const response = await axios.get(`${URL}api/v1/order/getall/status1/idpay25`);
+            const response = await axios.get(`${URL}api/v1/order/getall/status1/idpay25`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${userToken}`
+                    },
+                }
+            );
 
             const ordersWithKeys = response.data.order.map((order, index) => ({
                 ...order,
@@ -110,7 +124,7 @@ function OrderfinishedManager() {
 
     useEffect(() => {
         getOrders(); // Call getOrders initially and whenever id_pay changes
-    }, []);
+    }, [userToken]);
     useEffect(() => {
         // Apply filters when filterConfirmed or filterNotConfirmed changes
         let filtered = orders;
@@ -128,7 +142,7 @@ function OrderfinishedManager() {
         }
 
         setFilterOrders(filtered);
-    }, [orders, filterConfirmed, filterNotConfirmed, searchTerm ,filterAll]);
+    }, [userToken,orders, filterConfirmed, filterNotConfirmed, searchTerm ,filterAll]);
 
     const countItemsByIdSP = (selectedOrderDetails) => {
         const countMap = {};
@@ -165,7 +179,11 @@ function OrderfinishedManager() {
 
     const hendleXacnhan = async (selectedOrderId) => {
         try {
-            await axios.put(`${URL}api/v1/order/finished2/${selectedOrderId}`);
+            await axios.put(`${URL}api/v1/order/finished2/${selectedOrderId}`,{
+                headers: {
+                    Authorization: `Bearer ${userToken}`
+                },
+            });
             notification.success({
                 message: `Xác nhận đơn hàng thành công ${selectedOrderId}`,
             });
@@ -178,7 +196,13 @@ function OrderfinishedManager() {
 
     const hendleThatBai = async (selectedOrderId) => {
         try {
-            await axios.put(`${URL}api/v1/order/finished3/${selectedOrderId}`);
+            await axios.put(`${URL}api/v1/order/finished3/${selectedOrderId}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${userToken}`
+                    },
+                }
+            );
             notification.success({
                 message: `Xác nhận đơn hàng thành công ${selectedOrderId}`,
             });
@@ -191,7 +215,13 @@ function OrderfinishedManager() {
 
     const handleHuy = async (selectedOrderId) => {
         try {
-            await axios.put(`${URL}api/v1/order/finished5/${selectedOrderId}`);
+            await axios.put(`${URL}api/v1/order/finished5/${selectedOrderId}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${userToken}`
+                    },
+                }
+            );
             notification.success({
                 message: `Hủy đơn hàng thành công ${selectedOrderId}`,
             });

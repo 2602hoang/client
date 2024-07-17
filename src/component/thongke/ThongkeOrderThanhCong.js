@@ -1,21 +1,28 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { URL } from '../../url';
 import { Button, Card, Modal, Statistic } from 'antd';
 import { ArrowDownOutlined, ArrowUpOutlined, InfoCircleFilled } from '@ant-design/icons';
 import CountUp from 'react-countup';
 import { Column, Pie } from '@ant-design/charts';
 import { type } from '@testing-library/user-event/dist/type';
+import { AuthContext } from '../../contexts/AuthContextProvider';
 
 function ThongkeOrderThanhCong() {
   const [orderTC, setOrderTC] = useState({});
   const [orderHuy, setOrderHuy] = useState({});
   const [orderThatBai, setOrderThatBai] = useState({});
   const [open, setOpen] = useState(false);
-
+  const {userToken} = useContext(AuthContext);
   const getOrderThanhCong = async () => {
     try {
-      const response = await axios.get(`${URL}api/v1/thongke/order/thanhcong`);
+      const response = await axios.get(`${URL}api/v1/thongke/order/thanhcong`,
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`
+          },
+        }
+      );
       setOrderTC(response.data);
     } catch (error) {
       console.error(error);
@@ -24,7 +31,13 @@ function ThongkeOrderThanhCong() {
 
   const getOrderHuy = async () => {
     try {
-      const response = await axios.get(`${URL}api/v1/thongke/order/huy`);
+      const response = await axios.get(`${URL}api/v1/thongke/order/huy`,
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`
+          },
+        }
+      );
       setOrderHuy(response.data);
     } catch (error) {
       console.error(error);
@@ -33,7 +46,13 @@ function ThongkeOrderThanhCong() {
 
   const getOrderThatBai = async () => {
     try {
-      const response = await axios.get(`${URL}api/v1/thongke/order/thatbai`);
+      const response = await axios.get(`${URL}api/v1/thongke/order/thatbai`,
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`
+          },
+        }
+      );
       setOrderThatBai(response.data);
     } catch (error) {
       console.error(error);
@@ -44,7 +63,7 @@ function ThongkeOrderThanhCong() {
     getOrderHuy();
     getOrderThatBai();
     getOrderThanhCong();
-  }, []);
+  }, [userToken]);
 
   const totalPriceTC = orderTC.totalRevenue || 0;
   const totalQuantityTC = orderTC.totalQuantity || 0;

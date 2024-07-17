@@ -6,11 +6,17 @@ import { formatCurrency, formattedTimestamp } from '../untils'
 
 function Listorder({ selectedOrderId }) {
     const [order, setOrder] = useState([])
-  const {userId} = useContext(AuthContext)
+  const {userId,userToken} = useContext(AuthContext)
 
   const getOneOrders = async () => {
     try {
-      const response = await axios.get(`${URL}api/v1/order/getone/${userId}&${selectedOrderId}`)
+      const response = await axios.get(`${URL}api/v1/order/getone/${userId}&${selectedOrderId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`
+          },
+        }
+      )
       setOrder(response.data.order)
     } catch (error) {
       console.error(error)
@@ -20,7 +26,7 @@ function Listorder({ selectedOrderId }) {
     if (selectedOrderId) {
         getOneOrders();
     }
-  }, [selectedOrderId,userId])
+  }, [selectedOrderId,userId,userToken])
 //   console.log(order);
   const countItemsByIdSP = (orders) => {
     if (!Array.isArray(orders)) {

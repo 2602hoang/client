@@ -1,16 +1,23 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { URL } from '../../url';
 import { Column } from '@ant-design/charts';
 import CountUp from 'react-countup';
+import { AuthContext } from '../../contexts/AuthContextProvider';
 
 function ThongkehoanProduct() {
 
     const [productNoSales, setProductNoSales] = useState([]);
     const [totalQuantity, setTotalQuantity] = useState(0);
+    const {userToken} = useContext(AuthContext);
     const getProductNoSales = async () => {
         try {
-            const response = await axios.get(`${URL}api/v1/thongke/product/nosales`);
+            const response = await axios.get(`${URL}api/v1/thongke/product/nosales`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${userToken}`
+                    }}
+            );
             setProductNoSales(response.data);
             const total = calculateTotalQuantity(response.data);
             setTotalQuantity(total);
@@ -21,7 +28,7 @@ function ThongkehoanProduct() {
 
     useEffect(() => {
         getProductNoSales();
-    }, []);
+    }, [userToken]);
     const calculateTotalQuantity = (productSales) => {
         // Tính tổng số lượng sản phẩm bán ra từ dữ liệu fetched
         const total = productSales.reduce((sum, item) => sum + item.so_luong, 0);

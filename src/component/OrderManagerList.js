@@ -1,5 +1,5 @@
 import { Button, Form, Input, message, Modal, notification, Popconfirm, Space, Table, Tag, Tooltip } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { URL } from '../url';
 import axios from 'axios';
 import { formatCurrency, formattedTimestamp } from '../untils';
@@ -7,6 +7,7 @@ import TextArea from 'antd/es/input/TextArea';
 import { InfoCircleFilled } from '@ant-design/icons';
 import ParentComponent from './ParentComponent';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../contexts/AuthContextProvider';
 
 const { Search } = Input;
 function OrderManagerList({navigateToList}) {
@@ -21,12 +22,18 @@ function OrderManagerList({navigateToList}) {
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
   const [activeTag, setActiveTag] = useState('all');
-
+  const {userToken} = useContext(AuthContext);
   const showModal = async (id_order) => {
     setSelectedOrderId(id_order);
     setOpen(true);
     try {
-      const response = await axios.get(`${URL}api/v1/order/getonebyOrderId/${id_order}`);
+      const response = await axios.get(`${URL}api/v1/order/getonebyOrderId/${id_order}`,
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`
+          },
+        }
+      );
       setSelectedOrderDetails(response.data.order);
     } catch (error) {
       console.error(error);
@@ -64,7 +71,13 @@ function OrderManagerList({navigateToList}) {
 
   const getOrders = async () => {
     try {
-      const response = await axios.get(`${URL}api/v1/order/getall/status1`);
+      const response = await axios.get(`${URL}api/v1/order/getall/status1`,
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`
+          },
+        }
+      );
       const ordersWithKeys = response.data.order.map((order, index) => ({
         ...order,
         key: index + 1,
@@ -77,7 +90,7 @@ function OrderManagerList({navigateToList}) {
 
   useEffect(() => {
     getOrders(); // Call getOrders initially and whenever id_pay changes
-  }, []);
+  }, [userToken]);
 
   useEffect(() => {
     let filtered = orders;
@@ -89,7 +102,7 @@ function OrderManagerList({navigateToList}) {
       filtered = orders.filter(order => order.user.phone.toString().includes(searchTerm));
     }
     setFilteredOrders(filtered);
-  }, [orders, activeTag, searchTerm]);
+  }, [userToken,orders, activeTag, searchTerm]);
 
   const countItemsByIdSP = (selectedOrderDetails) => {
     const countMap = {};

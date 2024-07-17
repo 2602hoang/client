@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import LayoutAdmin from '../layout/LayoutAdmin'
 
 import { Button, } from 'antd';
@@ -73,10 +73,10 @@ function ProductMannager({id_role}) {
   };
   
 
-  // useEffect(() => {
-  //   getCategories();
-  //   getBrands();
-  // }, [userToken]);
+  useEffect(() => {
+    getCategories();
+    getBrands();
+  }, [userToken]);
   const renderContent = () => {
     switch (activeMenuItem) {
       case 'Danh sách':

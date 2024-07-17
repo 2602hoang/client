@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { URL } from '../../url';
 import axios from 'axios';
 import { Column, Pie } from '@ant-design/charts';
 import CountUp from 'react-countup';
 import { Button, DatePicker } from 'antd';
 import { formatCurrency } from '../../untils';
+import { AuthContext } from '../../contexts/AuthContextProvider';
 
 function ThongkeUser() {
   const [totalUser, setTotalUser] = useState(0);
@@ -15,6 +16,7 @@ function ThongkeUser() {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
 
+  const { userToken } = useContext(AuthContext);
   const handleDateChange = (dates) => {
     if (dates && dates.length === 2) {
       setStartDate(dates[0]);
@@ -29,7 +31,14 @@ function ThongkeUser() {
           start_date: start ? start.format('YYYY-MM-DD') : null,
           end_date: end ? end.format('YYYY-MM-DD') : null
         }
-      });
+      }
+    ,
+    {
+      headers: {
+        Authorization: `Bearer ${userToken}`
+      },
+    }
+  );
       setUsersWithMostOrders(response.data);
     } catch (error) {
       console.error(error);
@@ -39,7 +48,13 @@ function ThongkeUser() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${URL}api/v1/thongke/user/all`);
+        const response = await axios.get(`${URL}api/v1/thongke/user/all`,
+          {
+            headers: {
+              Authorization: `Bearer ${userToken}`
+            },
+          }
+        );
         setTotalUser(response.data.totalUsers);
         setTotalUserActive(response.data.activeUsers);
         setTotalUserNotActive(response.data.inactiveUsers);
@@ -49,7 +64,7 @@ function ThongkeUser() {
     };
 
     fetchData();
-  }, []);
+  }, [userToken]);
 
   useEffect(() => {
     const today = new Date();
@@ -61,7 +76,7 @@ function ThongkeUser() {
     endOfWeek.setHours(23, 59, 59, 999);
 
     getUserLimit(startOfWeek, endOfWeek);
-  }, []);
+  }, [userToken]);
 
   const ACTIVE = Math.round((totalUserActive / totalUser) * 100);
   const NOT_ACTIVE = Math.round((totalUserNotActive / totalUser) * 100);

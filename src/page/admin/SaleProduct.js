@@ -17,6 +17,7 @@ function SaleProduct() {
     const [selectedBrand, setSelectedBrand] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedProduct, setSelectedProduct] = useState(null);
+    const {userToken} = useContext(AuthContext);
     useEffect(() => {
       const getData = async () => {
         try {
@@ -24,7 +25,11 @@ function SaleProduct() {
             axios.get(`${URL}api/v1/product/getall`),
             axios.get(`${URL}api/v1/brand/getall`),
             axios.get(`${URL}api/v1/category/getall`)
-          ]);
+          ],{
+            headers: {
+              Authorization: `Bearer ${userToken}`
+            },
+          });
           setProducts(productResponse.data);
           setBrands(brandResponse.data);
           setCategories(categoryResponse.data);
@@ -52,7 +57,7 @@ function SaleProduct() {
       }
   
       setFilteredProducts(filtered);
-    }, [selectedCategory, selectedBrand, searchTerm, products]);
+    }, [userToken,selectedCategory, selectedBrand, searchTerm, products]);
   
     const handleSearch = useCallback((value) => {
       setSearchTerm(value.trim());

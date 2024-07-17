@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import LayoutAdmin from '../layout/LayoutAdmin'
 import NavabarOrder from '../../component/NavabarOrder'
 import OrderManagerList from '../../component/OrderManagerList';
@@ -10,6 +10,7 @@ import Search from 'antd/es/input/Search';
 import ParentComponent from '../../component/ParentComponent';
 import TextArea from 'antd/es/input/TextArea';
 import { formatCurrency, formattedTimestamp } from '../../untils';
+import { AuthContext } from '../../contexts/AuthContextProvider';
 
 function ListOrderManager() {
   
@@ -23,12 +24,18 @@ function ListOrderManager() {
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
   const [activeTag, setActiveTag] = useState('all');
-
+  const {userToken} = useContext(AuthContext);
   const showModal = async (id_order) => {
     setSelectedOrderId(id_order);
     setOpen(true);
     try {
-      const response = await axios.get(`${URL}api/v1/order/getonebyOrderId/${id_order}`);
+      const response = await axios.get(`${URL}api/v1/order/getonebyOrderId/${id_order}`,
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`
+          },
+        }
+      );
       setSelectedOrderDetails(response.data.order);
     } catch (error) {
       console.error(error);
@@ -66,7 +73,11 @@ function ListOrderManager() {
 
   const getOrders = async () => {
     try {
-      const response = await axios.get(`${URL}api/v1/order/getall`);
+      const response = await axios.get(`${URL}api/v1/order/getall`,{
+        headers: {
+          Authorization: `Bearer ${userToken}`
+        },
+      });
       const ordersWithKeys = response.data.order.map((order, index) => ({
         ...order,
         key: index + 1,
@@ -79,7 +90,7 @@ function ListOrderManager() {
 
   useEffect(() => {
     getOrders(); // Call getOrders initially and whenever id_pay changes
-  }, []);
+  }, [userToken]);
 
   useEffect(() => {
     let filtered = orders;
@@ -122,7 +133,11 @@ function ListOrderManager() {
 
   const handleNote = async (id_order) => {
     try {
-      await axios.put(`${URL}api/v1/order/add/note/${id_order}`, { note_pays: notePays });
+      await axios.put(`${URL}api/v1/order/add/note/${id_order}`, { note_pays: notePays },
+        {
+           Authorization: `Bearer ${userToken}`
+        }
+      );
       // nav('/ordermanager');
       notification.success({
         message: `Ghi chú đơn hàng ${id_order}`,
