@@ -21,7 +21,7 @@ function ListOrder() {
   const [open, setOpen] = useState(false);
   const [activeTag, setActiveTag] = useState('all');
 
-  const {userId} = useContext(AuthContext);
+  const {userId,userToken} = useContext(AuthContext);
   const showModal = async (id_order) => {
     setSelectedOrderId(id_order);
     setOpen(true);
@@ -49,7 +49,14 @@ function ListOrder() {
 
   const getOrders = async () => {
     try {
-      const response = await axios.get(`${URL}api/v1/order/getone1/status1/${userId}`);
+      const response = await axios.get(`${URL}api/v1/order/getone1/status1/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`
+          },
+        }
+
+      );
       const ordersWithKeys = response.data.order.map((order, index) => ({
         ...order,
         key: index + 1,
@@ -62,7 +69,7 @@ function ListOrder() {
 
   useEffect(() => {
     getOrders(); // Call getOrders initially and whenever id_pay changes
-  }, [userId]);
+  }, [userToken,userId]);
 
   useEffect(() => {
     let filtered = orders;

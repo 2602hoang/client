@@ -22,7 +22,7 @@ function OrderManagerList({navigateToList}) {
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
   const [activeTag, setActiveTag] = useState('all');
-  const {userToken} = useContext(AuthContext);
+  const {userToken,} = useContext(AuthContext);
   const showModal = async (id_order) => {
     setSelectedOrderId(id_order);
     setOpen(true);
@@ -184,8 +184,10 @@ function OrderManagerList({navigateToList}) {
   };
 
 
-  return (
+  return (<div>
+    
     <div className='flex flex-col w-full h-auto min-h-screen my-9 font-mono'>
+      
     <div data-aos="fade-down" className='flex flex-col md:w-full justify-center items-center my-4'>
       <ul className='[&:hover>li]:opacity-10 w-full md:flex font-mono flex-col md:flex-row md:space-x-7 my-2 justify-center items-center gap-3'>
         <div className='flex flex-row justify-center items-center font-mono space-x-3'>
@@ -293,6 +295,7 @@ function OrderManagerList({navigateToList}) {
         </table>
       </div>
     </div>
+    
 
     {/* Order Details Modal */}
     <Modal
@@ -371,7 +374,8 @@ function OrderManagerList({navigateToList}) {
       </Form>
     </Modal>
   </div>
-  )
+   
+  </div>)
 }
 
 export default OrderManagerList

@@ -13,7 +13,7 @@ import OrderErorr from '../../component/OrderErorr'
 
 function Order() {
   const navigate = useNavigate();
-  const { userId } = useContext(AuthContext);
+  const { userId,useToken } = useContext(AuthContext);
   const [list, setList] = useState([]);
   // const [orderId, setOrderId] = useState([]);
   const [order, setOrder] = useState([]);
@@ -36,7 +36,12 @@ function Order() {
   };
   const getOrders = async () => {
     try {
-      const response = await axios.get(`${URL}api/v1/order/status/0/${userId}`);
+      const response = await axios.get(`${URL}api/v1/order/status/0/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${useToken}`,}
+        }
+      );
       // console.log("API Response:", response.data); 
 
       if (response.data.success) {
@@ -65,7 +70,7 @@ function Order() {
   // };
   useEffect(() => {
     getOrders();
-  }, [userId]);
+  }, [userId,useToken]);
   // console.log(list);
   const countItemsById = (id_product) => {
     let count = 0;

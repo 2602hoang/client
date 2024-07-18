@@ -14,6 +14,7 @@ import PayErorr from '../../component/PayErorr.js';
 import dayjs from 'dayjs';
 import 'dayjs/locale/vi';
 import Erorr from '../../component/Erorr.js';
+import { AuthContext } from '../../contexts/AuthContextProvider.js';
 dayjs.locale('vi');
 
 const dateFormat = 'DD/MM/YYYY';
@@ -23,10 +24,10 @@ function Pay() {
   let [searchParams, setSearchParams] = useSearchParams()
   const orderId = searchParams.get('orderId');
   const userId = searchParams.get('userId');
-
-  console.log(userId, orderId);
+ 
+  // console.log(userId, orderId);
   const [check, setCheck] = useState('');
-  
+  const {useToken}=useContext(AuthContext);
   const [orderpay, setOrderpay] = useState([]);
  
   const getOrderPay = async () => {
@@ -41,8 +42,9 @@ function Pay() {
       const response = await axios.get(`${URL}api/v1/order/getone/${userId}&${orderId}`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,}
+            Authorization: `Bearer ${useToken}`
         }
+      }
       );
 
       setOrderpay(response.data.order);
@@ -56,7 +58,7 @@ function Pay() {
 
     getOrderPay();
 
-  }, [orderId, userId]);
+  }, [useToken,orderId, userId]);
   console.table(orderpay.map(order => order.id_order));
   // const [value1, setValue1] = useState(0);
 
@@ -119,7 +121,7 @@ function Pay() {
     return loca;
   }
   const loca = getLocation();
-  {console.log(loca)}
+  // {console.log(loca)}
   
   const payOrders = async () => {
     try {
@@ -130,7 +132,12 @@ function Pay() {
           id_adress : loca,
           status :1
         }
-      );
+      ,{
+        headers: {
+          Authorization: `Bearer ${useToken}`
+        }
+      }
+    );
       nav('/orderlist');
       setSearchParams((prevParams) => {
         const newParams = new URLSearchParams(prevParams);

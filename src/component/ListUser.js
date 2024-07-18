@@ -55,7 +55,24 @@ function ListUser({ getAllRole, role }) {
             });
             notification.warning({
                 message: 'Thành công',
-                description: `Xóa tài khoản thành công! ID: ${id_user}`,
+                description: `Khóa tài khoản thành công! ID: ${id_user}`,
+            });
+            getAllUser(); // Refresh the user list after deletion
+        } catch (error) {
+            console.error('Error deleting user:', error);
+        }
+    };
+    const handleDelete1 = async (id_user) => {
+        try {
+            const token = userToken;
+            await axios.put(`${URL}api/v1/user/delete1/${id_user}`, null, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            notification.warning({
+                message: 'Thành công',
+                description: `Hoạt động khoản thành công! ID: ${id_user}`,
             });
             getAllUser(); // Refresh the user list after deletion
         } catch (error) {
@@ -154,9 +171,10 @@ function ListUser({ getAllRole, role }) {
                                             <button className="font-semibold text-sm text-green-700">Sửa</button>
                                         </Popconfirm>
                                     </div>
-                                    <div className="flex gap-2 text-gray-600 hover:scale-110 duration-200 hover:cursor-pointer">
+                                    {user.status === false ?
+                                   ( <div className="flex gap-2 text-gray-600 hover:scale-110 duration-200 hover:cursor-pointer">
                                         <Popconfirm
-                                            title={<h3 className='w-60'>Bạn muốn xóa "{user.username}" ?</h3>}
+                                            title={<h3 className='w-60'>Bạn muốn cho người dùng "{user.username}" nghỉ ?</h3>}
                                             onConfirm={() => handleDelete(user.id_user)}
                                             icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
                                         >
@@ -168,7 +186,23 @@ function ListUser({ getAllRole, role }) {
                                             </svg>
                                             <button className="font-semibold text-sm text-red-700">Nghỉ</button>
                                         </Popconfirm>
-                                    </div>
+                                    </div>):
+                                    (<div className="flex flex-col gap-2 text-gray-600 hover:scale-110 duration-200 hover:cursor-pointer justify-center items-center text-center">
+                                        <Popconfirm
+                                            title={<h3 className='w-60'>Bạn muốn cho người dùng "{user.username}" hoạt động lại ?
+                                            </h3>}
+                                             onConfirm={() => handleDelete1(user.id_user)}
+                                            icon={<QuestionCircleOutlined style={{ color: 'blue' }} />}
+                                        >
+                                            <div className='flex flex-col items-center justify-center gap-4 '>
+                                            <svg className="w-6 stroke-blue-700 flex" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <path d="M16 7a4 4 0 0 1-8 0 4 4 0 0 1 8 0zM12 14a7 7 0 0 0-7 7h14a7 7 0 0 0-7-7z"></path>
+                                            </svg>
+                                            <button className="flex  font-semibold text-sm text-blue-700">Hoạt động lại</button>
+                                            </div>
+                                        </Popconfirm>
+                                    </div>)
+                                        }
                                 </div>
                                 <Modal
                                     title={<h1 className='text-center text-4xl font-bold border-b-2 pb-4'>Chỉnh Sửa Người Dùng</h1>}

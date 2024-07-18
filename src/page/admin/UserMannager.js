@@ -16,7 +16,7 @@ function UserManager() {
     const [subMenuVisible, setSubMenuVisible] = useState({});
     const [activeMenuItem, setActiveMenuItem] = useState('Danh sách');
 
-    const {userToken} = useContext(AuthContext);
+    const {userToken,userId} = useContext(AuthContext);
     // console.log(userToken); 
     
     const [role, setRole] = useState([]);
@@ -90,6 +90,7 @@ function UserManager() {
  
   return (
     <LayoutAdmin>
+        {parseInt(userId) === 84 ? (
         <div className='flex flex-row mt-[65px] w-full md:mt-0'>
             {/* menu */}
             <div className={`min-h-screen flex-col flex ${menuVisible ? 'md:w-2/5 w-full' : 'w-[60px]'} transition-all duration-500`}>
@@ -105,7 +106,12 @@ function UserManager() {
              {renderContent()}
             </div>
 
+        </div>)
+        :
+        <div className='flex justify-center items-center min-h-screen'>
+          <h1 className='text-3xl font-bold text-center text-red-500 uppercase my-4'>bạn Không có quyền truy cập</h1>
         </div>
+        }
     </LayoutAdmin>
   )
 }
