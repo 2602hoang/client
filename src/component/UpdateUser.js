@@ -49,10 +49,11 @@ function UpdateUser({ id_user, getAllUser, handleModalClose ,role ,getAllRole })
     const handleUpdate = async (formData) => {
         try {
             const token = userToken;
-            const response = await axios.put(`${URL}api/v1/user/update/${id_user}`, formData, {
+             await axios.put(`${URL}api/v1/user/update/${id_user}`, formData, {
                 headers: { 
                     'Authorization': `Bearer ${token}`, 
-                    'Content-Type': 'multipart/form-data' }
+                    'Content-Type': 'multipart/form-data' 
+                }
             });
             handleModalClose();
             getAllUser();
@@ -68,15 +69,21 @@ function UpdateUser({ id_user, getAllUser, handleModalClose ,role ,getAllRole })
             });
         }
     };
+    
     const handleSubmit = (values) => {
         const formData = new FormData();
         formData.append('username', values.username || user.username);
-        formData.append('password', values.password || user.password);
         formData.append('phone', values.phone || user.phone);
         formData.append('id_role', parseInt(values.id_role) || user.id_role);
+    
+        if (values.password) {
+            formData.append('password', values.password);
+        }
+    
         if (imageList.length > 0 && imageList[0].originFileObj) {
             formData.append('avatar', imageList[0].originFileObj);
         }
+    
         handleUpdate(formData);
     };
 

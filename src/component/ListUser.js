@@ -171,8 +171,9 @@ function ListUser({ getAllRole, role }) {
                                             <button className="font-semibold text-sm text-green-700">Sửa</button>
                                         </Popconfirm>
                                     </div>
+                                  
                                     {user.status === false ?
-                                   ( <div className="flex gap-2 text-gray-600 hover:scale-110 duration-200 hover:cursor-pointer">
+                                   ( <div className={`${user.id_role === 123 ? 'hidden' : 'block'} flex gap-2 text-gray-600 hover:scale-110 duration-200 hover:cursor-pointer`}>
                                         <Popconfirm
                                             title={<h3 className='w-60'>Bạn muốn cho người dùng "{user.username}" nghỉ ?</h3>}
                                             onConfirm={() => handleDelete(user.id_user)}
@@ -187,7 +188,7 @@ function ListUser({ getAllRole, role }) {
                                             <button className="font-semibold text-sm text-red-700">Nghỉ</button>
                                         </Popconfirm>
                                     </div>):
-                                    (<div className="flex flex-col gap-2 text-gray-600 hover:scale-110 duration-200 hover:cursor-pointer justify-center items-center text-center">
+                                    (<div className={`${user.id_role === 123 ? 'hidden' : 'block'} flex flex-col gap-2 text-gray-600 hover:scale-110 duration-200 hover:cursor-pointer justify-center items-center text-center`}>
                                         <Popconfirm
                                             title={<h3 className='w-60'>Bạn muốn cho người dùng "{user.username}" hoạt động lại ?
                                             </h3>}
@@ -203,6 +204,7 @@ function ListUser({ getAllRole, role }) {
                                         </Popconfirm>
                                     </div>)
                                         }
+                                   
                                 </div>
                                 <Modal
                                     title={<h1 className='text-center text-4xl font-bold border-b-2 pb-4'>Chỉnh Sửa Người Dùng</h1>}
