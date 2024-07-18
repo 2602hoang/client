@@ -25,13 +25,13 @@ function AddProduct({ navigateToList, handleModalClose, getAllProducts,getCatego
 
     const addProduct = async (values) => {
         const formData = new FormData();
+        formData.append('id_brand', parseInt(values.id_brand));
+        formData.append('id_category', parseInt(values.id_category));
         formData.append('name', values.name);
         formData.append('description',values.description);
-        formData.append('id_category', parseInt(values.id_category));
-        formData.append('id_brand', parseInt(values.id_brand));
         formData.append('price', values.price);
         formData.append('stock', values.stock);
-        formData.append('discoust', values.discoust);
+        formData.append('discoust', values.discoust || 0);
         
         if (imageList.length > 0) {
             formData.append('images', imageList[0].originFileObj);

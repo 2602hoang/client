@@ -163,18 +163,19 @@ data-aos="flip-left"
                 </div>
               
                 {selectedProduct && (
-                <Drawer placement='left' title={`Chi tiết sách ( ${selectedProduct.name} )`} width={window.innerWidth >= 768 ? "500px" : '100%'} onClose={onClose} visible={selectedProduct !== null} footer={null}>
+                <Drawer placement='left' title={`Chi tiết sách ( ${selectedProduct.name} )`} width={window.innerWidth >= 768 ? "500px" : '100%'} onClose={onClose} visible={selectedProduct !== null}
+                 footer={null}>
          
             <div className='justify-center items-center flex flex-col space-y-5 h-auto'>
              <h1 class="text-center font-bold my-2 text-gray-800  w-full  ">{selectedProduct.name}</h1>
               <p>{selectedProduct.description}</p>
               <Image src={selectedProduct.images} width={300} height={300} className='text-center justify-center items-center border-2 rounded-3xl' />
                  <div class="flex justify-center items-center overflow-x-hidden text-gray-600 hover:scale-110 mt-5 hover:cursor-pointer ">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M19.24 5.579h-.4l-3.38-3.38a.706.706 0 0 0-.99 
+                  {/* <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M19.24 5.579h-.4l-3.38-3.38a.706.706 0 0 0-.99 
                             0c-.27.27-.27.71 0 .99l2.39 2.39H7.14l2.39-2.39c.27-.27.27-.71 0-.99a.706.706 0 0 0-.99 0l-3.37 3.38h-.4c-.9 0-2.77 0-2.77 2.56 0 .97.2 1.61.62 
                             2.03.24.25.53.38.84.45.29.07.6.08.9.08h15.28c.31 0 .6-.02.88-.08.84-.2 1.48-.8 1.48-2.48 0-2.56-1.87-2.56-2.76-2.56ZM19.09 12H4.91c-.62 0-1.09.55-.99
                              1.16l.84 5.14c.28 1.72 1.03 3.7 4.36 3.7h5.61c3.37 0 3.97-1.69 4.33-3.58l1.01-5.23a.997.997 0 0 0-.98-1.19Zm-4.21 4.05-3.25 3c-.14.13-.32.2-.51.2s-.38-.07-.53-.22l-1.5
-                             -1.5a.754.754 0 0 1 0-1.06c.3-.29.77-.29 1.07 0l.99.99 2.72-2.51c.3-.28.78-.26 1.06.04.28.31.26.78-.05 1.06Z" fill="#32bfdb"></path></svg>
+                             -1.5a.754.754 0 0 1 0-1.06c.3-.29.77-.29 1.07 0l.99.99 2.72-2.51c.3-.28.78-.26 1.06.04.28.31.26.78-.05 1.06Z" fill="#32bfdb"></path></svg> */}
                 </div>
                 </div>
                 </Drawer>

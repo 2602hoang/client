@@ -176,7 +176,7 @@ data-aos="flip-left"
                   <p className="text-sm text-gray-500 pb-3">
                     Giảm Giá: {parseFloat(product.discoust) === 0 || parseFloat(product.discoust) > 100 ? 'Không có giảm giá' : `${(parseFloat(product.discoust) / 100 * 100)} %`}
                   </p>
-                  <h3 class="text-center font-bold my-2 text-gray-800  w-full  ">"{product.name}"</h3>
+                  <h3 class="text-center uppercase font-bold my-2 text-gray-800  w-full  ">"{product.name}"</h3>
                   <h3 className="text-start text-base font-light text-gray-900">Thể Loại: {product.category.name}</h3>
                   <h3 className="text-start text-base font-light text-gray-900">Quốc gia: {product.brand.name}</h3>
                 </div>
