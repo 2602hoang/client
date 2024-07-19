@@ -20,14 +20,14 @@ function Product() {
   const [selectedBrand, setSelectedBrand] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const {useToken,addToCart}=useContext(AuthContext);
+  const {userToken,addToCart}=useContext(AuthContext);
   useEffect(() => {
     const getProducts = async () => {
       try {
         const response = await axios.get(`${URL}api/v1/product/getall`,
         {
           headers: {
-            Authorization: `Bearer ${useToken}`
+            Authorization: `Bearer ${userToken}`
           },
         }
         );
@@ -41,7 +41,7 @@ function Product() {
           const response = await axios.get(`${URL}api/v1/brand/getall`,
           {
             headers: {
-              Authorization: `Bearer ${useToken}`
+              Authorization: `Bearer ${userToken}`
             },
           }
           );
@@ -55,7 +55,7 @@ function Product() {
             const response = await axios.get(`${URL}api/v1/category/getall`,
             {
               headers: {
-                Authorization: `Bearer ${useToken}`
+                Authorization: `Bearer ${userToken}`
               },
             }
             );
@@ -69,7 +69,7 @@ function Product() {
       getProducts();
       getBrands();
       getCategories();
-    }, [useToken]);
+    }, [userToken]);
  
   useEffect(() => {
     let filtered = products;

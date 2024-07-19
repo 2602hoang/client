@@ -85,8 +85,11 @@ function Header({ cart }) {
 
       });
       // console.log(respone.data);
-      clearCart();
+      
+      handleCancel();
       nav("/order");
+      clearCart();
+      
       // nav('/order');
     } catch (error) {
       if (error.response && error.response.data && error.response.data.stock  ) {
