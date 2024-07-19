@@ -15,7 +15,7 @@ function LayoutNavabar({ menuItems, menuVisible, toggleMenu,
             getoneUser();
         }
     }, [userId]);
-    console.log(userId);
+    
     const getoneUser = async () => {
         try {
           const id_user = userId;
@@ -26,7 +26,7 @@ function LayoutNavabar({ menuItems, menuVisible, toggleMenu,
             setUser({});
         }
     };
-    console.log(user);
+  
 
   return (
     <div className={`overflow-hidden ${menuVisible ? 'border-r-2' : 'border-r-0'} w-full 

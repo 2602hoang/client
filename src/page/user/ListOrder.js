@@ -81,7 +81,7 @@ function ListOrder() {
       filtered = orders.filter(order => order.id_order.toString().includes(searchTerm)  );
     }
     setFilteredOrders(filtered);
-  }, [orders, activeTag, searchTerm, userId]);
+  }, [orders, activeTag, searchTerm,]);
 
   const countItemsByIdSP = (selectedOrderDetails) => {
     const countMap = {};
@@ -124,6 +124,7 @@ function ListOrder() {
   return (
     <Layout>
       <h1 data-aos="fade-down" className='text-3xl font-bold mt-[70px] text-center'>Các Đơn Hàng Đã Xác Nhận Thanh Toán</h1>
+      {filteredOrders.length >0 ?(
       <div data-aos="fade-down" className='flex flex-col w-full h-auto min-h-screen my-9 md:px-8'>
     <div data-aos="fade-down" className='flex flex-col md:w-full justify-center items-center my-4'>
       <ul className='[&:hover>li]:opacity-10 w-full md:flex flex-col md:flex-row md:space-x-7 my-2 justify-center items-center gap-3'>
@@ -168,6 +169,7 @@ function ListOrder() {
           enterButton
         />
       </div>
+      
       <div className='flex justify-center flex-col items-center md:w-full w-11/12 overflow-x-scroll md:overflow-x-hidden pl-[240px] md:pl-0'>
         <table className="table-auto md:min-w-full min-w-12 border-separate font-mono border border-slate-400">
           <thead>
@@ -212,6 +214,7 @@ function ListOrder() {
           </tbody>
         </table>
       </div>
+      
     </div>
 
     {/* Order Details Modal */}
@@ -276,6 +279,11 @@ function ListOrder() {
     {/* Note Modal */}
    
       </div>
+      ):
+      (
+        <div className='text-3xl text-center font-bold text-red-500 min-h-screen justify-center items-center mt-9'>Hiện tại không có đơn chờ xác nhận</div>
+      )
+      }
     </Layout>
   )
 }

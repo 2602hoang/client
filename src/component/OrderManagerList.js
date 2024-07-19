@@ -1,4 +1,4 @@
-import { Button, Form, Input, message, Modal, notification, Popconfirm, Space, Table, Tag, Tooltip } from 'antd';
+import { Button, Form, Input, message, Modal, notification, Pagination, Popconfirm, Space, Table, Tag, Tooltip } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
 import { URL } from '../url';
 import axios from 'axios';
@@ -10,8 +10,9 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContextProvider';
 
 const { Search } = Input;
-function OrderManagerList({navigateToList}) {
+function OrderManagerList() {
 
+ 
   const nav = useNavigate();
   const [orders, setOrders] = useState([]);
   const [filteredOrders, setFilteredOrders] = useState([]);
@@ -22,7 +23,7 @@ function OrderManagerList({navigateToList}) {
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
   const [activeTag, setActiveTag] = useState('all');
-  const {userToken,} = useContext(AuthContext);
+  const { userToken, } = useContext(AuthContext);
   const showModal = async (id_order) => {
     setSelectedOrderId(id_order);
     setOpen(true);
@@ -102,7 +103,7 @@ function OrderManagerList({navigateToList}) {
       filtered = orders.filter(order => order.user.phone.toString().includes(searchTerm));
     }
     setFilteredOrders(filtered);
-  }, [userToken,orders, activeTag, searchTerm]);
+  }, [ orders, activeTag, searchTerm]);
 
   const countItemsByIdSP = (selectedOrderDetails) => {
     const countMap = {};
@@ -182,199 +183,236 @@ function OrderManagerList({navigateToList}) {
       message: `Danh sách đơn hàng ${tag === 'confirmed' ? 'đã xác nhận' : tag === 'notConfirmed' ? 'Đơn hủy' : 'tất cả'}`,
     });
   };
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(5); // Set the page size to 10 for 10 rows per page
 
+  const handlePageChange = (page, pageSize) => {
+    setCurrentPage(page);
+    setPageSize(pageSize);
+  };
+
+  const currentOrders = filteredOrders.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+  const totalAmount = currentOrders.reduce((sum, order) => sum + order.total_price, 0);
 
   return (<div>
-    
+
     <div className='flex flex-col w-full h-auto min-h-screen my-9 font-mono'>
-      
-    <div data-aos="fade-down" className='flex flex-col md:w-full justify-center items-center my-4'>
-      <ul className='[&:hover>li]:opacity-10 w-full md:flex font-mono flex-col md:flex-row md:space-x-7 my-2 justify-center items-center gap-3'>
-        <div className='flex flex-row justify-center items-center font-mono space-x-3'>
-          <li className='hover:!opacity-100 flex'>
-            <Tag
-              color={activeTag === 'all' ? "blue" : "default"}
-              onClick={() => handleTagClick('all')}
-              className="cursor-pointer text-xl"
-            >
-              Tất Cả Đơn
-            </Tag>
-          </li>
-          <li className='flex hover:!opacity-100'>
-            <Tag
-              color={activeTag === 'confirmed' ? "green" : "default"}
-              onClick={() => handleTagClick('confirmed')}
-              className="cursor-pointer text-xl"
-            >
-              Đơn Đã Xác Nhận
-            </Tag>
-          </li>
-          <li className='hover:!opacity-100 flex'>
-            <Tag
-              color={activeTag === 'notConfirmed' ? "red" : "default"}
-              onClick={() => handleTagClick('notConfirmed')}
-              className="cursor-pointer text-xl"
-            >
-              Đơn Hủy
-            </Tag>
-          </li>
+
+      <div data-aos="fade-down" className='flex flex-col md:w-full justify-center items-center my-4'>
+        <ul className='[&:hover>li]:opacity-10 w-full md:flex font-mono flex-col md:flex-row md:space-x-7 my-2 justify-center items-center gap-3'>
+          <div className='flex flex-row justify-center items-center font-mono space-x-3'>
+            <li className='hover:!opacity-100 flex'>
+              <Tag
+                color={activeTag === 'all' ? "blue" : "default"}
+                onClick={() => handleTagClick('all')}
+                className="cursor-pointer text-xl"
+              >
+                Tất Cả Đơn
+              </Tag>
+            </li>
+            <li className='flex hover:!opacity-100'>
+              <Tag
+                color={activeTag === 'confirmed' ? "green" : "default"}
+                onClick={() => handleTagClick('confirmed')}
+                className="cursor-pointer text-xl"
+              >
+                Đơn Đã Xác Nhận
+              </Tag>
+            </li>
+            <li className='hover:!opacity-100 flex'>
+              <Tag
+                color={activeTag === 'notConfirmed' ? "red" : "default"}
+                onClick={() => handleTagClick('notConfirmed')}
+                className="cursor-pointer text-xl"
+              >
+                Đơn Hủy
+              </Tag>
+            </li>
+          </div>
+        </ul>
+      </div>
+
+      <div data-aos="fade-down" className='flex flex-col justify-center items-center md:w-full'>
+        <div className='flex flex-col w-11/12 md:w-1/3 mb-2 justify-center items-center'>
+          <Search
+            placeholder="Tìm theo sdt người đặt"
+            className="w-full"
+            onChange={e => setSearchTerm(e.target.value)}
+            enterButton
+          />
+
+
         </div>
-      </ul>
-    </div>
-
-    <div data-aos="fade-down" className='flex flex-col justify-center items-center md:w-full'>
-      <div className='flex flex-col w-11/12 md:w-1/3 mb-2 justify-center items-center'>
-        <Search
-          placeholder="Tìm theo sdt người đặt"
-          className="w-full"
-          onChange={e => setSearchTerm(e.target.value)}
-          enterButton
-        />
-      </div>
-      <div className='flex justify-center flex-col font-mono items-center md:w-full w-11/12 overflow-x-scroll md:overflow-x-hidden pl-[240px] md:pl-0'>
-        <table className="table-auto md:min-w-full min-w-12 border-separate font-mono border border-slate-400">
-          <thead>
-            <tr className='text-center text-2xl uppercase font-bold'>
-              <th className='border border-slate-300'>STT</th>
-              <th className='border border-slate-300'>ID đơn</th>
-              <th className='border border-slate-300'>SDT người đặt</th>
-              <th className='border border-slate-300'>Ngày đặt</th>
-              <th className='border border-slate-300'>Trạng Thái</th>
-              <th className='border border-slate-300'>Tổng thanh toán</th>
-              <th className='border border-slate-300'>Hành động</th>
-            </tr>
-          </thead>
-          <tbody className='text-center text-sm'>
-            {filteredOrders.map((order, index) => (
-              <tr key={order.id_order} className='capitalize font-medium'>
-                <td className='border border-slate-300'>{index + 1}</td>
-                <td className='border border-slate-300'>{order.id_order}</td>
-                <td className='border border-slate-300'>{order.user.phone}</td>
-                <td className='border border-slate-300'>{formattedTimestamp(order.date_order)}</td>
-                <td className='border border-slate-300'>
-                  <Tag color={order.id_pay === 1 ?'#fdc323' : order.id_pay === 2 ? "#7ae284" : "#FF0000"} className='uppercase '>
-                    {order.id_pay === 1 ? "Chờ xác nhận" : order.id_pay === 2 ? "Đơn đã xác nhận" : "Đơn hủy"}
-                  </Tag>
-                </td>
-                <td className='border border-slate-300'>{formatCurrency(order.total_price)}</td>
-                <td className='border border-slate-300'>
-                  <Space className='flex justify-center items-center py-3 md:flex-row md:flex flex-col' size="middle">
-                    <Tooltip title="Xem chi tiết đơn hàng">
-                      <Button className='w-full bg-slate-400 text-black hover:text-white uppercase' onClick={() => showModal(order.id_order)}>Xem Đơn</Button>
-                    </Tooltip>
-                    <Tooltip title="Thêm ghi chú cho đơn hàng">
-                      <Button className='w-full bg-slate-400 text-black hover:text-white uppercase' onClick={() => showModal1(order.id_order)}>Ghi chú</Button>
-                    </Tooltip>
-                    <div className={`${order.id_pay === 5 || order.id_pay === 2 ? 'hidden' : 'block'}`}>
-                    <Popconfirm
-                      title="Xác nhận đơn hàng"
-                      description="Bạn muốn xác nhận đơn này?"
-                      onConfirm={() => handleConfirm(order.id_order)}
-                      onCancel={cancel}
-                      okText="Có"
-                      cancelText="Không"
-                    >
-                      <Button className='w-full bg-green-400 text-black hover:text-white uppercase'>Xác Nhận</Button>
-                    </Popconfirm>
-                    <Popconfirm
-                      title="Hủy đơn hàng"
-                      description="Bạn muốn hủy đơn này?"
-                      onConfirm={() => handleCancelOrder(order.id_order)}
-                      onCancel={cancel}
-                      okText="Có"
-                      cancelText="Không"
-                    >
-                      <Button className='w-full bg-red-400 text-black hover:text-white uppercase'>Hủy Đơn</Button>
-                    </Popconfirm>
-                    </div>
-                  </Space>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-    
-
-    {/* Order Details Modal */}
-    <Modal
-      title={<div className='flex row justify-start items-start space-x-4'>
-
-        <h1 calssName='text-start justify-start items-start'>Chi tiết đơn hàng {selectedOrderId}</h1>
-
-
-
-        <ParentComponent selectedOrderId={selectedOrderId} />
-      </div>}
-      open={open}
-      onOk={handleOk}
-      onCancel={handleCancel}
-      width={1200}
-    >
-      {selectedOrderDetails?.map(orderDetail => (
-        <div id="pdf-content" key={orderDetail.id_order}
-         className={`overflow-x-scroll p-4 mb-4 border-2 ${orderDetail.id_pay === 1 ? 'border-yellow-500' : orderDetail.id_pay === 2 ? "border-green-500" : "border-red-500"}`}>
-          <p className={`${orderDetail.id_pay === 1 ? 'text-yellow-500' : orderDetail.id_pay === 2 ? "text-green-500" : "text-red-500"}`}><strong>Trạng thái đơn:</strong> {orderDetail.id_pay ===1 ? 'chờ xác nhận': orderDetail.id_pay === 2 ? "Đơn đã xác nhận" : "Đơn Hủy"}</p>
-          <p><strong>ID đơn</strong> {orderDetail.id_order}</p>
-          <p><strong>Ngày đặt:</strong> {formattedTimestamp(orderDetail.date_order)}</p>
-          <p><strong>Người đặt:</strong> {orderDetail.user.phone}</p>
-          <p><strong>Ghi chú:</strong> {orderDetail.notes ? orderDetail.notes : "Không có ghi chú"}</p>
-          <p><strong>Tổng thanh toán:</strong> {formatCurrency(orderDetail.total_price)}</p>
-          <p><strong>Trạng thái:</strong> {orderDetail.id_pay === 2 ? "Đơn thành công" : "Đơn Thất Bại"}</p>
-          <table className="w-full mt-4 border">
+        {currentOrders?.length > 0 ?(
+        <div className='flex justify-center flex-col font-mono items-center md:w-full w-11/12 overflow-x-scroll md:overflow-x-hidden pl-[240px] md:pl-0'>
+          <table className="table-auto md:min-w-full min-w-12 border-separate font-mono border border-slate-400">
             <thead>
-              <tr>
-                <th className="border px-4 py-2">STT</th>
-                <th className="border px-4 py-2">Sản phẩm</th>
-                <th className="border px-4 py-2">Giá</th>
-                <th className="border px-4 py-2">Số lượng</th>
-                <th className="border px-4 py-2">Tổng</th>
+              <tr className='text-center text-2xl uppercase font-bold'>
+                <th className='border border-slate-300'>STT</th>
+                <th className='border border-slate-300'>ID đơn</th>
+                <th className='border border-slate-300'>SDT người đặt</th>
+                <th className='border border-slate-300'>Ngày đặt</th>
+                <th className='border border-slate-300'>Trạng Thái</th>
+                <th className='border border-slate-300'>Tổng thanh toán</th>
+                <th className='border border-slate-300'>Hành động</th>
               </tr>
             </thead>
-            <tbody className='text-center'>
-              {Object.keys(prodcut).map((id_product, index) => (
-                <tr key={id_product}>
-                  <td className="border px-4 py-2">{index + 1}</td>
-                  <td className="border px-4 py-2 flex flex-row justify-center items-center space-x-2">
-                    <img src={prodcut[id_product].images}  alt={prodcut[id_product].name} className="w-16 h-16 object-cover" />
-                    <span>{prodcut[id_product].name}</span>
+            <tbody className='text-center text-sm'>
+              {currentOrders?.map((order, index) => (
+                <tr key={order.id_order} className='capitalize font-medium'>
+                  <td className='border border-slate-300'> {(currentPage - 1) * pageSize + index + 1}</td>
+                  <td className='border border-slate-300'>{order.id_order}</td>
+                  <td className='border border-slate-300'>{order.user.phone}</td>
+                  <td className='border border-slate-300'>{formattedTimestamp(order.date_order)}</td>
+                  <td className='border border-slate-300'>
+                    <Tag color={order.id_pay === 1 ? '#fdc323' : order.id_pay === 2 ? "#7ae284" : "#FF0000"} className='uppercase '>
+                      {order.id_pay === 1 ? "Chờ xác nhận" : order.id_pay === 2 ? "Đơn đã xác nhận" : "Đơn hủy"}
+                    </Tag>
                   </td>
-                  <td className="border px-4 py-2">{formatCurrency(prodcut[id_product].price)}</td>
-                  <td className="border px-4 py-2">{prodcut[id_product].count}</td>
-                  <td className="border px-4 py-2">{formatCurrency(prodcut[id_product].total_amount)}</td>
+                  <td className='border border-slate-300'>{formatCurrency(order.total_price)}</td>
+                  <td className='border border-slate-300'>
+                    <Space className='flex justify-center items-center py-3 md:flex-row md:flex flex-col' size="middle">
+                      <Tooltip title="Xem chi tiết đơn hàng">
+                        <Button className='w-full bg-slate-400 text-black hover:text-white uppercase' onClick={() => showModal(order.id_order)}>Xem Đơn</Button>
+                      </Tooltip>
+                      <Tooltip title="Thêm ghi chú cho đơn hàng">
+                        <Button className='w-full bg-slate-400 text-black hover:text-white uppercase' onClick={() => showModal1(order.id_order)}>Ghi chú</Button>
+                      </Tooltip>
+                      <div className={`${order.id_pay === 5 || order.id_pay === 2 ? 'hidden' : 'block'}`}>
+                        <Popconfirm
+                          title="Xác nhận đơn hàng"
+                          description="Bạn muốn xác nhận đơn này?"
+                          onConfirm={() => handleConfirm(order.id_order)}
+                          onCancel={cancel}
+                          okText="Có"
+                          cancelText="Không"
+                        >
+                          <Button className='w-full bg-green-400 text-black hover:text-white uppercase'>Xác Nhận</Button>
+                        </Popconfirm>
+                        <Popconfirm
+                          title="Hủy đơn hàng"
+                          description="Bạn muốn hủy đơn này?"
+                          onConfirm={() => handleCancelOrder(order.id_order)}
+                          onCancel={cancel}
+                          okText="Có"
+                          cancelText="Không"
+                        >
+                          <Button className='w-full bg-red-400 text-black hover:text-white uppercase'>Hủy Đơn</Button>
+                        </Popconfirm>
+                      </div>
+                    </Space>
+                  </td>
                 </tr>
               ))}
+                <tr className='text-sm font-bold'>
+                                    <td colSpan="5" className='border border-slate-300 text-center'>Tổng cộng</td>
+                                    <td className='border text-center border-slate-300 '>{formatCurrency(totalAmount)}</td>
+                                    <td className='border border-slate-300'></td>
+                                    </tr>
             </tbody>
           </table>
+          <Pagination
+                            className="flex justify-center mt-4"
+                            current={currentPage}
+                            pageSize={pageSize}
+                            total={filteredOrders.length}
+                            onChange={handlePageChange}
+                        />
+          
         </div>
-      ))}
-    </Modal>
+        ):
+        (
+          <h1 className='text-center text-2xl text-red-400 uppercase'>Không có đơn hàng</h1>
+        )}
+       
+       
 
-    {/* Note Modal */}
-    <Modal
-      title={`Ghi chú đơn hàng #${selectedOrderId}`}
-      open={open1}
-      onOk={handleOk1}
-      onCancel={handleCancel1}
-      width={800}
-      footer={[
-        <Button key="back" onClick={handleCancel1}>
-          Hủy
-        </Button>,
-        <Button key="submit" type="primary" onClick={() => handleNote(selectedOrderId)}>
-          Thêm Ghi chú
-        </Button>
-      ]}
-    >
-      <Form>
-        <Form.Item>
-          <TextArea rows={4} placeholder="Nhập ghi chú" value={notePays} onChange={e => setNotePays(e.target.value)} />
-        </Form.Item>
-      </Form>
-    </Modal>
-  </div>
-   
+      </div>
+
+
+      {/* Order Details Modal */}
+      <Modal
+        title={<div className='flex row justify-start items-start space-x-4'>
+
+          <h1 calssName='text-start justify-start items-start'>Chi tiết đơn hàng {selectedOrderId}</h1>
+
+
+
+          <ParentComponent selectedOrderId={selectedOrderId} />
+        </div>}
+        open={open}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        width={1200}
+      >
+        {selectedOrderDetails?.map(orderDetail => (
+          <div id="pdf-content" key={orderDetail.id_order}
+            className={`overflow-x-scroll p-4 mb-4 border-2 ${orderDetail.id_pay === 1 ? 'border-yellow-500' : orderDetail.id_pay === 2 ? "border-green-500" : "border-red-500"}`}>
+            <p className={`${orderDetail.id_pay === 1 ? 'text-yellow-500' : orderDetail.id_pay === 2 ? "text-green-500" : "text-red-500"}`}><strong>Trạng thái đơn:</strong> {orderDetail.id_pay === 1 ? 'chờ xác nhận' : orderDetail.id_pay === 2 ? "Đơn đã xác nhận" : "Đơn Hủy"}</p>
+            <p><strong>ID đơn</strong> {orderDetail.id_order}</p>
+            <p><strong>Ngày đặt:</strong> {formattedTimestamp(orderDetail.date_order)}</p>
+            <p><strong>Người đặt:</strong> {orderDetail.user.phone}</p>
+            <p><strong>Ghi chú khách:</strong> {orderDetail.notes ? orderDetail.notes : "Không có ghi chú"}</p>
+            <p><strong>Tổng thanh toán:</strong> {formatCurrency(orderDetail.total_price)}</p>
+            <p className='text-red-500 '><strong>Ghi chú đơn:</strong> {orderDetail.note_pays !== null ? `${orderDetail.note_pays}` : "không có ghi chú"}</p>
+            <table className="w-full mt-4 border">
+              <thead>
+                <tr>
+                  <th className="border px-4 py-2">STT</th>
+                  <th className="border px-4 py-2">Sản phẩm</th>
+                  <th className="border px-4 py-2">Giá</th>
+                  <th className="border px-4 py-2">Số lượng</th>
+                  <th className="border px-4 py-2">Tổng</th>
+                </tr>
+              </thead>
+              <tbody className='text-center'>
+                {Object.keys(prodcut).map((id_product, index) => (
+                  <tr key={id_product}>
+                    <td className="border px-4 py-2">{index + 1}</td>
+                    <td className="border px-4 py-2 flex flex-row justify-center items-center space-x-2">
+                      <img src={prodcut[id_product].images} alt={prodcut[id_product].name} className="w-16 h-16 object-cover" />
+                      <span>{prodcut[id_product].name}</span>
+                    </td>
+                    <td className="border px-4 py-2">{formatCurrency(prodcut[id_product].price)}</td>
+                    <td className="border px-4 py-2">{prodcut[id_product].count}</td>
+                    <td className="border px-4 py-2">{formatCurrency(prodcut[id_product].total_amount)}</td>
+                  </tr>
+                ))}
+                <tr>
+                <td colSpan="4" className='border border-slate-300 text-center'>Tổng cộng</td>
+                  <td className='border border-slate-300 text-center'>{formatCurrency(selectedOrderDetails.reduce((sum, order) => sum + order.total_price, 0))}</td>
+                </tr>
+                                
+              </tbody>
+            </table>
+          </div>
+        ))}
+      </Modal>
+
+      {/* Note Modal */}
+      <Modal
+        title={`Ghi chú đơn hàng #${selectedOrderId}`}
+        open={open1}
+        onOk={handleOk1}
+        onCancel={handleCancel1}
+        width={800}
+        footer={[
+          <Button key="back" onClick={handleCancel1}>
+            Hủy
+          </Button>,
+          <Button key="submit" type="primary" onClick={() => handleNote(selectedOrderId)}>
+            Thêm Ghi chú
+          </Button>
+        ]}
+      >
+        <Form>
+          <Form.Item>
+            <TextArea rows={4} placeholder="Nhập ghi chú" value={notePays} onChange={e => setNotePays(e.target.value)} />
+          </Form.Item>
+        </Form>
+      </Modal>
+    </div>
+       
   </div>)
 }
 

@@ -475,6 +475,7 @@ function Header({ cart }) {
 
                     <button
                       onClick={() => {
+                        handleCancel();
                         createOrders();
                        
                       }}

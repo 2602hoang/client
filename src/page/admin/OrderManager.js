@@ -29,12 +29,15 @@ function OrderManager() {
           case 'Danh sách cần xử lý':
             return (<div className='text-center text-3xl md:text-4xl w-full font-black '>
               <h1>Danh sách Đơn Hàng Chờ Xác Nhận</h1>
+              
               <OrderManagerList navigateToList={navigateToList}/>
+          
             </div>);
             case 'Hoàn thành trạng thái đơn':
               return (<div className='text-center text-3xl md:text-4xl w-full font-black '>
                  <h1>Hoàn thành trạng thái đơn</h1>
                 <OrderfinishedManager/>
+                
               </div>);
           case 'Thống kê':
             return (<div className='text-center text-3xl md:text-4xl w-full font-black '>

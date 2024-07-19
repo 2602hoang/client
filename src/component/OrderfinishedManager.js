@@ -1,4 +1,4 @@
-import { Button, Form, Input, message, Modal, notification, Popconfirm, Space, Table, Tag, Tooltip } from 'antd'
+import { Button, Form, Input, message, Modal, notification, Pagination, Popconfirm, Space, Table, Tag, Tooltip } from 'antd'
 import React, { useContext, useEffect, useState } from 'react'
 import { URL } from '../url';
 import axios from 'axios';
@@ -31,7 +31,7 @@ function OrderfinishedManager() {
     const [open1, setOpen1] = useState(false);
     const [open2, setOpen2] = useState(false);
     const [notePays, setNotePays] = useState('');
-    const {userToken}=useContext(AuthContext);
+    const { userToken } = useContext(AuthContext);
     const showModal = async (id_order) => {
         setSelectedOrderId(id_order);
         setOpen(true);
@@ -131,7 +131,7 @@ function OrderfinishedManager() {
         if (filterConfirmed) {
             filtered = orders.filter(order => order.id_pay === 2 && order.finished === 1);
         } else if (filterNotConfirmed) {
-            filtered = orders.filter(order => order.id_pay === 3 || order.id_pay === 5  && order.finished === 1);
+            filtered = orders.filter(order => order.id_pay === 3 || order.id_pay === 5 && order.finished === 1);
 
         } else if (searchTerm) {
             filtered = orders.filter(order => order.user.phone.toString().includes(searchTerm));
@@ -142,7 +142,7 @@ function OrderfinishedManager() {
         }
 
         setFilterOrders(filtered);
-    }, [userToken,orders, filterConfirmed, filterNotConfirmed, searchTerm ,filterAll]);
+    }, [ orders, filterConfirmed, filterNotConfirmed, searchTerm, filterAll]);
 
     const countItemsByIdSP = (selectedOrderDetails) => {
         const countMap = {};
@@ -175,11 +175,20 @@ function OrderfinishedManager() {
 
 
     const prodcut = countItemsByIdSP(selectedOrderDetails);
+    const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(5); // Set the page size to 10 for 10 rows per page
+
+  const handlePageChange = (page, pageSize) => {
+    setCurrentPage(page);
+    setPageSize(pageSize);
+  };
+
+  const currentOrders = filterOrders.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
 
     const hendleXacnhan = async (selectedOrderId) => {
         try {
-            await axios.put(`${URL}api/v1/order/finished2/${selectedOrderId}`,{
+            await axios.put(`${URL}api/v1/order/finished2/${selectedOrderId}`, {
                 headers: {
                     Authorization: `Bearer ${userToken}`
                 },
@@ -236,7 +245,7 @@ function OrderfinishedManager() {
         message.error('Bạn chọn Không');
     };
 
-   
+    const totalAmount = currentOrders.reduce((sum, order) => sum + order.total_price, 0);
     return (
         <div className='flex flex-col w-full h-auto min-h-screen my-9'>
             <div data-aos="fade-down" className='flex flex-col md:w-full justify-center items-center'>
@@ -331,126 +340,139 @@ function OrderfinishedManager() {
                         enterButton
                     />
                 </div>
-                {filterOrders?.length > 0 ? (
-                <div className='flex justify-center flex-col items-center md:w-full w-11/12 overflow-x-scroll md:overflow-x-hidden pl-[240px] md:pl-0'>
-                    <table class="table-auto md:min-w-full min-w-12 border-separate font-mono border border-slate-400 ">
-                        <thead>
-                            <tr className='text-center text-2xl uppercase font-bold '>
-                                <th className='border border-slate-300 '>STT</th>
-                                <th className='border border-slate-300'>ID đơn</th>
-                                <th className='border border-slate-300'>SDT người đặt</th>
-                                <th className='border border-slate-300'>Ngày đặt</th>
-                                <th className='border border-slate-300'>Trạng thái</th>
-                                <th className='border border-slate-300'>Địa chỉ</th>
-                                <th className='border border-slate-300'>Tổng tiền </th>
-                                <th className='border border-slate-300'>Hành Động</th>
-                            </tr>
-                        </thead>
-
-
-                        
-                        <tbody key={orders.key} className='text-sm font-medium'>
-                            {filterOrders?.map(order => (
-                                <tr key={order.key} className='text-sm font-normal'>
-                                    <td className='border border-slate-300  '>
-                                        <Tooltip title='Xem chi tiết đơn'>
-                                            <div className='text-center items-center justify-center flex flex-col'>
-
-                                                <Button onClick={() => showModal(order.id_order)} type='link' title='Xem' icon={<InfoCircleFilled />} />
-                                                {order.key}
-
-                                            </div>
-                                        </Tooltip>
-                                    </td>
-                                    <td className='border border-slate-300'>{order.id_order}</td>
-
-                                    <td className='border border-slate-300'>{order.user.phone}</td>
-
-                                    <td className='border border-slate-300'>{formattedTimestamp(order.date_order)}</td>
-                                    <td className={` border border-slate-300`}>
-                                        <Tag color={order.finished === 0 ? '#0970CD' : '#7ae284'}>
-                                            {/* className={`${ order.finished === 0 ? '' : 'text-red-400'}}`} */}
-                                            {order.finished === 0 ? 'Chưa hoàn thành' : 'Đơn hoàn thành'}
-                                        </Tag>
-                                        <br />
-                                        <br />
-                                        {/* <p className={`${ order.id_pay === 2 ? 'text-green-400'  : 'text-black'}`}>  */}
-                                        <Tag color={order.id_pay === 2 ? '#7ae284' : order.id_pay=== 5 ? '#fdc323' : '#FF0000'  }>
-                                            {order.id_pay === 2 ? 'Đã xác nhận' : order.id_pay ===5? 'Đơn Hủy' :'Thất bại'}
-                                        </Tag>
-                                    </td>
-                                    <td className='border border-slate-300'>{order.id_adress === 1 ? 'HN' : order.id_adress === 2 ? 'HCM' : 'DVVC'}</td>
-                                    <td className='border border-slate-300'>{formatCurrency(order.total_price)}</td>
-                                    <td className='border border-slate-300'>
-
-                                        <div className='flex flex-col space-y-4 m-2'>
-
-
-                                            <TextArea
-                                                name="note_pays"
-                                                disabled
-                                                placeholder={order.note_pays?.length > 0 ? order.note_pays : ''}
-                                                defaultValue={order.note_pays}
-                                            //  onChange={e => setNotePays(e.target.value)}
-                                            />
-                                            <div className={`${order.finished === 1 ? 'hidden' : order.id_pay === 2 ? 'block' : 'block'} flex flex-col space-y-2 justify-center items-center `}>
-
-                                                { order.id_pay === 2 ?(
-                                                <Popconfirm
-                                                    title={`Bạn có chắc xác hoàn thành đơn ${order.id_order}`}
-                                                    onConfirm={() => showModal1(order.id_order)}
-                                                    onCancel={cancel}
-                                                    okText="Vâng"
-                                                    cancelText="Không"
-                                                >
-                                                    <a
-                                                        // onClick={() => {hendleXacnhan(order.id_order)}}
-                                                        className="w-11/12 group relative inline-block overflow-hidden border border-green-400 px-8 py-3 focus:outline-none focus:ring">
-                                                        <span className="absolute inset-y-0 left-0 w-[2px] bg-green-400 transition-all group-hover:w-full group-active:bg-green-400"></span>
-                                                        <span className="relative text-sm font-medium text-green-400 transition-colors group-hover:text-white">
-                                                            Hoàn Thành
-                                                        </span>
-                                                    </a>
-                                                </Popconfirm>
-                                                ):
-                                                (
-                                                    <Popconfirm
-                                                    title={`Bạn có chắc xác hoàn thành đơn ${order.id_order}`}
-                                                    onConfirm={() => showModal2(order.id_order)}
-                                                    onCancel={cancel}
-                                                    okText="Vâng"
-                                                    cancelText="Không"
-                                                >
-                                                    <a
-                                                        // onClick={() => {hendleXacnhan(order.id_order)}}
-                                                        className="w-11/12 group relative inline-block overflow-hidden border border-green-400 px-8 py-3 focus:outline-none focus:ring">
-                                                        <span className="absolute inset-y-0 left-0 w-[2px] bg-green-400 transition-all group-hover:w-full group-active:bg-green-400"></span>
-                                                        <span className="relative text-sm font-medium text-green-400 transition-colors group-hover:text-white">
-                                                            Hoàn Thành
-                                                        </span>
-                                                    </a>
-                                                </Popconfirm>
-                                                )
-                                                }
-                                            </div>
-                                        </div>
-
-                                    </td>
+                {currentOrders?.length > 0 ? (
+                    <div className='flex justify-center flex-col items-center md:w-full w-11/12 overflow-x-scroll md:overflow-x-hidden pl-[240px] md:pl-0'>
+                        <table class="table-auto md:min-w-full min-w-12 border-separate font-mono border border-slate-400 ">
+                            <thead>
+                                <tr className='text-center text-2xl uppercase font-bold '>
+                                    <th className='border border-slate-300 '>STT</th>
+                                    <th className='border border-slate-300'>ID đơn</th>
+                                    <th className='border border-slate-300'>SDT người đặt</th>
+                                    <th className='border border-slate-300'>Ngày đặt</th>
+                                    <th className='border border-slate-300'>Trạng thái</th>
+                                    <th className='border border-slate-300'>Địa chỉ</th>
+                                    <th className='border border-slate-300'>Tổng tiền </th>
+                                    <th className='border border-slate-300'>Hành Động</th>
                                 </tr>
-                            ))}
-
-                        </tbody>
-                      
+                            </thead>
 
 
-                    </table>
-                </div>
-                  )
-                  :
-                  <div className='flex w-full justify-center items-center text-center mt-52'>
-                  <h1 className='text-center justify-center items-center'>Hiện Tại Rỗng</h1>
-                  </div>
-                  }
+
+                            <tbody key={orders.key} className='text-sm font-medium'>
+                                {currentOrders?.map((order,index) => (
+                                    <tr key={order.key} className='text-sm font-normal'>
+                                        <td className='border border-slate-300  '>
+                                        {(currentPage - 1) * pageSize + index + 1}
+                                            <Tooltip title='Xem chi tiết đơn'>
+                                                <div className='text-center items-center justify-center flex flex-col'>
+
+                                                    <Button onClick={() => showModal(order.id_order)} type='link' title='Xem' icon={<InfoCircleFilled />} />
+                                                    {/* {order.key} */}
+
+                                                </div>
+                                            </Tooltip>
+                                        </td>
+                                        <td className='border border-slate-300'>{order.id_order}</td>
+
+                                        <td className='border border-slate-300'>{order.user.phone}</td>
+
+                                        <td className='border border-slate-300'>{formattedTimestamp(order.date_order)}</td>
+                                        <td className={` border border-slate-300`}>
+                                            <Tag color={order.finished === 0 ? '#0970CD' : '#7ae284'}>
+                                                {/* className={`${ order.finished === 0 ? '' : 'text-red-400'}}`} */}
+                                                {order.finished === 0 ? 'Chưa hoàn thành' : 'Đơn hoàn thành'}
+                                            </Tag>
+                                            <br />
+                                            <br />
+                                            {/* <p className={`${ order.id_pay === 2 ? 'text-green-400'  : 'text-black'}`}>  */}
+                                            <Tag color={order.id_pay === 2 ? '#7ae284' : order.id_pay === 5 ? '#fdc323' : '#FF0000'}>
+                                                {order.id_pay === 2 ? 'Đã xác nhận' : order.id_pay === 5 ? 'Đơn Hủy' : 'Thất bại'}
+                                            </Tag>
+                                        </td>
+                                        <td className='border border-slate-300'>{order.id_adress === 1 ? 'HN' : order.id_adress === 2 ? 'HCM' : 'DVVC'}</td>
+                                        <td className='border border-slate-300'>{formatCurrency(order.total_price)}</td>
+                                        <td className='border border-slate-300'>
+
+                                            <div className='flex flex-col space-y-4 m-2'>
+
+
+                                                <TextArea
+                                                    name="note_pays"
+                                                    disabled
+                                                    placeholder={order.note_pays?.length > 0 ? order.note_pays : ''}
+                                                    defaultValue={order.note_pays}
+                                                //  onChange={e => setNotePays(e.target.value)}
+                                                />
+                                                <div className={`${order.finished === 1 ? 'hidden' : order.id_pay === 2 ? 'block' : 'block'} flex flex-col space-y-2 justify-center items-center `}>
+
+                                                    {order.id_pay === 2 ? (
+                                                        <Popconfirm
+                                                            title={`Bạn có chắc xác hoàn thành đơn ${order.id_order}`}
+                                                            onConfirm={() => showModal1(order.id_order)}
+                                                            onCancel={cancel}
+                                                            okText="Vâng"
+                                                            cancelText="Không"
+                                                        >
+                                                            <a
+                                                                // onClick={() => {hendleXacnhan(order.id_order)}}
+                                                                className="w-11/12 group relative inline-block overflow-hidden border border-green-400 px-8 py-3 focus:outline-none focus:ring">
+                                                                <span className="absolute inset-y-0 left-0 w-[2px] bg-green-400 transition-all group-hover:w-full group-active:bg-green-400"></span>
+                                                                <span className="relative text-sm font-medium text-green-400 transition-colors group-hover:text-white">
+                                                                    Hoàn Thành
+                                                                </span>
+                                                            </a>
+                                                        </Popconfirm>
+                                                    ) :
+                                                        (
+                                                            <Popconfirm
+                                                                title={`Bạn có chắc xác hoàn thành đơn ${order.id_order}`}
+                                                                onConfirm={() => showModal2(order.id_order)}
+                                                                onCancel={cancel}
+                                                                okText="Vâng"
+                                                                cancelText="Không"
+                                                            >
+                                                                <a
+                                                                    // onClick={() => {hendleXacnhan(order.id_order)}}
+                                                                    className="w-11/12 group relative inline-block overflow-hidden border border-green-400 px-8 py-3 focus:outline-none focus:ring">
+                                                                    <span className="absolute inset-y-0 left-0 w-[2px] bg-green-400 transition-all group-hover:w-full group-active:bg-green-400"></span>
+                                                                    <span className="relative text-sm font-medium text-green-400 transition-colors group-hover:text-white">
+                                                                        Hoàn Thành
+                                                                    </span>
+                                                                </a>
+                                                            </Popconfirm>
+                                                        )
+                                                    }
+                                                </div>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                ))}
+                                    <tr className='text-sm font-bold'>
+                                    <td colSpan="6" className='border border-slate-300 text-center'>Tổng cộng</td>
+                                    <td className='border border-slate-300 text-right'>{formatCurrency(totalAmount)}</td>
+                                    <td className='border border-slate-300'></td>
+                                    </tr>
+
+                            </tbody>
+
+
+
+                        </table>
+                        <Pagination
+                            className="flex justify-center mt-4"
+                            current={currentPage}
+                            pageSize={pageSize}
+                            total={filterOrders.length}
+                            onChange={handlePageChange}
+                        />
+                    </div>
+                )
+                    :
+                    <div className='flex w-full justify-center items-center text-center mt-52'>
+                        <h1 className='text-center justify-center items-center'>Hiện Tại Rỗng</h1>
+                    </div>
+                }
 
 
             </div>

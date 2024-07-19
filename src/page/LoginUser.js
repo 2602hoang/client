@@ -201,7 +201,7 @@ function LoginUser() {
                             </label>
                         </div>
                         <div className="flex items-center justify-between">
-                            <label className="flex items-center text-sm text-gray-200">
+                            {/* <label className="flex items-center text-sm text-gray-200">
                                 <input
                                     className="form-checkbox h-4 w-4 text-purple-600 bg-gray-800 border-gray-300 rounded"
                                     type="checkbox"
@@ -209,7 +209,7 @@ function LoginUser() {
                                  onChange={handleCheckboxChange}
                                 />
                                 <span className="ml-2">Remember me</span>
-                            </label>
+                            </label> */}
                         </div>
                         <button
                             className="w-full py-2 px-4 bg-purple-500 hover:bg-purple-700 rounded-md shadow-lg text-white font-semibold transition duration-200"

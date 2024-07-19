@@ -75,7 +75,7 @@ function RejectOrder() {
       filtered = orders.filter(order => order.id_order.toString().includes(searchTerm));
     }
     setFilteredOrders(filtered);
-  }, [orders, activeTag, searchTerm, userId]);
+  }, [orders, activeTag, searchTerm,]);
 
   const countItemsByIdSP = (selectedOrderDetails) => {
     const countMap = {};

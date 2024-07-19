@@ -56,18 +56,7 @@ function Order() {
       console.error('Error fetching orders data:', error);
     }
   };
-  // const payOrders = async (id_order) => {
-  //   try {
-  //     await axios.put(`${URL}api/v1/order/pay/${id_order}`);
-  //     getOrders(); 
-  //     handleCancel();
-  //     notification.success({ message: 'Xác nhận thanh toán thành công' ,
-  //       description: `Đã xác nhận thanh toán thành công và sang màn hình thanh toán! ID Đơn: ${id_order}`
-  //     });
-  //   } catch (error) {
-  //     console.error('Error processing payment:', error);
-  //   }
-  // };
+
   useEffect(() => {
     getOrders();
   }, [userId,useToken]);
@@ -148,7 +137,9 @@ function Order() {
           footer={<button
             onClick={() => {
                 // payOrders(selectedOrderId);
+                
                navigate(`/pays?orderId=${selectedOrderId}&userId=${userId}`);
+               handleCancel();
                }}
             class="w-32 h-12 text-white font-semibold bg-gradient-to-r from-indigo-500
              via-purple-500 to-pink-500 rounded-lg shadow-lg hover:scale-105 duration-200 hover:drop-shadow-2xl

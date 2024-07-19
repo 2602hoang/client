@@ -138,12 +138,13 @@ function Pay() {
         }
       }
     );
-      nav('/orderlist');
+      // 
       setSearchParams((prevParams) => {
         const newParams = new URLSearchParams(prevParams);
         newParams.delete('orderId');
         newParams.delete('userId');
         return newParams;
+        // nav('/orderlist');
       });
      
       notification.success({ message: 'Xác nhận thanh toán thành công' ,
@@ -736,6 +737,7 @@ function Pay() {
                   
                    onClick={() => {
                     payOrders();
+                    // nav('/orderlist')
                    
                   }}
                   
