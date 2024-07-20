@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, DatePicker, Divider, Form, Input, notification, QRCode, Radio, Select, Steps } from 'antd';
+import { Button, DatePicker, Divider, Form, Input, message, notification, QRCode, Radio, Select, Steps } from 'antd';
 import { CheckOutlined, CreditCardOutlined, DollarOutlined, FormOutlined, IdcardOutlined, MoneyCollectOutlined, RightCircleFilled, UserOutlined } from '@ant-design/icons';
 import Layout from '../layout/Layout';
 
@@ -24,7 +24,7 @@ function Pay() {
   let [searchParams, setSearchParams] = useSearchParams()
   const orderId = searchParams.get('orderId');
   const userId = searchParams.get('userId');
-
+  
   // console.log(userId, orderId);
   const [check, setCheck] = useState('');
   const { userToken } = useContext(AuthContext);
@@ -169,6 +169,9 @@ function Pay() {
     if (field === 'address' && (val === 'DC1' || val === 'DC2')) {
       setValue({ ...value, [field]: val, email: '' });
     }
+    if (field === 'email'){
+      setValue({ ...value, [field]: val, date: '' });
+    }
   };
 
   const isStep1Valid = () => {
@@ -210,36 +213,48 @@ function Pay() {
     }
     setCurrent(nextCurrent);
   };
-// const [form] = Form.useForm();
-//   const handlesendMail = async (e) => {
-//     if (e) e.preventDefault();
-//     try {
-//       const fromURL = "https://docs.google.com/forms/d/e/1FAIpQLSdJlikFOI5LBt1sw86UaVA1bzyUF1vDbBOuSmjU1XbpA05ZjQ/formResponse";
-//       const formData = new FormData();
-//       formData.append("entry.1128230388", value.name);
-//       formData.append("entry.1426678992", value.phone);
-//       // fromData.append("entry.181433840", value.email || value.date ||null);
-//       // fromData.append("entry.336963041", value.address === "DC1" ? "HCM" : value.address === "DC2" ? "HN" : value.address1 || null);
-//       // fromData.append("entry.1448006309", value.note);
-//       // fromData.append("entry.1604855911", value.option === 3 ? "Than toán tiền mặt" : "Thanh toán chuyển khoản");
-//       // console.log(formData.append("entry.1128230388", value.name));
-//       await axios.post(fromURL, formData, {
-//         headers: {
-//           'Content-Type': 'application/x-www-form-urlencoded'
-//         }
 
-//       })
-//       notification.success({
-//         message: 'Xac Nhận thông tin thành công ',
-//       })
-//     } catch (error) {
-//       console.error(error);
-//       notification.error({
-//         message: 'Gửi thất bại',
-//       });
-//     }
+ 
+    const [form] = Form.useForm();
+    
+  
+   
+    
+    const onFinish = async (e) => {
+      if (e && e.preventDefault) {
+        e.preventDefault(); // Prevent default form submission if an event is passed
+      }
+      const name = value.name + "ID"+ orderId;
+      const phone = value.phone;
+      const email = value.email.length > 0 ? value.email : value.date;
+      const address = value.address ==="DC1" ? "HCM": value.address === "DC2" ? "HN" : value.address1;
+      const note = value.note.length > 0 ? value.note : value.note1;
+      const option = value.option === 3 ? "Chuyển khoản NH": value.option === 4 ? "Thanh toán tiền mặt" : "lỗi";
+      // console.log(orderId,note);
+      const formData = {
+        name,
+        phone,
+        email,
+        address,
+        note,
+        option
+      }
+    
+      
+      
 
-//   }
+      try {
+        await axios.post(`${URL}api/v1/email/send`, formData, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        message.success('Dã Tiếp Nhận Thông Tin');
+      } catch (error) {
+        console.error('Form submission error:', error);
+        message.error('Form submission failed');
+      }
+    };
   // const itemCountsSP = countItemsByIdSP(orderpay);
   const defaultValue = `     
             (Thông Tin Của Bạn) 
@@ -714,9 +729,7 @@ function Pay() {
 
                       </div>
                       )}
-                    <form className='w-full justify-center items-center flex mt-5 flex-col' 
-                    // onSubmit={handlesendMail}
-                    >
+                    <Form className='w-full justify-center items-center flex mt-5 flex-col' form={form} onFinish={onFinish}>
                       <TextArea
                         style={{ width: window.innerWidth > 768 ? "80%" : "100%", height: "auto", overflow: 'hidden', color: "black" }}
                         autoSize={{
@@ -726,8 +739,8 @@ function Pay() {
                         defaultValue={defaultValue}
                         disabled
                       />
-                      <button className='mt-5' type="submit">Gửi</button>
-                    </form>
+                      {/* <Button type="primary" htmlType="submit" >123</Button> */}
+                    </Form>
 
 
                   </div>
@@ -768,7 +781,7 @@ function Pay() {
                   <button
 
                     onClick={() => {
-
+                      onFinish();
                       payOrders();
 
                       // nav('/orderlist')
