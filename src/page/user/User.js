@@ -27,7 +27,7 @@ function User() {
   };
   useEffect(() => {
     getoneUser1();
-  }, [userId, userToken]);
+  }, [userToken]);
 
   const handlelogout = async () => {
     await Logout()
