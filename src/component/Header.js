@@ -17,27 +17,10 @@ import axios from 'axios';
 
 
 function Header({ cart }) {
-  const { removeFromCart, clearCart, addToCart, userId,userToken,Logout } = useContext(AuthContext);
+  const { removeFromCart,user, clearCart, addToCart, userId,userToken,Logout } = useContext(AuthContext);
    
    const nav = useNavigate();
   const [notes, setNotes] = useState('');
-  const [user,setUser] = useState({});
-
-  const getoneUser = async () => {
-    try {
-      const id_user = userId;
-      const response = await axios.get(`${URL}api/v1/user/getone/${id_user}`,
-      {headers: {"Authorization": `Bearer ${userToken}`}},
-      );
-      setUser(response.data.user);
-    } catch (error) {
-      console.error('Error fetching user data:', error);
-      setUser({});
-    }
-  };
-  useEffect(() => {
-    getoneUser();
-  }, [userId,userToken]);
 
   
 

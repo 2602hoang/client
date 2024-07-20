@@ -12,6 +12,24 @@ function AuthContextProvider({ children }) {
     const [userRole, setUserRole] = useState(null);
     const [errorRegister, setErrorRegister] = useState(null);
     const [userId, setUserId] = useState(null);
+    const [user,setUser] = useState({});
+
+    const getoneUser = async () => {
+      try {
+        const id_user = userId;
+        const response = await axios.get(`${URL}api/v1/user/getone/${id_user}`,
+        {headers: {"Authorization": `Bearer ${userToken}`}},
+        );
+        setUser(response.data.user);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        setUser({});
+      }
+    };
+    useEffect(() => {
+      getoneUser();
+    }, [userId,userToken]);
+  
 
     useEffect(() => {
         const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -168,6 +186,7 @@ function AuthContextProvider({ children }) {
         <AuthContext.Provider value={{
             cart,
             addToCart,
+            user,
             removeFromCart,
             updateCartQuantity,
             clearCart,

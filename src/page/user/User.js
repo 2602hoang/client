@@ -8,27 +8,8 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 
 function User() {
   const nav = useNavigate();
-  let [searchParams, setSearchParams] = useSearchParams()
-  const { userToken, Logout} = useContext(AuthContext);
-  const [user, setUser] = useState({});
-  const userId = searchParams.get('userId');
-  const getoneUser1 = async () => {
-    try {
 
-      const id_user = userId;
-      const response = await axios.get(`${URL}api/v1/user/getone/${id_user}`,
-        { headers: { "Authorization": `Bearer ${userToken}` } },
-      );
-      setUser(response.data.user);
-    } catch (error) {
-      console.error('Error fetching user data:', error);
-      setUser({});
-    }
-  };
-  useEffect(() => {
-    getoneUser1();
-  }, [userToken]);
-
+  const { user, Logout } = useContext(AuthContext);
   const handlelogout = async () => {
     await Logout()
     window.location.reload(false);
