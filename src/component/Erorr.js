@@ -2,7 +2,7 @@ import React from 'react'
 
 function Erorr() {
   return (
-    <div class={` grid h-screen place-content-center  px-4`}>
+    <div class={` grid  place-content-center  px-4`}>
   <div class="text-center">
     <h1 class="text-9xl font-black text-gray-200">404</h1>
 

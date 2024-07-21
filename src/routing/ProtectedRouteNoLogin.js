@@ -5,7 +5,7 @@ const ProtectedRouteNoLogin = ({ children }) => {
         !localStorage.getItem('userToken') ? (
             children
         ) : (
-            <Navigate replace to='/productmanager' />
+            <Navigate replace to='/post' />
         )
     );
 };
