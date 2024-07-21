@@ -14,6 +14,7 @@ function Layout({children}) {
     <div className='overflow-hidden h-auto w-full flex flex-col justify-center items-center'>
       <ProgressBar/>
         <Header cart={cart}/>
+       
             
             {children}
         <Footer/>

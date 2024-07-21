@@ -8,16 +8,17 @@ import { useNavigate } from 'react-router-dom';
 
 import { DeleteFilled, ShoppingCartOutlined, } from '@ant-design/icons';
 
-import { Avatar, Badge, FloatButton, Image, List, Modal, notification, Tooltip } from 'antd';
+import { Alert, Avatar, Badge, FloatButton, Image, List, Modal, notification, Tooltip } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { formatCurrency } from '../untils/index.js';
 import { URL } from '../url/index.js';
 import axios from 'axios';
+import Marquee from 'react-fast-marquee';
 
 
 
 function Header({ cart }) {
-  const { removeFromCart,user, clearCart, addToCart, userId,userToken,Logout } = useContext(AuthContext);
+  const { removeFromCart,user, clearCart, addToCart, userId,getoneUser,Logout } = useContext(AuthContext);
    
    const nav = useNavigate();
   const [notes, setNotes] = useState('');
@@ -25,7 +26,9 @@ function Header({ cart }) {
   
 
   // const { userToken,  } = useContext(AuthContext);
-
+  // useEffect(() => {
+  //   getoneUser();
+  // })
 
   const createOrders = async () => {
     const orderItemsMap = new Map();
@@ -138,7 +141,7 @@ function Header({ cart }) {
 
                   <button
                     onClick={() => { removeFromCart(product) }}
-                    title="Add New"
+                    title="Giảm"
                     class="group cursor-pointer outline-none hover:rotate-90 duration-300"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -170,7 +173,7 @@ function Header({ cart }) {
 
                   <button
                     onClick={() => addToCart(product)}
-                    title="Add New"
+                    title="Thêm"
                     class="group cursor-pointer outline-none hover:rotate-90 duration-300"
                   >
                     <svg
@@ -193,13 +196,16 @@ function Header({ cart }) {
                 </div>
 
               </div>
-              <div className='flex  flex-col space-y-9 justify-end items-end '>
+              <div className='flex  flex-col space-y-6 justify-end items-end '>
                 <h1 className='text-black font-mono '>
-                  Đơn Giá : {formatCurrency(product.price)}
+                  ĐG : {formatCurrency(product.price)}
+                </h1>
+                <h1 className='text-black font-mono '>
+                  GG : {product.discoust} %
                 </h1>
                 {/* <CloseOutlined /> */}
 
-                <h1 className='font-mono text-black mt-24'>TT: {formatCurrency(countItemsById(product.id_product) * product.price)}</h1>
+                <h1 className='font-mono text-black mt-24'>TT: {formatCurrency((countItemsById(product.id_product) * product.price)-(countItemsById(product.id_product)*product.price*product.discoust/100))}</h1>
 
 
               </div>
@@ -246,9 +252,10 @@ function Header({ cart }) {
 
 
   return (
-    <div className=' justify-center flex fixed md:relative  items-center font-mono
+    <div className=' justify-center flex fixed   items-center font-mono
                  flex-row bg-[#539ba9]  h-[60px] md:w-full z-40 w-full top-0 '>
-
+    
+              
       <nav className=' justify-between items-center py-2 flex   w-full mx-2'>
         <div className='md:flex top-0 left-0 right-0  z-50  md:z-50   md:w-1/5 flex flex-row md:mr-auto '>
           <a href='/' className='font-black flex  items-center font-sans gap-x-2 md:ml-20 bg-clip-text text-transparent 
@@ -496,6 +503,7 @@ function Header({ cart }) {
           />
         </Modal>
       </div>
+     
 
 
 

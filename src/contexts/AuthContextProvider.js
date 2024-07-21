@@ -187,6 +187,7 @@ function AuthContextProvider({ children }) {
             cart,
             addToCart,
             user,
+            getoneUser,
             removeFromCart,
             updateCartQuantity,
             clearCart,

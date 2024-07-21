@@ -35,8 +35,8 @@ function HeaderAdmin() {
       setSubMenuVisible(!subMenuVisible);
     };
     return (
-        <div className=' justify-center flex fixed md:relative  items-center
-    flex-row bg-[#539ba9]  h-[60px] md:w-full z-40 w-full top-0 '>
+        <div className=' justify-center flex fixed   items-center
+    flex-row bg-[#539ba9]  h-[60px] md:w-full z-40 w-full top-0 left-0 right-0 '>
 
             <nav className=' justify-start items-center py-2 flex md:ml-6 md:w-full w-full mx-2'>
                 <div className='md:flex top-0 left-0 right-0  z-50  md:z-50   md:w-1/5 flex flex-row md:mr-auto  '>
