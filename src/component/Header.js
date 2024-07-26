@@ -82,12 +82,16 @@ function Header({ cart }) {
         const { stock } = error.response.data;
         notification.error({
           message: 'Đã xảy ra lỗi!',
-          description: `Số lượng đặt vượt quá số lượng hiện có là ${stock}. Vui lòng điều chỉnh lại số lượng đặt`
+          description: `Số lượng đặt vượt quá số lượng hiện có là ${stock}. Vui lòng điều chỉnh lại số lượng đặt`,
+          showProgress: true,
+          duration: 1,
         });
       } else {
         notification.error({
           message: 'Đã xảy ra lỗi!',
-          description: 'Có lỗi xảy ra khi thực hiện đặt hàng. Vui lòng thử lại sau.'
+          description: 'Có lỗi xảy ra khi thực hiện đặt hàng. Vui lòng thử lại sau.',
+          showProgress: true,
+          duration: 1,
         });
       }
       

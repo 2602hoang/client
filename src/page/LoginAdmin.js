@@ -26,6 +26,8 @@ function LoginAdmin() {
             notification.warning({
                 message: 'Lỗi SDT',
                 description: `SĐT phải là 10 ký tự định dạng 0XXX-XXXXXXX`,
+                showProgress: true,
+                duration: 1,
             });
             return;
         }
@@ -34,6 +36,8 @@ function LoginAdmin() {
             notification.warning({
                 message: 'Lỗi mật khẩu',
                 description: `Mật khẩu phải từ 6 ký tự`,
+                showProgress: true,
+                duration: 1,
             });
             return;
         }
@@ -46,6 +50,8 @@ function LoginAdmin() {
                 notification.success({
                     message: 'Thành công',
                     description: `Đăng nhập thành công! phone ${phone}`,
+                    showProgress: true,
+                    duration: 1,
                 });
             } else {
                 setErr(LoginData.success === false || LoginData.message === "thông tin không hợp lệ");
@@ -53,6 +59,8 @@ function LoginAdmin() {
                 notification.error({
                     message: 'Thất Bại',
                     description: 'Số ĐT hoặc mật khẩu không đúng, vui lòng thử lại!',
+                    showProgress: true,
+                    duration: 1,
                 });
             }
         } catch (error) {
@@ -76,6 +84,8 @@ function LoginAdmin() {
             notification.warning({
                 message: 'Lỗi SDT',
                 description: `SĐT phải là 10 ký tự định dạng 0XXX-XXXXXXX`,
+                showProgress: true,
+                duration: 1,
             });
             return;
         }
@@ -84,6 +94,8 @@ function LoginAdmin() {
             notification.warning({
                 message: 'Lỗi mật khẩu',
                 description: `Mật khẩu phải từ 6 ký tự`,
+                showProgress: true,
+                duration: 1,
             });
             return;
         }
@@ -96,6 +108,8 @@ function LoginAdmin() {
                 notification.success({
                     message: 'Thành công',
                     description: `Đăng ký thành công! phone ${phone}`,
+                    showProgress: true,
+                    duration: 1,
                 });
                 form.reset();
                 if (toggleRef.current) {
@@ -109,6 +123,8 @@ function LoginAdmin() {
                 notification.error({
                     message: 'Thất bại',
                     description: `Số điện thoại ${phone} đã được đăng ký `,
+                    showProgress: true,
+                    duration: 1,
                 });
             }
         } catch (error) {

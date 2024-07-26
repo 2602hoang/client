@@ -3,7 +3,7 @@ import LayoutAdmin from '../layout/LayoutAdmin'
 import { URL } from '../../url';
 import axios from 'axios';
 import { AuthContext } from '../../contexts/AuthContextProvider';
-import { Image, Select, Input, Drawer, notification } from 'antd';
+import { Image, Select, Input, Drawer,  } from 'antd';
 import { formatCurrency } from '../../untils';
 
 const { Option } = Select;

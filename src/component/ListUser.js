@@ -56,6 +56,9 @@ function ListUser({ getAllRole, role }) {
             notification.warning({
                 message: 'Thành công',
                 description: `Khóa tài khoản thành công! ID: ${id_user}`,
+                showProgress: true,
+                duration: 1,
+                
             });
             getAllUser(); // Refresh the user list after deletion
         } catch (error) {
@@ -73,6 +76,8 @@ function ListUser({ getAllRole, role }) {
             notification.warning({
                 message: 'Thành công',
                 description: `Hoạt động khoản thành công! ID: ${id_user}`,
+                showProgress: true,
+                duration: 1,
             });
             getAllUser(); // Refresh the user list after deletion
         } catch (error) {

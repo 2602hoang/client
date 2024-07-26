@@ -60,12 +60,16 @@ function UpdateUser({ id_user, getAllUser, handleModalClose ,role ,getAllRole })
             notification.success({
                 message: 'Thành công',
                 description: `Cập nhật người dùng thành công! ID: ${id_user}`,
+                showProgress: true,
+                duration: 1,
             });
         } catch (error) {
             console.error('Error updating user:', error);
             notification.error({
                 message: 'Lỗi',
                 description: 'Đã xảy ra lỗi khi cập nhật người dùng.',
+                showProgress: true,
+                duration: 1,
             });
         }
     };

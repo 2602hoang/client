@@ -35,6 +35,8 @@ function Pay() {
       notification.warning({
         message: 'Thông báo',
         description: 'Hiện tại không có đơn hàng để xác nhận thanh toán',
+        showProgress: true,
+        duration: 1,
       });
       return;
     }
@@ -149,7 +151,9 @@ function Pay() {
 
       notification.success({
         message: 'Xác nhận thanh toán thành công',
-        description: `Đã xác nhận thanh toán thành công và sang màn đơn hàng!`
+        description: `Đã xác nhận thanh toán thành công và sang màn đơn hàng!`,
+        showProgress: true,
+        duration: 1,
       });
     } catch (error) {
       console.error('Error processing payment:', error);
@@ -196,6 +200,8 @@ function Pay() {
       notification.warning({
         message: 'Thông báo',
         description: 'Nhập đủ thông tin mới sang được bước tiếp theo',
+        showProgress: true,
+        duration: 1,
       });
 
       return;
@@ -204,11 +210,15 @@ function Pay() {
       notification.success({
         message: `${nextCurrent === 0 ? 'Chọn phương thức lấy hàng' : nextCurrent === 1 ? 'Chọn hình thức thanh toán' : 'Xác nhận thanh toán'} `,
         description: `Sang bước ${nextCurrent + 1}`,
+        showProgress: true,
+        duration: 1,
       });
     } else if (nextCurrent < current) {
       notification.success({
         message: `${nextCurrent === 0 ? 'Chọn phương thức lấy hàng' : nextCurrent === 1 ? 'Chọn hình thức thanh toán' : 'Xác nhận thanh toán'} `,
         description: `Quay lại bước ${nextCurrent + 1}`,
+        showProgress: true,
+        duration: 1,
       });
     }
     setCurrent(nextCurrent);

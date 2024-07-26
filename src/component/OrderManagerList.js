@@ -135,6 +135,8 @@ function OrderManagerList() {
       await axios.put(`${URL}api/v1/order/update/xacnhan/${selectedOrderId}`);
       notification.success({
         message: `Xác nhận đơn hàng thành công ${selectedOrderId}`,
+        showProgress: true,
+        duration: 1,
       });
       getOrders();
       setOpen(false);
@@ -148,6 +150,8 @@ function OrderManagerList() {
       await axios.put(`${URL}api/v1/order/update/huy/${selectedOrderId}`);
       notification.success({
         message: `Hủy đơn hàng ${selectedOrderId}`,
+        showProgress: true,
+        duration: 1,
       });
       getOrders();
       setOpen1(false);
@@ -162,6 +166,8 @@ function OrderManagerList() {
       nav('/ordermanager');
       notification.success({
         message: `Ghi chú đơn hàng ${id_order}`,
+        showProgress: true,
+        duration: 1,
       });
       getOrders();
       setOpen1(false);
@@ -181,6 +187,8 @@ function OrderManagerList() {
     setActiveTag(tag);
     notification.success({
       message: `Danh sách đơn hàng ${tag === 'confirmed' ? 'đã xác nhận' : tag === 'notConfirmed' ? 'Đơn hủy' : 'tất cả'}`,
+      showProgress: true,
+      duration: 1,
     });
   };
   const [currentPage, setCurrentPage] = useState(1);

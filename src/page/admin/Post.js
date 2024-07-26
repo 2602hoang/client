@@ -1,6 +1,6 @@
 import React from 'react'
 import LayoutAdmin from '../layout/LayoutAdmin'
-import Error from '../../component/Erorr.js'
+
 
 function Post() {
   return (

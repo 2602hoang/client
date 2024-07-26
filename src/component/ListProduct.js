@@ -91,6 +91,8 @@ function ListProduct({ getBrands, getCategories, brands, categories }) {
       notification.warning({
         message: 'Thành công',
         description: `Ngưng kinh doanh sản phẩm! ID: ${id_product}`,
+        showProgress: true,
+        duration: 1,
       });
       getAllProducts(); // Refresh the product list after deletion
     } catch (error) {
@@ -109,6 +111,8 @@ function ListProduct({ getBrands, getCategories, brands, categories }) {
       notification.success({
         message: 'Thành Công',
         description: `Kinh doanh lại sản phẩm! ID: ${id_product}`,
+        showProgress: true,
+        duration: 1,
       });
       getAllProducts(); // Refresh the product list after deletion
     } catch (error) {

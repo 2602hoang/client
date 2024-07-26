@@ -206,7 +206,9 @@ data-aos="flip-left"
                    { handleAddToCart(product)
                     notification.success({
                       message: "Đã thêm sản phẩm vào giỏ hàng",
-                      description: `Đã thêm "${product.name}" vào giỏ hàng`
+                      description: `Đã thêm "${product.name}" vào giỏ hàng`,
+                      showProgress: true,
+                      duration: 1,
                     })}
                     
                     } class="font-semibold text-sm text-[#32bfdb]">Thêm giỏ hàng</button>
@@ -230,7 +232,9 @@ data-aos="flip-left"
                     onClose()
                     notification.success({
                       message: "Đã thêm sản phẩm vào giỏ hàng",
-                      description: `Đã thêm "${selectedProduct.name}" vào giỏ hàng`
+                      description: `Đã thêm "${selectedProduct.name}" vào giỏ hàng`,
+                      showProgress: true,
+                      duration: 1,
                     })
                    
 

@@ -34,7 +34,7 @@ function LayoutNavabar({ menuItems, menuVisible, toggleMenu,
      
       <Button
         type='link'
-        className='flex my-2 mt-[10px] md:ml-3 md:fixed absolute mr-2 '
+        className='flex my-2 mt-[80px] md:ml-3 md:fixed absolute mr-2 '
         onClick={toggleMenu}
         icon={
           !menuVisible ? (

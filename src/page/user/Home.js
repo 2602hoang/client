@@ -14,6 +14,8 @@ function Home() {
       notification.error({
         message: 'Lỗi định dạng email',
         description: 'Vui lòng nhập định dạng email hợp lệ',
+        showProgress: true,
+        duration: 1,
       })
       return;
     }
@@ -26,7 +28,9 @@ function Home() {
           // console.log('SUCCESS!');
           notification.success({
             message: 'Yeah! Gửi thành công!',
-            description: email + " " + 'Đã được gửi đến chúng tôi. Cảm ơn bạn! '
+            description: email + " " + 'Đã được gửi đến chúng tôi. Cảm ơn bạn! ',
+            showProgress: true,
+            duration: 1,
           })
           // alert(`${email} +1 Subscribe. Successful!!!`)
           form.current.email.value = '';

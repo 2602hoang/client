@@ -53,12 +53,16 @@ function UpdateProduct({ id_product, handleModalClose, getAllProducts, getCatego
             notification.success({
                 message: 'Thành công',
                 description: `Cập nhật sản phẩm thành công! ID: ${id_product}`,
+                showProgress: true,
+                duration: 1,
             });
         } catch (error) {
             console.error('Error updating product:', error);
             notification.error({
                 message: 'Lỗi',
                 description: 'Đã xảy ra lỗi khi cập nhật sản phẩm.',
+                showProgress: true,
+                duration: 1,
             });
         }
     };

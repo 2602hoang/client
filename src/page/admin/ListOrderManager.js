@@ -141,6 +141,8 @@ function ListOrderManager() {
       // nav('/ordermanager');
       notification.success({
         message: `Ghi chú đơn hàng ${id_order}`,
+        showProgress: true,
+        duration: 1,
       });
       getOrders();
       setOpen1(false);
@@ -157,6 +159,8 @@ function ListOrderManager() {
     setActiveTag(tag);
     notification.success({
       message: `Danh sách đơn hàng ${tag === 'confirmed' ? 'đã xác nhận' : tag === 'notConfirmed' ? 'Đơn hủy' : 'tất cả'}`,
+      showProgress: true,
+      duration: 1,
     });
   };
 

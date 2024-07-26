@@ -112,6 +112,8 @@ function RejectOrder() {
     setActiveTag(tag);
     notification.success({
       message: `Danh sách đơn hàng ${tag === 'confirmed' ? 'Đơn Thành Công' : tag === 'notConfirmed' ? 'Đơn thất bại' : 'Tất cả đơn'}`,
+      showProgress: true,
+      duration: 1,
     });
   };
   return (

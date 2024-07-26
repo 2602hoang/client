@@ -34,6 +34,8 @@ function chat() {
         })
         notification.success({
           message: 'Xac Nhận thông thành công ',
+          showProgress: true,
+          duration: 1,
         })
        } catch (error) {
         console.error(error);
