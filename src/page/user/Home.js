@@ -15,7 +15,7 @@ function Home() {
         message: 'Lỗi định dạng email',
         description: 'Vui lòng nhập định dạng email hợp lệ',
         showProgress: true,
-        duration: 1,
+        duration: 1.5,
       })
       return;
     }
@@ -30,7 +30,7 @@ function Home() {
             message: 'Yeah! Gửi thành công!',
             description: email + " " + 'Đã được gửi đến chúng tôi. Cảm ơn bạn! ',
             showProgress: true,
-            duration: 1,
+            duration: 1.5,
           })
           // alert(`${email} +1 Subscribe. Successful!!!`)
           form.current.email.value = '';

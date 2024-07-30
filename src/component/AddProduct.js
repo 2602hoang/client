@@ -49,7 +49,7 @@ function AddProduct({ navigateToList, handleModalClose, getAllProducts,getCatego
                 message: 'Thành công',
                 description: `Thêm sản phẩm thành công! `,
                 showProgress: true,
-                duration: 1,
+                duration: 1.5,
             });
             form.resetFields();
             setImageList([]);

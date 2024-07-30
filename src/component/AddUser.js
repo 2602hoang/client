@@ -34,7 +34,7 @@ function AddUser({ getAllRole, role}) {
                 message: 'Thành Công',
                 description: `Thêm thành công!`,
                 showProgress: true,
-                duration: 1,
+                duration: 1.5,
             });
             form.resetFields();
             setImageList([]);
@@ -46,7 +46,7 @@ function AddUser({ getAllRole, role}) {
                 message: 'Lỗi',
                 description: 'Có lỗi xảy ra khi thêm người dùng. Trùng số điện thoại',
                 showProgress: true,
-                duration: 1,
+                duration: 1.5,
             });
         }
     };

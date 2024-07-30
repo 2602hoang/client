@@ -47,7 +47,7 @@ function LoginUser() {
         message: "Lỗi rỗng",
         description: `Vui lòng nhập thông tin`,
         showProgress: true,
-        duration: 1,
+        duration: 1.5,
       });
       return;
     }
@@ -56,7 +56,7 @@ function LoginUser() {
         message: "Lỗi SDT",
         description: `SĐT phải là 10 ký tự định dạng 0XXX-XXXXXXX`,
         showProgress: true,
-        duration: 1,
+        duration: 1.5,
       });
       return;
     }
@@ -78,7 +78,7 @@ function LoginUser() {
           message: "Thành công",
           description: `Đăng nhập thành công! phone ${phone}`,
           showProgress: true,
-          duration: 1,
+          duration: 1.5,
         });
       } else if (
         LoginData.success === false &&
@@ -88,7 +88,7 @@ function LoginUser() {
           message: "Thất Bại",
           description: "Tài khoản của bạn đã bị khóa",
           showProgress: true,
-          duration: 1,
+          duration: 1.5,
         });
       } else {
         setErr(
@@ -100,7 +100,7 @@ function LoginUser() {
           message: "Thất Bại",
           description: "Số ĐT hoặc mật khẩu không đúng, vui lòng thử lại!",
           showProgress: true,
-          duration: 1,
+          duration: 1.5,
         });
       }
     } catch (error) {
@@ -126,7 +126,7 @@ function LoginUser() {
         message: "Lỗi SDT",
         description: `SĐT phải là 10 ký tự định dạng 0XXX-XXXXXXX`,
         showProgress: true,
-        duration: 1,
+        duration: 1.5,
       });
       return;
     }
@@ -136,7 +136,7 @@ function LoginUser() {
         message: "Lỗi mật khẩu",
         description: `Mật khẩu phải từ 6 ký tự`,
         showProgress: true,
-        duration: 1,
+        duration: 1.5,
       });
       return;
     }
@@ -151,7 +151,7 @@ function LoginUser() {
           message: "Thành công",
           description: `Đăng ký thành công! phone ${phone}`,
           showProgress: true,
-          duration: 1,
+          duration: 1.5,
         });
         form.reset();
         // if (toggleRef.current) {
@@ -164,7 +164,7 @@ function LoginUser() {
           message: "Thất bại",
           description: `Số điện thoại ${phone} đã được đăng ký `,
           showProgress: true,
-          duration: 1,
+          duration: 1.5,
         });
       }
     } catch (error) {

@@ -207,7 +207,7 @@ function OrderfinishedManager() {
       notification.success({
         message: `Xác nhận đơn hàng thành công ${selectedOrderId}`,
         showProgress: true,
-        duration: 1,
+        duration: 1.5,
       });
       getOrders();
       setOpen1(false);
@@ -226,7 +226,7 @@ function OrderfinishedManager() {
       notification.success({
         message: `Xác nhận đơn hàng thành công ${selectedOrderId}`,
         showProgress: true,
-        duration: 1,
+        duration: 1.5,
       });
       getOrders();
       setOpen1(false);
@@ -245,7 +245,7 @@ function OrderfinishedManager() {
       notification.success({
         message: `Hủy đơn hàng thành công ${selectedOrderId}`,
         showProgress: true,
-        duration: 1,
+        duration: 1.5,
       });
       getOrders();
       setOpen2(false);
@@ -286,7 +286,7 @@ function OrderfinishedManager() {
                   notification.success({
                     message: `Danh sách tất cả đơn hàng`,
                     showProgress: true,
-                    duration: 1,
+                    duration: 1.5,
                   });
                 }}
               >
@@ -308,7 +308,7 @@ function OrderfinishedManager() {
                   notification.success({
                     message: `Danh sách đơn hàng thành công`,
                     showProgress: true,
-                    duration: 1,
+                    duration: 1.5,
                   });
                 }}
               >
@@ -331,7 +331,7 @@ function OrderfinishedManager() {
                   notification.success({
                     message: `Danh sách đơn thất bại`,
                     showProgress: true,
-                    duration: 1,
+                    duration: 1.5,
                   });
                 }}
               >

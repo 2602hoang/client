@@ -61,7 +61,7 @@ function UpdateUser({ id_user, getAllUser, handleModalClose ,role ,getAllRole })
                 message: 'Thành công',
                 description: `Cập nhật người dùng thành công! ID: ${id_user}`,
                 showProgress: true,
-                duration: 1,
+                duration: 1.5,
             });
         } catch (error) {
             console.error('Error updating user:', error);
@@ -69,7 +69,7 @@ function UpdateUser({ id_user, getAllUser, handleModalClose ,role ,getAllRole })
                 message: 'Lỗi',
                 description: 'Đã xảy ra lỗi khi cập nhật người dùng.',
                 showProgress: true,
-                duration: 1,
+                duration: 1.5,
             });
         }
     };

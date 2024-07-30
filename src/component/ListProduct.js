@@ -92,7 +92,7 @@ function ListProduct({ getBrands, getCategories, brands, categories }) {
         message: 'Thành công',
         description: `Ngưng kinh doanh sản phẩm! ID: ${id_product}`,
         showProgress: true,
-        duration: 1,
+        duration: 1.5,
       });
       getAllProducts(); // Refresh the product list after deletion
     } catch (error) {
@@ -112,7 +112,7 @@ function ListProduct({ getBrands, getCategories, brands, categories }) {
         message: 'Thành Công',
         description: `Kinh doanh lại sản phẩm! ID: ${id_product}`,
         showProgress: true,
-        duration: 1,
+        duration: 1.5,
       });
       getAllProducts(); // Refresh the product list after deletion
     } catch (error) {
