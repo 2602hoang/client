@@ -7,7 +7,7 @@ import axios from 'axios';
 
 function LayoutNavabar({ menuItems, menuVisible, toggleMenu,
   toggleSubMenu, onMenuClick }) {
-    const { userId } = useContext(AuthContext);
+    const { userId, Logout } = useContext(AuthContext);
     const [user, setUser] = useState({});
     
     useEffect(() => {
@@ -22,8 +22,14 @@ function LayoutNavabar({ menuItems, menuVisible, toggleMenu,
             const response = await axios.get(`${URL}api/v1/user/getone/${id_user}`);
             setUser(response.data.user);
         } catch (error) {
-            console.error('Error fetching user data:', error);
-            setUser({});
+            if (error.response.status === 401) {
+                Logout();
+            }
+            else {
+              console.error('Error fetching user data:', error);
+            setUser({});      
+            }
+            
         }
     };
   
@@ -58,7 +64,7 @@ function LayoutNavabar({ menuItems, menuVisible, toggleMenu,
                   toggleSubMenu(index);
                   onMenuClick(menuItem);
                   toggleMenu();
-                }}
+              }}
                 className={`text-black hover:border-b-2
                   
                  hover:border-red-500  hover:text-red-500 font-bold transition duration-500 ease-in $`

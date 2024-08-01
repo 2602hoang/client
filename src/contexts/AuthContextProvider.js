@@ -6,6 +6,7 @@ import { URL } from '../url';
 export const AuthContext = createContext();
 
 function AuthContextProvider({ children }) {
+   
     const [cart, setCart] = useState([]);
     const [userToken, setUserToken] = useState(null);
     const [error, setError] = useState(null);
@@ -22,8 +23,12 @@ function AuthContextProvider({ children }) {
         );
         setUser(response.data.user);
       } catch (error) {
+        if( error.response.status === 401) {
+            Logout();
+        }else{
         console.error('Error fetching user data:', error);
         setUser({});
+        }
       }
     };
 
@@ -59,7 +64,7 @@ function AuthContextProvider({ children }) {
             );
         });
     };
-
+    console.log(userToken)
     const removeFromCart = (item) => {
         const newCart = [...cart];
         const index = newCart.findIndex((cartItem) => cartItem.name === item.name);
