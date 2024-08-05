@@ -64,7 +64,7 @@ function AuthContextProvider({ children }) {
             );
         });
     };
-    console.log(userToken)
+    // console.log(userToken)
     const removeFromCart = (item) => {
         const newCart = [...cart];
         const index = newCart.findIndex((cartItem) => cartItem.name === item.name);
