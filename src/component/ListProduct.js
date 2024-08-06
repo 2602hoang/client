@@ -68,7 +68,7 @@ function ListProduct({ getBrands, getCategories, brands, categories }) {
     }
 
     setFilteredProducts(filtered);
-  }, [selectedCategory, selectedStatus,selectedBrand, searchTerm, products,userToken]);
+  }, [selectedCategory, selectedStatus,selectedBrand, searchTerm, products,]);
 
   const handleEdit = (product) => {
     setSelectedProduct(product);

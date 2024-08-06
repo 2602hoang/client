@@ -106,9 +106,9 @@ function ListUser({ getAllRole, role }) {
         <div>
             {user.length > 0 ? (
                 <div>
-                    <div   data-aos="fade-down" className='flex gap-6 flex-col px-6 w-full justify-end items-end mb-2'>
+                    <div   data-aos="fade-down" className='md:mt-16 flex gap-6 flex-col px-6 w-full justify-end items-end mb-2'>
                         <p className='text-xl font-medium'>Tìm theo chức vụ</p>
-                        <div className='flex w-full gap-6 justify-end items-end'>
+                        <div className='flex w-full gap-6 justify-end items-end md:flex-row flex-col'>
                             <Select
                                 placeholder="Chọn chức vụ"
                                 value={selectedRole}

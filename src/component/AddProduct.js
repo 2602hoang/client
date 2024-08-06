@@ -14,7 +14,7 @@ function AddProduct({ navigateToList, handleModalClose, getAllProducts,getCatego
     const {userToken,userId} = useContext(AuthContext);
 
 
-    console.log(userId);
+    // console.log(userId);
 
     
 

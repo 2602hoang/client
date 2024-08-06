@@ -42,7 +42,7 @@ function Cart({cart}) {
         id_product,
         qty
       }));
-      console.log("ok", orderItems);
+      // console.log("ok", orderItems);
       // Convert orderItemsMap back to an array of objects
   
       const orderData = {
@@ -60,7 +60,7 @@ function Cart({cart}) {
           }
   
         });
-        console.log(respone.data);
+        // console.log(respone.data);
         clearCart();
         // nav('/order');
       } catch (error) {
@@ -84,12 +84,12 @@ function Cart({cart}) {
     };
   
     const handleOk = (e) => {
-      console.log(e);
+      // console.log(e);
       setOpen(false);
     };
   
     const handleCancel = (e) => {
-      console.log(e);
+      // console.log(e);
       setOpen(false);
     };
   

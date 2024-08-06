@@ -95,7 +95,7 @@ function UpdateUser({ id_user, getAllUser, handleModalClose ,role ,getAllRole })
         getOneUser();
         getAllRole();
     }, [id_user, userToken]);
-    console.log(role);
+    // console.log(role);
     return (
         <div>
             {user && (

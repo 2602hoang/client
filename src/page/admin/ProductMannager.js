@@ -77,6 +77,8 @@ function ProductMannager({id_role}) {
     getCategories();
     getBrands();
   }, [userToken]);
+  // console.log(userToken);
+  
   const renderContent = () => {
     switch (activeMenuItem) {
       case 'Danh sách':

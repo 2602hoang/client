@@ -66,7 +66,7 @@ const total = order.length > 0 ? order[0].total_price : null;
 const date = order.length > 0 ? order[0].date_order : null;
 const note = order.length > 0 ? order[0].notes : null;
 
-console.log(date);
+// console.log(date);
 // {console.table(itemCountsSP);}
   return (
     <div id="pdf-content" className='w-full mt-auto flex justify-center items-center h-auto'>
