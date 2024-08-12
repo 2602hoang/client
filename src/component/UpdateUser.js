@@ -94,8 +94,8 @@ function UpdateUser({ id_user, getAllUser, handleModalClose ,role ,getAllRole })
     useEffect(() => {
         getOneUser();
         getAllRole();
-    }, [id_user, userToken]);
-    // console.log(role);
+    }, );
+    console.log(role);
     return (
         <div>
             {user && (
@@ -115,7 +115,7 @@ function UpdateUser({ id_user, getAllUser, handleModalClose ,role ,getAllRole })
                 <Form.Item
                 rules={[{
                      message: 'Vui lòng nhập mật khẩu!',
-                    min: 6, message: 'Mật khẩu phải có ít nhất 6 ký tự!' 
+                    min: 6, message1: 'Mật khẩu phải có ít nhất 6 ký tự!' 
                    }]}
                 label="Đổi Mật khẩu" name="password">
                     <Input.Password placeholder="Password" />

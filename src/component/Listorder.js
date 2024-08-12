@@ -26,7 +26,9 @@ function Listorder({ selectedOrderId }) {
     if (selectedOrderId) {
         getOneOrders();
     }
-  }, [selectedOrderId,userId,userToken])
+  }, [selectedOrderId, userId, userToken])
+  // console.table(bra);
+  
 //   console.log(order);
   const countItemsByIdSP = (orders) => {
     if (!Array.isArray(orders)) {

@@ -11,7 +11,7 @@ import axios from 'axios';
 import { URL } from '../../url';
 // import Search from 'antd/es/transfer/search';
 import { AuthContext } from '../../contexts/AuthContextProvider';
-import SaleProduct from './SaleProduct';
+// import SaleProduct from './SaleProduct';
 import Thongkeluotbanproduct from '../../component/thongke/Thongkeluotbanproduct';
 import ThongkehoanProduct from '../../component/thongke/ThongkehoanProduct';
 import Thongkestockproduct from '../../component/thongke/Thongkestockproduct';
@@ -78,6 +78,8 @@ function ProductMannager({id_role}) {
     getBrands();
   }, [userToken]);
   // console.log(userToken);
+  // console.table(brands);
+  
   
   const renderContent = () => {
     switch (activeMenuItem) {

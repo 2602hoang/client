@@ -6,7 +6,6 @@ import { URL } from '../url';
 export const AuthContext = createContext();
 
 function AuthContextProvider({ children }) {
-   
     const [cart, setCart] = useState([]);
     const [userToken, setUserToken] = useState(null);
     const [error, setError] = useState(null);
@@ -29,8 +28,10 @@ function AuthContextProvider({ children }) {
         console.error('Error fetching user data:', error);
         setUser({});
         }
-      }
+        }
+      
     };
+    
 
     useEffect(() => {
       if (userId && userToken) {
@@ -186,7 +187,7 @@ function AuthContextProvider({ children }) {
             clearCart,
             errorRegister, setErrorRegister, userToken,
             setUserToken, Login, Register, Logout, error,
-            setError, userRole, userId, setUserId
+            setError, userRole, userId, setUserId,
         }}>
             {children}
         </AuthContext.Provider>

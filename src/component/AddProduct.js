@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Form, Input, Popconfirm, Select, Spin, Upload, message, notification } from 'antd';
-import { PlusOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { Button, Form, Input, Select, Upload, notification } from 'antd';
+import { PlusOutlined,  } from '@ant-design/icons';
 import axios from 'axios';
 import { URL } from '../url';
 import TextArea from 'antd/es/input/TextArea';
 import { AuthContext } from '../contexts/AuthContextProvider';
 
-function AddProduct({ navigateToList, handleModalClose, getAllProducts,getCategories ,getBrands, brands ,categories}) {
+function AddProduct({ getAllProducts,getCategories ,getBrands, brands ,categories}) {
    
     const [imageList, setImageList] = useState([]);
     // const [messageApi, contextHolder] = message.useMessage();

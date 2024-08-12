@@ -48,7 +48,9 @@ function ListProduct({ getBrands, getCategories, brands, categories }) {
     getAllProducts();
     getBrands();
     getCategories();
-  }, [userToken,userId]);
+    
+  }, [userToken]);
+  
 
   useEffect(() => {
     let filtered = products;
