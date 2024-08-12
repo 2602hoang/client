@@ -1,5 +1,5 @@
 import { PlusOutlined,  } from '@ant-design/icons';
-import { Button, Form, Input, notification, Select, Upload } from 'antd'
+import { Button, Form, Input, notification, Result, Select, Upload } from 'antd'
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import { URL } from '../url';
@@ -159,7 +159,14 @@ function AddUser({ getAllRole, role}) {
              </Form.Item>
          </Form>
         )
-    :(<div>(Quản Lý mới thêm được)</div>)
+    :(<div><Result
+        status="403"
+        title={ <h1 className="text-3xl font-bold text-center text-red-500 uppercase my-4">
+          403 Lỗi phân quyền
+        </h1>}
+        subTitle="Rất tiếc, bạn không được phép truy cập trang này."
+        // extra={<Button href="/" type="primary">Về Trang Chủ</Button>}
+      /></div>)
     }
            
       

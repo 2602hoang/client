@@ -3,7 +3,7 @@ import bg from '../assets/hinh.png'
 import bg1 from '../assets/hinh1.png'
 
 import { AuthContext } from '../contexts/AuthContextProvider';
-import { notification } from 'antd';
+import { Button, notification, Result } from 'antd';
 function LoginAdmin() {
     // const nav = useNavigate();
     const toggleRef = useRef(null);
@@ -65,13 +65,17 @@ function LoginAdmin() {
             }
         } catch (error) {
             console.log(error);
-            // setErr("số ĐT hoặc mật khẩu không đúng, vui lòng thử lại!");
+            setErr("số ĐT hoặc mật khẩu không đúng, vui lòng thử lại!");
             
             setTimeout(() => setErr(''), 3000);
-            // notification.error({
-            //     message: 'Thất Bại',
-            //     description: `số ĐT hoặc mật khẩu không đúng, vui lòng thử lại!`,
-            // });
+            return (
+                <Result
+                    status="500"
+                    title="500"
+                    subTitle="Sorry, something went wrong."
+                    extra={<Button type="primary" onClick={() => window.location.href = '/'}>Back Home</Button>}
+                />
+            );  
         }
     };
     const HandleRegister = async (e) => {
@@ -139,11 +143,12 @@ function LoginAdmin() {
 
     return (
         <div
+        data-aos="fade-down"
         style={{backgroundImage:window.innerWidth >= 768 ? `url(${bg})`:`url(${bg1})`,backgroundSize:window.innerWidth >= 768 ?'100% 100%':'100% 110%'}}
         className='overflow-hidden p-7 flex justify-center  items-center w-full h-screen'>
 
             {/* <div className='w-[300px] h-auto justify-center mt-48 bg-white items-center flex'> */}
-                    <div class="wrapper">
+                    <div  class="wrapper">
                             <div class="card-switch">
                                 <label class="switch ">
                                 <input type="checkbox" class="toggle " ref={toggleRef} />

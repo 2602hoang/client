@@ -5,7 +5,7 @@ import OrderManagerList from '../../component/OrderManagerList';
 import axios from 'axios';
 import { URL } from '../../url';
 import { useNavigate } from 'react-router-dom';
-import { Button, Form, message, Modal, notification, Popconfirm, Space, Tag, Tooltip } from 'antd';
+import { Button, Form, message, Modal, notification, Result, Space, Tag, Tooltip } from 'antd';
 import Search from 'antd/es/input/Search';
 import ParentComponent from '../../component/ParentComponent';
 import TextArea from 'antd/es/input/TextArea';
@@ -340,7 +340,14 @@ function ListOrderManager() {
   </div>)
     :(
       <div className='flex justify-center items-center min-h-screen'>
-      <h1 className='text-3xl font-bold text-center text-red-500 uppercase my-4'>Bạn không được phép truy cập</h1>
+      <Result
+            status="403"
+            title={ <h1 className="text-3xl font-bold text-center text-red-500 uppercase my-4">
+              403 Lỗi phân quyền
+            </h1>}
+            subTitle="Rất tiếc, bạn không được phép truy cập trang này."
+            extra={<Button href="/" type="primary">Về Trang Chủ</Button>}
+          />
      </div>
     )}
 </LayoutAdmin>

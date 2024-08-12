@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Form, Input, Select, Upload, notification } from 'antd';
+import { Button, Form, Input, Result, Select, Upload, notification } from 'antd';
 import { PlusOutlined,  } from '@ant-design/icons';
 import axios from 'axios';
 import { URL } from '../url';
@@ -157,7 +157,15 @@ function AddProduct({ getAllProducts,getCategories ,getBrands, brands ,categorie
         )
         :
         (
-            <div data-aos="fade-down" >(Quản Lý mới thêm được)</div>
+            <div data-aos="fade-down" >
+            <Result
+            status="403"
+            title={ <h1 className="text-3xl font-bold text-center text-red-500 uppercase my-4">
+              403 Lỗi phân quyền
+            </h1>}
+            subTitle="Rất tiếc, bạn không được phép truy cập trang này."
+            // extra={<Button href="/" type="primary">Về Trang Chủ</Button>}
+          /></div>
         )
         }
         </div>

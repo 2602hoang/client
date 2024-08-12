@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import LayoutAdmin from '../layout/LayoutAdmin'
 import ThongkeOrderThanhCong from '../../component/thongke/ThongkeOrderThanhCong'
 import { AuthContext } from '../../contexts/AuthContextProvider';
+import { Button, Result } from 'antd';
 
 function ReportOrder() {
   const {userId}= useContext(AuthContext);
@@ -14,7 +15,14 @@ function ReportOrder() {
        </div>
       ):
       <div className='flex justify-center items-center min-h-screen'>
-        <h1 className='text-3xl font-bold text-center text-red-500 uppercase my-4'>Bạn không có quyền truy cập</h1>
+         <Result
+            status="403"
+            title={ <h1 className="text-3xl font-bold text-center text-red-500 uppercase my-4">
+              403 Lỗi phân quyền
+            </h1>}
+            subTitle="Rất tiếc, bạn không được phép truy cập trang này."
+            extra={<Button href="/" type="primary">Về Trang Chủ</Button>}
+          />
       </div>
       }
 

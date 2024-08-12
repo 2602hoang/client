@@ -176,6 +176,7 @@ function LoginUser() {
 
   return (
     <div
+    data-aos="fade-down"
       style={{
         backgroundImage:
           window.innerWidth >= 768 ? `url(${bg})` : `url(${bg1})`,
@@ -184,7 +185,7 @@ function LoginUser() {
       className="w-full justify-center items-center overflow-hidden h-screen flex"
     >
       {check ? (
-        <div className=" w-[350px] bg-gradient-to-r from-blue-800 to-purple-600 rounded-xl shadow-2xl overflow-hidden p-8 space-y-8">
+        <div  className=" w-[350px] bg-gradient-to-r from-blue-800 to-purple-600 rounded-xl shadow-2xl overflow-hidden p-8 space-y-8">
           <h2 className="text-center text-4xl font-extrabold text-white">
             Chào Mừng
           </h2>
