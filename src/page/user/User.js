@@ -5,6 +5,7 @@ import { URL } from '../../url';
 import axios from 'axios';
 import { formattedTimestamp } from '../../untils';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Avatar } from 'antd';
 
 function User() {
   const nav = useNavigate();
@@ -14,7 +15,7 @@ function User() {
     await Logout()
     window.location.reload(false);
   }
-
+  // console.log("12",user.avatar)
   return (
 
     <Layout>
@@ -39,11 +40,19 @@ function User() {
             </div>
 
             <div className="">
-              <img
+              
+              
+              {user.avatar !== null ? (
+                <img
                 alt=""
                 src={user.avatar}
                 className="size-16 rounded-lg object-cover shadow-sm"
               />
+                
+              ):
+            (<Avatar>{user.id_role === 123 ? "QL" : user.id_role === 124 ? "NV" : 'KH'}</Avatar>)
+            }
+              
             </div>
           </div>
 

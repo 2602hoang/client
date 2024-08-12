@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { formattedTimestamp } from '../untils/index.js';
-import { Image, notification, Popconfirm, Modal, Select, Input } from 'antd';
+import { Image, notification, Popconfirm, Modal, Select, Input, Avatar } from 'antd';
 import { URL } from '../url/index.js';
 import axios from 'axios';
 import { QuestionCircleOutlined } from '@ant-design/icons';
@@ -160,7 +160,12 @@ function ListUser({ getAllRole, role }) {
                                 <h3 className={`text-base font-semibold ${user.status === false ? 'text-green-500' : 'text-red-500'}`}>Trạng thái: {user.status === false ? 'Hoạt động' : 'Ngưng hoạt động'}</h3>
                                 <p className="text-xs text-gray-500 pb-3">Ngày tạo: {formattedTimestamp(user.created_at)}</p>
                                 <div className="flex gap-2 text-sm text-gray-500 border-b pb-2 justify-center items-center">
-                                    <Image src={user.avatar} style={{ height: '100px', width: '100px' }} className="rounded-3xl" />
+                                    {user.avatar !== null ? (
+                                          <Image src={user.avatar} style={{ height: '100px', width: '100px' }} className="rounded-full" />
+                                    ):
+                                    <Avatar className='size-24' >{user.id_role === 123 ? "QL" : user.id_role === 124 ? "NV" : 'KH'}</Avatar>
+                                    }
+                                  
                                 </div>
                                 <div className="flex justify-around items-center py-3">
                                     <div className="flex gap-2 text-gray-600 hover:scale-110 duration-200 hover:cursor-pointer">

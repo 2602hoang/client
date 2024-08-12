@@ -2,8 +2,9 @@ import React, { useEffect, useRef } from 'react'
 import Layout from '../layout/Layout.js'
 import 'keen-slider/keen-slider.min.css';
 import emailjs from '@emailjs/browser';
-import { Alert, notification } from 'antd';
-import Marquee from 'react-fast-marquee';
+import { notification } from 'antd';
+// import Marquee from 'react-fast-marquee';
+import { TypeAnimation } from 'react-type-animation';
 
 function Home() {
   const form = useRef();
@@ -47,6 +48,41 @@ function Home() {
     return re.test(email);
   };
 
+  const ExampleComponent = () => {
+    return (
+      <p className='text-orange-400 text-center text-[20px]  '>
+        <TypeAnimation
+          sequence={[
+            'Cảm xúc',
+            1500,
+            '👍' ,
+            1000, 
+            '😍',
+            1000,
+            '😆',
+            1000,
+            '😊',
+            1000,
+            '😳',
+            1000,
+            '😲',
+            1000,
+            '😢',
+            1000,
+            
+            
+
+          ]}
+          wrapper="h1"
+          speed={100}
+          cursor={false}
+          style={{ fontSize: '2em', display: 'inline-block' }}
+          repeat={Infinity}
+          omitDeletionAnimation={true}  
+        />
+      </p>
+    );
+  };
 
 
   return (
@@ -54,21 +90,24 @@ function Home() {
       <div className=' min-h-screen overflow-hidden w-full '>
 
         <section className="bg-gray-900 text-white">
-          <div className="mx-auto max-w-screen-xl px-4 py-32 lg:flex lg:h-screen lg:items-center">
+          <div className="mx-auto max-w-screen-xl px-4 py-32 lg:flex lg:h-screen lg:items-center  ">
         
        
-            <div data-aos="zoom-in-up" className="mx-auto max-w-3xl text-center">
+            <div data-aos="zoom-in-up" className="mx-auto max-w-3xl text-center ">
               <h1
-                className="bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 bg-clip-text text-3xl font-extrabold text-transparent sm:text-5xl"
+                className="bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 bg-clip-text text-3xl py-2
+                 font-extrabold text-transparent sm:text-5xl"
               >
                 Chào mừng quý khách đến với cửa hàng sách của chúng tôi!
 
                 <span className="sm:block">  Hãy để chúng tôi giúp bạn khám phá thế giới tri thức qua từng trang sách.</span>
               </h1>
 
-              <p className="mx-auto mt-4 max-w-xl sm:text-xl/relaxed">
-                "Cuốn Sách là cánh cửa mở ra thế giới vô tắn của tri thức và sự tưởng tượng"
+              <p className="mx-auto pt-5 max-w-xl sm:text-xl/relaxed">
+              
+                "Sách là cánh cửa mở ra thế giới vô tắn của tri thức và sự tưởng tượng"
               </p>
+              <ExampleComponent/>
 
               <div className="mt-8 flex flex-wrap justify-center gap-4">
                 <a

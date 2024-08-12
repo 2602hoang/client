@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { DeleteFilled, ShoppingCartOutlined, } from '@ant-design/icons';
 
-import { Alert, Avatar, Badge, FloatButton, Image, List, Modal, notification, Tooltip } from 'antd';
+import { Alert, Avatar, Badge, FloatButton, Image, List, Modal, notification, Popconfirm, Tooltip } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { formatCurrency } from '../untils/index.js';
 import { URL } from '../url/index.js';
@@ -324,9 +324,16 @@ function Header({ cart }) {
             </a></li>
           <li className=' md:m-0 relative text-center'   >
             <a onClick={toggleSubMenu1} className='text-white   hover:text-red-500 justify-center transition duration-500 ease-in'>
-              <Avatar
-               src={user.avatar} 
-              className='' />
+            {user.avatar !== null ? (
+                <Avatar
+                alt=""
+                src={user.avatar}
+                className="size-9"
+              />
+                
+              ):
+            (<Avatar>{user.id_role === 123 ? "QL" : user.id_role === 124 ? "NV" : 'KH'}</Avatar>)
+            }
               {subMenuVisible1 ? <CloseCircleFilled style={{ fontSize: '15px', color: 'white' }} /> : <CaretDownOutlined style={{ fontSize: '15px', color: 'white' }} />}
             </a>
             <ul className={`md:absolute relative md:text-start text-center justify-center items-center  ${subMenuVisible1 ? 'mt-3 opacity-80  rounded-br-xl rounded-bl-xl' : 'hidden'}`}>
@@ -439,7 +446,33 @@ function Header({ cart }) {
             className='  border-2 p-2 border-black border-dashed rounded-2xl h-auto w-[full] overflow-hidden h-min-screen'
             header={<div className=' flex justify-start items-start hover:animate-bounce '>
               <Tooltip title="Xóa giỏ hàng" trigger={"hover"}>
-                <DeleteFilled onClick={() => clearCart()} style={{ color: 'red', fontSize: "20px" }} />
+                <Popconfirm
+                title="Xóa giờ hàng"
+                description="Bạn muôn xóa giờ hãng ?"
+                onConfirm={() => {
+                  clearCart();
+                  setOpen(false);
+                  notification.open({
+                     message: 'Xóa thành công',
+                     description: 'Giỏ hàng đã được xóa',
+                     showProgress: true,
+                     duration: 1.5,
+                     icon: <DeleteFilled style={{ color: 'red' }} />,
+                    
+                    });
+                }}
+                // onCancel={() => setOpen(false)}
+                okText="Đồng ý"
+                cancelText="Huỷ"
+                
+                >
+                <DeleteFilled
+                //  onClick={() => 
+                //  { clearCart();
+                //   setOpen(false);
+                // }} 
+                style={{ color: 'red', fontSize: "20px" }} />
+                  </Popconfirm>
               </Tooltip>
             </div>}
             footer=
