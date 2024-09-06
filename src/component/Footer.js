@@ -7,7 +7,12 @@ function Footer() {
       id="#lienhe"
       className="flex h-auto flex-col w-full bg-[#539ba9]  justify-center items-center overflow-hidden"
     >
-      <div className="grid md:grid-cols-3 grid-cols-1 2xl:max-w-6xl font-mono w-full h-auto text-white md:px-20  flex-col md:flex-row justify-start items-start space-y-3">
+      <div
+        className="grid md:grid-cols-3 grid-cols-1 2xl:max-w-6xl 
+      font-mono h-auto text-white 
+       md:space-x-14 
+      justify-start items-start space-y-3"
+      >
         {/* phần 1 */}
         <div
           data-aos="zoom-in"
