@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React, { useContext, useState } from "react";
 import background from "../assets/background.png";
 import {
   BookFilled,
@@ -7,8 +8,8 @@ import {
   CloseCircleFilled,
   ContactsFilled,
   HomeFilled,
-  HomeOutlined,
   MenuOutlined,
+  UnorderedListOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { AuthContext } from "../contexts/AuthContextProvider.js";
@@ -17,9 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { DeleteFilled, ShoppingCartOutlined } from "@ant-design/icons";
 
 import {
-  Alert,
   Avatar,
-  Badge,
   FloatButton,
   Image,
   List,
@@ -32,18 +31,10 @@ import TextArea from "antd/es/input/TextArea";
 import { formatCurrency } from "../untils/index.js";
 import { URL } from "../url/index.js";
 import axios from "axios";
-import Marquee from "react-fast-marquee";
 
 function Header({ cart }) {
-  const {
-    removeFromCart,
-    user,
-    clearCart,
-    addToCart,
-    userId,
-    getoneUser,
-    Logout,
-  } = useContext(AuthContext);
+  const { removeFromCart, user, clearCart, addToCart, userId, Logout } =
+    useContext(AuthContext);
 
   const nav = useNavigate();
   const [notes, setNotes] = useState("");
@@ -264,9 +255,6 @@ function Header({ cart }) {
   const toggleSubMenu1 = () => {
     setSubMenuVisible1(!subMenuVisible1);
   };
-  const closeSubMenu1 = () => {
-    setSubMenuVisible1(false);
-  };
 
   return (
     <div
@@ -312,7 +300,7 @@ function Header({ cart }) {
                          hover:border-red-500 hover:text-red-500
                           transition duration-500 ease-in"
             >
-              Trang Chủ <HomeFilled style={{ fontSize: "15px" }} />
+              <HomeFilled style={{ fontSize: "15px" }} /> Trang Chủ
             </a>
           </li>
 
@@ -323,8 +311,7 @@ function Header({ cart }) {
                          hover:border-red-500 hover:text-red-500
                           transition duration-500 ease-in"
             >
-              Sản phẩm
-              <BookFilled style={{ fontSize: "15px" }} />
+              <BookFilled style={{ fontSize: "15px" }} /> Sản phẩm
             </a>
           </li>
 
@@ -333,12 +320,12 @@ function Header({ cart }) {
               onClick={toggleSubMenu}
               className="text-white text-sm hover:border-b-2 hover:border-red-500 hover:text-red-500 justify-center transition duration-500 ease-in"
             >
-              Đơn Hàng{" "}
               {subMenuVisible ? (
-                <CloseCircleFilled style={{ fontSize: "15px" }} />
+                <CaretUpOutlined style={{ fontSize: "15px" }} />
               ) : (
-                <CaretDownOutlined style={{ fontSize: "15px" }} />
+                <UnorderedListOutlined style={{ fontSize: "15px" }} />
               )}{" "}
+              Đơn Hàng
             </a>
             <ul
               className={`md:absolute relative md:text-start text-center ${
@@ -370,7 +357,7 @@ function Header({ cart }) {
                          hover:border-red-500 hover:text-red-500
                           transition duration-500 ease-in"
             >
-              Về chúng tôi <ContactsFilled style={{ fontSize: "15px" }} />
+              <ContactsFilled style={{ fontSize: "15px" }} /> Về chúng tôi
             </a>
           </li>
           <li className=" md:m-0 relative text-center">
@@ -568,7 +555,7 @@ function Header({ cart }) {
                       )}
                     </h1>
                   ) : (
-                    <h1></h1>
+                    <></>
                   )}
                   {cart.length > 0 ? (
                     <button
@@ -595,7 +582,7 @@ function Header({ cart }) {
                       Đặt hàng
                     </button>
                   ) : (
-                    <h1></h1>
+                    <></>
                   )}
                 </div>
               </div>

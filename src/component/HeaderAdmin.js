@@ -1,9 +1,10 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useContext, useState } from "react";
 import background from "../assets/hinh.png";
 import {
   CaretDownOutlined,
   CloseCircleFilled,
-  LogoutOutlined,
   MenuOutlined,
 } from "@ant-design/icons";
 import { AuthContext } from "../contexts/AuthContextProvider";
