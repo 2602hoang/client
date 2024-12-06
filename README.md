@@ -109,8 +109,11 @@ npm start
 ### Các Liên Kết Dự Án Khác
 
 Mã nguồn Front-end: https://github.com/2602hoang/client
+
 Mã nguồn Back-end: https://github.com/2602hoang/server/tree/master
+
 Ứng dụng di động (React Native):  https://github.com/2602hoang/BookStore
+
 Demo Mobile App: [Link Demo Mobile](https://ln.run/23da9)
 
 ### Cách Chơi & Tương Tác
@@ -122,6 +125,7 @@ Quản trị viên có quyền quản lý tất cả sản phẩm, tài khoản 
 Nếu bạn gặp phải lỗi hoặc có góp ý cải tiến, vui lòng mở issue trên GitHub repository của chúng tôi:
 
 Front-end:[ Repo Front-end](https://github.com/2602hoang/client)
+
 Back-end: [Repo Back-end](https://github.com/2602hoang/server/tree/master)
 ### Giấy Phép
 Dự án này được phát hành dưới giấy phép MIT. Bạn có thể tham khảo chi tiết về giấy phép trong tệp LICENSE.
