@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+# Books Store - Full Stack Web Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Mô Tả Dự Án
 
-## Available Scripts
+**Books Store** là một ứng dụng web bán sách hoàn chỉnh, bao gồm cả giao diện người dùng và quản trị viên. Người dùng có thể duyệt, thêm sản phẩm vào giỏ hàng, thanh toán và xem lịch sử đơn hàng. Quản trị viên có thể quản lý sản phẩm, người dùng và đơn hàng thông qua bảng điều khiển quản trị.
 
-In the project directory, you can run:
+Dự án sử dụng **ReactJS** cho Front-end, **Node.js** và **Express** cho Back-end, **MySQL** cho cơ sở dữ liệu. Ứng dụng được triển khai với **Vercel** cho Front-end và Back-end, cơ sở dữ liệu sử dụng **Aiven**.
 
-### `npm start`
+### Các Tính Năng Chính
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+#### **Front-end (Dành cho người dùng):**
+- **Đăng nhập và đăng ký người dùng**.
+- **Xem thông tin cá nhân của người dùng**.
+- **Duyệt và lọc các sản phẩm**.
+- **Xem chi tiết sản phẩm**.
+- **Thêm sản phẩm vào giỏ hàng**.
+- **Thanh toán và xem lịch sử đơn hàng**.
+- **In đơn hàng**.
+- **Liên hệ hỗ trợ qua ứng dụng**.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+#### **Admin Page (Dành cho quản trị viên):**
+- **Xem tất cả sản phẩm và tài khoản người dùng**.
+- **Thêm, xóa và chỉnh sửa sản phẩm và tài khoản người dùng**.
+- **Quản lý đơn hàng và xác nhận đơn hàng**.
+- **Hiển thị thống kê đơn hàng bằng biểu đồ**.
+- **Quản lý tài khoản người dùng**.
 
-### `npm test`
+## Công Nghệ Sử Dụng
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Front-End:
+- **ReactJS**: Thư viện JavaScript để xây dựng giao diện người dùng.
+- **TailwindCSS**: CSS framework để tạo giao diện responsive.
+- **Ant Design (Antd)**: UI library để xây dựng giao diện với các component có sẵn.
+- **Axios**: Thư viện HTTP client để gọi API từ Back-end.
+- **React Router**: Để quản lý routing trong ứng dụng.
+  
+### Back-End:
+- **Node.js**: JavaScript runtime cho server.
+- **Express**: Web framework cho Node.js để xây dựng API.
+- **MySQL**: Hệ quản trị cơ sở dữ liệu quan hệ.
+  
+### Tích Hợp API:
+- **API tùy chỉnh**: Để quản lý thanh toán và các dịch vụ khác.
+- **Google Apps Script API**: Tích hợp với Google Sheets/Docs để lưu trữ và xử lý dữ liệu.
 
-### `npm run build`
+### Triển Khai:
+- **Vercel**: Triển khai Front-end và Back-end.
+- **Aiven**: Triển khai cơ sở dữ liệu MySQL.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Các Công Cụ Bổ Sung:
+- **emailJS**: Để gửi email cho người dùng khi có hoạt động trong hệ thống.
+- **PDFJS**: Để hiển thị các tài liệu PDF.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Cài Đặt Dự Án
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Cài Đặt Front-End
 
-### `npm run eject`
+1. Clone repo Front-end về máy:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+git clone https://github.com/2602hoang/client
+2. Cài đặt các phụ thuộc:
+cd client
+npm install
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
